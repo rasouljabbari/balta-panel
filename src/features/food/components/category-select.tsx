@@ -1,14 +1,11 @@
 import { useMemo } from 'react';
 import { useCategories } from '@/features/definition/hooks/category';
-import { Controller, type Control } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import CustomSelect from '@/components/shared/custom-select';
-import type { FoodFormValues } from '../type';
+import type { SelectProps } from '../type';
 
-interface CategoriesSelectProps {
-  control: Control<FoodFormValues>;
-}
 
-export default function CategoriesSelect({ control }: CategoriesSelectProps) {
+export default function CategoriesSelect({ control }: SelectProps) {
   const { data: categoriesData, isLoading } = useCategories();
 
   const categoryOptions = useMemo(() => {

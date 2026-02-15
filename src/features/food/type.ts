@@ -1,4 +1,6 @@
+import type { Control } from "react-hook-form";
 import type { MultiValue } from "react-select";
+
 
 export type MealType = 'صبحانه' | 'نهار' | 'شام';
 export type MenuType = 'اقتصادی' | 'سازمانی';
@@ -52,5 +54,10 @@ export interface FoodFormValues {
   weekDays: string[];
   image: File | null;
   isVisible: boolean;
+}
+
+
+export interface SelectProps {
+  control: Control<FoodFormValues>;
 }
 

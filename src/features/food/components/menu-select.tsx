@@ -1,14 +1,11 @@
 import { useMemo } from 'react';
 import { useMenus } from '@/features/definition/hooks/menu';
-import { Controller, type Control } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 import CustomSelect from '@/components/shared/custom-select';
-import type { FoodFormValues } from '../type';
+import type { SelectProps } from '../type';
 
-interface MenusSelectProps {
-  control: Control<FoodFormValues>;
-}
 
-export default function MenusSelect({ control }: MenusSelectProps) {
+export default function MenusSelect({ control }: SelectProps) {
   const { data: menusData, isLoading } = useMenus();
 
   const menuOptions = useMemo(() => {
