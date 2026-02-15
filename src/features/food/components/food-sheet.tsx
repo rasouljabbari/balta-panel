@@ -6,8 +6,10 @@ import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import CustomSelect from '@/components/shared/custom-select';
 import Sheet from '@/components/shared/sheet';
 import type { FoodFormValues, SheetFormProps } from '../type';
-import { fakeOptions, meal, weekDays } from './data';
+import { meal, weekDays } from './data';
 import ImageUploadPreview from './image-upload-file';
+import MenusSelect from './menu-select';
+import CategoriesSelect from './category-select';
 
 
 const DEFAULT_VALUES: FoodFormValues = {
@@ -29,10 +31,7 @@ export default function FoodSheet({
   mode,
   selectedFood,
 }: SheetFormProps) {
-  const { handleSubmit, control, watch, setValue, reset } =
-    useForm<FoodFormValues>({
-      defaultValues: DEFAULT_VALUES,
-    });
+  const { handleSubmit, control, watch, setValue, reset } = useForm<FoodFormValues>({ defaultValues: DEFAULT_VALUES, });  
 
   const mapFoodToForm = (food: any): FoodFormValues => ({
     name: food.name ?? '',
@@ -131,33 +130,11 @@ export default function FoodSheet({
             )}
           />
           {/* Menus */}
-          <Controller
-            control={control}
-            name="menus"
-            render={({ field }) => (
-              <CustomSelect
-                label="منو"
-                options={fakeOptions}
-                isMulti
-                {...field}
-                placeholder="منو را انتخاب نمایید"
-              />
-            )}
-          />
+          <MenusSelect control={control} />
+
           {/* Categories */}
-          <Controller
-            control={control}
-            name="categories"
-            render={({ field }) => (
-              <CustomSelect
-                label="دسته بندی"
-                options={fakeOptions}
-                isMulti
-                {...field}
-                placeholder="دسته بندی را انتخاب نمایید"
-              />
-            )}
-          />
+          <CategoriesSelect control={control} />
+
           {/* Price */}
           <Controller
             control={control}
