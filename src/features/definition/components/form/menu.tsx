@@ -1,0 +1,83 @@
+import CustomSelect from '@/components/shared/custom-select';
+import {
+  addMenuInitialValues,
+  addMenuResolver,
+  type addMenuValuesTypes,
+} from '@/features/definition/validation';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { forwardRef, useEffect, useImperativeHandle } from 'react';
+import { useForm } from 'react-hook-form';
+import { Input } from 'rg-dst';
+import { usePackaging } from '../../hooks/packages';
+import type { MenuFormProps } from '../../type';
+
+const MenuForm = forwardRef<{ submit: () => void }, MenuFormProps>(
+  ({ defaultValues, onSubmit, serverValidationError }, ref) => {
+    const {
+      control,
+      register,
+      formState: { errors },
+      handleSubmit,
+      setError
+    } = useForm<addMenuValuesTypes>({
+      resolver: yupResolver(addMenuResolver) as any,
+      defaultValues: defaultValues
+        ? {
+          name: defaultValues.name,
+          default_packaging_id:
+            defaultValues.default_packaging?.id ?? undefined,
+        }
+        : addMenuInitialValues,
+    });
+
+    useEffect(() => {
+      if (serverValidationError)
+        serverValidationError?.error?.validation_errors.forEach((err: any) => {
+          setError(err.field, {
+            type: 'server',
+            message: err.message,
+          });
+        });
+    }, [serverValidationError, setError])
+
+    const { data: packaging = [], isLoading } = usePackaging();
+
+    const packagingOptions = !isLoading
+      ? packaging.map((p) => ({
+        value: p.id,
+        label: p.name,
+      }))
+      : [];
+
+    useImperativeHandle(ref, () => ({
+      submit: () => {
+        handleSubmit(onSubmit)();
+      },
+    }));
+
+    return (
+      <form className="flex flex-col gap-3xl">
+        <Input
+          label="نام منو"
+          {...register('name')}
+          className="w-full placeholder:text-sm placeholder:text-gray-light-600"
+          placeholder="نام منو را وارد کنید..."
+          destructive={!!errors.name}
+          destructiveText={errors.name?.message}
+        />
+
+        <CustomSelect
+          name="default_packaging_id"
+          control={control}
+          options={packagingOptions}
+          label='بسته‌بندی پیشفرض'
+          placeholder="بسته‌بندی پیشفرض را انتخاب نمایید"
+          isDisabled={isLoading}
+          error={errors.default_packaging_id?.message}
+        />
+      </form>
+    );
+  },
+);
+
+export default MenuForm;

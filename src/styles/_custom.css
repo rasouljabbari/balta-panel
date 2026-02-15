@@ -1,0 +1,184 @@
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.dv-cut-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.dv-cut-text-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.apexcharts-legend {
+  direction: rtl;
+  text-align: right;
+}
+
+.apexcharts-legend-marker {
+  margin-left: 0.5rem !important;
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.apexcharts-legend-marker svg {
+  border-radius: 50% !important;
+}
+
+/* For SVG rect elements */
+.apexcharts-legend-marker rect {
+  rx: 4 !important;
+  ry: 4 !important;
+}
+
+.apexcharts-tooltip {
+  direction: rtl;
+  text-align: right;
+}
+
+.apexcharts-tooltip-series-group {
+  text-align: right !important;
+  justify-content: right !important;
+}
+
+.apexcharts-tooltip-title {
+  text-align: center !important;
+}
+
+.donut-chart .apexcharts-tooltip-series-group.apexcharts-active {
+  background-color: #100c08 !important;
+}
+/* Hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Override default input focus states to use gray instead of red/brand colors */
+input:focus:not([type='checkbox']):not([type='radio']),
+textarea:focus,
+select:focus {
+  --tw-ring-color: rgb(229 231 235) !important; /* gray-200 */
+  border-color: rgb(156 163 175) !important; /* gray-400 */
+}
+
+/* Override rg-dst Select dropdown focus border */
+button:focus,
+button:focus-visible,
+button:focus-within {
+  outline: none !important;
+}
+
+/* Target any button, label or div that has focus-within for file uploads and selects */
+label:focus-within,
+div[role='button']:focus-within,
+[class*='file']:focus-within,
+[class*='select']:focus-within,
+[class*='dropdown']:focus-within {
+  border-color: rgb(156 163 175) !important; /* gray-400 */
+  --tw-ring-color: rgb(229 231 235) !important; /* gray-200 */
+}
+
+/* More specific overrides for common focus ring patterns */
+*:focus {
+  --tw-ring-color: rgb(229 231 235) !important; /* gray-200 */
+}
+
+*:focus-visible {
+  outline: none !important;
+  --tw-ring-color: rgb(229 231 235) !important; /* gray-200 */
+}
+
+/* File uploader border styles - scoped to wrapper */
+.file-input-wrapper label:has(input[type='file']):focus-within,
+.file-input-wrapper label:has(input[type='file']):hover,
+.file-input-wrapper div:has(input[type='file']):focus-within,
+.file-input-wrapper div:has(input[type='file']):hover {
+  border-color: rgb(156 163 175) !important;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(30px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+ .dv-price-input input {
+    text-align: end;
+  }
+
+  .dv-price-label,
+  .dv-price-input .text-rtext-error-primary-600 {
+    width: 100%;
+    direction: rtl;
+  }
+
+.my-select__control {
+  border-radius: 8px !important; 
+  height: 40px !important;
+  box-shadow: none !important;
+}
+
+
+
+.my-select__indicator-separator {
+  display: none !important;
+}
+
+.my-select__value-container {
+  height: 35px !important;
+  padding: 0 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.my-select__clear-indicator{
+  display: none !important;
+}
+
+.my-select__multi-value {
+  background-color: white !important;
+  border: 1px solid #D0D5DD !important;   
+  border-radius: 6px;            
+}
+
+.my-select__multi-value__label {
+  color: black; 
+  padding: 0 0.25rem;
+}
+
+.dv-select-error .my-select__control {
+  @apply border-2 border-rborder-error
+}

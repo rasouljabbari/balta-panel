@@ -1,0 +1,60 @@
+.rmdp-week-day {
+  color: var(--color-rtext-brand-tertiary-600) !important;
+}
+
+.rmdp-container .rmdp-day {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.rmdp-container .rmdp-today span {
+  color: white;
+  background-color: var(--color-rbg-brand-secondary) !important;
+}
+
+.rmdp-container .rmdp-selected span {
+  color: white;
+  background-color: var(--color-rtext-brand-tertiary-600) !important;
+}
+
+.rmdp-container span:hover {
+  color: white;
+  background-color: var(--color-rbg-brand-secondary) !important;
+}
+
+.rmdp-arrow-container .rmdp-arrow {
+  border-color: var(--color-rtext-brand-tertiary-600) !important;
+}
+
+.rmdp-arrow-container:hover {
+  background-color: var(--color-rbg-brand-secondary) !important;
+}
+
+.rmdp-header-values span:hover {
+  background: transparent !important;
+  color: unset;
+}
+
+.rmdp-range {
+  background-color: var(--color-rtext-brand-tertiary-600) !important;
+}
+
+.rmdp-input::placeholder {
+  color: #344054 !important;
+}
+
+.rmdp-container input::placeholder {
+  color: #344054 !important;
+}
+
+.rmdp-input:focus,
+.rmdp-container input:focus {
+  outline: none !important;
+  border-color: rgb(156 163 175) !important; /* gray-400 */
+  --tw-ring-offset-shadow: 0 0 0 0 transparent !important;
+  --tw-ring-shadow: 0 0 0 2px rgb(229 231 235) !important; /* gray-200 */
+  box-shadow:
+    var(--tw-ring-offset-shadow), var(--tw-ring-shadow),
+    var(--tw-shadow, 0 0 #0000) !important;
+}
