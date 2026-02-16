@@ -1,0 +1,34 @@
+export interface DriverItem {
+  id: number;
+  fullName: string;
+  phone: string;
+  vehicleType: string;
+  plate: string;
+  status: 'active' | 'inactive';
+}
+
+export interface DriverTableProps {
+  data: DriverItem[];
+  onAllocatedOrders: (driver: DriverItem) => void;
+}
+
+
+export interface FormValues {
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  nationalCode: string;
+  birthDate: Date | null;
+  gender: string;
+  carType: string;
+  plateNumber: string;
+}
+
+
+export interface AddDriverModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+
+

@@ -3,6 +3,7 @@ import Login from '@/pages/auth/login';
 import { createBrowserRouter } from 'react-router-dom';
 import DefinitionPage from './pages/definition';
 import TableFood from './pages/food';
+import DeriversPage from './pages/deivers';
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
       // { path: 'dashboard', Component: Dashboard },
       { path: '/definition', Component: DefinitionPage },
       { path: '/foods', Component: TableFood },
-      // { path: 'reports', Component: Reports },
+      { path: 'drivers', Component: DeriversPage },
       // { path: 'tickets', Component: Tickets },
       // { path: 'tickets/:id', Component: TicketDetailsPage },
     ],
