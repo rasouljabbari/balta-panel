@@ -25,7 +25,6 @@ export default function CategoriesSelect({ control }: SelectProps) {
         <CustomSelect
           label="دسته بندی"
           options={categoryOptions}
-          isMulti
           isDisabled={isLoading}
           {...field}
           placeholder="دسته بندی را انتخاب نمایید"
