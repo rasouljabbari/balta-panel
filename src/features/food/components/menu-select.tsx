@@ -5,7 +5,7 @@ import CustomSelect from '@/components/shared/custom-select';
 import type { SelectProps } from '../type';
 
 
-export default function MenusSelect({ control }: SelectProps) {
+export default function MenusSelect({ control , error }: SelectProps) {
   const { data: menusData, isLoading } = useMenus();
 
   const menuOptions = useMemo(() => {
@@ -29,6 +29,8 @@ export default function MenusSelect({ control }: SelectProps) {
           isDisabled={isLoading}
           {...field}
           placeholder="منو را انتخاب نمایید"
+          required
+          error={error}
         />
       )}
     />

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { CirclePlus, X } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { Button, Checkbox, Input, Switch, TextArea } from 'rg-dst';
@@ -6,10 +7,11 @@ import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import CustomSelect from '@/components/shared/custom-select';
 import Sheet from '@/components/shared/sheet';
 import type { FoodFormValues, SheetFormProps } from '../type';
+import CategoriesSelect from './category-select';
 import { meal, weekDays } from './data';
 import ImageUploadPreview from './image-upload-file';
 import MenusSelect from './menu-select';
-import CategoriesSelect from './category-select';
+import { foodSheetSchema } from './validation';
 
 
 const DEFAULT_VALUES: FoodFormValues = {
@@ -31,7 +33,17 @@ export default function FoodSheet({
   mode,
   selectedFood,
 }: SheetFormProps) {
-  const { handleSubmit, control, watch, setValue, reset } = useForm<FoodFormValues>({ defaultValues: DEFAULT_VALUES, });  
+  const {
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm<FoodFormValues>({
+    defaultValues: DEFAULT_VALUES,
+    resolver: yupResolver(foodSheetSchema),
+  });
 
   const mapFoodToForm = (food: any): FoodFormValues => ({
     name: food.name ?? '',
@@ -94,6 +106,7 @@ export default function FoodSheet({
             <X size={20} color="var(--color-gray-light-700)" />
           </button>
         </div>
+
         {/* Body */}
         <div className="flex flex-col gap-3xl overflow-y-auto p-3xl">
           {/* Image Upload */}
@@ -102,6 +115,7 @@ export default function FoodSheet({
             onChange={(file) => setValue('image', file)}
             previewUrl={mode === 'edit' ? selectedFood?.image : undefined}
           />
+
           {/* Name */}
           <Controller
             control={control}
@@ -109,31 +123,41 @@ export default function FoodSheet({
             render={({ field }) => (
               <Input
                 {...field}
-                className="w-full placeholder:text-sm placeholder:text-gray-light-500 border-gray-light-300"
                 label="نام آیتم"
                 placeholder="نام آیتم را وارد نمایید"
+                required
+                destructive={!!errors.name}
+                destructiveText={errors.name?.message}
+                className="w-full placeholder:text-sm placeholder:text-gray-light-500 border-gray-light-300"
               />
             )}
           />
+
           {/* Meals */}
           <Controller
             control={control}
             name="meals"
             render={({ field }) => (
               <CustomSelect
+                {...field}
                 label="وعده"
                 options={meal}
                 isMulti
-                {...field}
+                required
                 placeholder="وعده را انتخاب نمایید"
+                error={errors.meals?.message}
               />
             )}
           />
+
           {/* Menus */}
-          <MenusSelect control={control} />
+          <MenusSelect control={control} error={errors.menus?.message} />
 
           {/* Categories */}
-          <CategoriesSelect control={control} />
+          <CategoriesSelect
+            control={control}
+            error={errors.categories?.message}
+          />
 
           {/* Price */}
           <Controller
@@ -149,10 +173,15 @@ export default function FoodSheet({
                   labelClass="dv-price-label"
                   className="w-full placeholder:text-sm placeholder:text-gray-light-600"
                   placeholder="قیمت را وارد کنید"
+                  type="number"
+                  required
+                  destructive={!!errors.price}
+                  destructiveText={errors.price?.message}
                 />
               </div>
             )}
           />
+
           {/* Description */}
           <Controller
             control={control}
@@ -161,11 +190,14 @@ export default function FoodSheet({
               <TextArea
                 {...field}
                 label="توضیحات"
-                className="max-h-[84px] placeholder:text-sm placeholder:text-gray-light-500"
                 placeholder="توضیحات را وارد نمایید"
+                required
+                destructive={!!errors.description}
+                destructiveText={errors.description?.message}
               />
             )}
           />
+
           {/* Daily Food Section */}
           <div className="border border-gray-light-200 p-xl bg-gray-light-50 rounded-xl flex flex-col gap-3xl">
             <div className="flex items-center gap-md">
@@ -180,12 +212,18 @@ export default function FoodSheet({
               <div className="grid grid-cols-2 gap-xl">
                 {weekDays.map((day) => (
                   <div key={day} className="flex items-center gap-md">
-                    <Checkbox name={day} label={day} />
+                    <Controller
+                      control={control}
+                      name="weekDays"
+                      render={() => <Checkbox name={day} label={day} />}
+                    />
                   </div>
                 ))}
               </div>
             )}
           </div>
+
+          {/* Visibility */}
           {selectedFood && (
             <div className="flex items-center gap-md border border-gray-light-200 p-xl bg-gray-light-50 rounded-xl">
               <Controller
@@ -203,6 +241,8 @@ export default function FoodSheet({
             </div>
           )}
         </div>
+
+        {/* Footer */}
         <div className="flex items-center gap-xl p-3xl border-t border-gray-light-300">
           <Button
             type="button"

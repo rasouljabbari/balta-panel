@@ -2,7 +2,7 @@ import type { Control } from "react-hook-form";
 import type { MultiValue } from "react-select";
 
 
-export type MealType = 'صبحانه' | 'نهار' | 'شام';
+export type MealType = 'صبحانه' | 'ناهار' | 'شام';
 export type MenuType = 'اقتصادی' | 'سازمانی';
 export type menuType = 'فعال' | 'غیرفعال';
 
@@ -59,5 +59,6 @@ export interface FoodFormValues {
 
 export interface SelectProps {
   control: Control<FoodFormValues>;
+  error?:string
 }
 

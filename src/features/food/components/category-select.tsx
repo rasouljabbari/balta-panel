@@ -5,7 +5,7 @@ import CustomSelect from '@/components/shared/custom-select';
 import type { SelectProps } from '../type';
 
 
-export default function CategoriesSelect({ control }: SelectProps) {
+export default function CategoriesSelect({ control , error }: SelectProps) {
   const { data: categoriesData, isLoading } = useCategories();
 
   const categoryOptions = useMemo(() => {
@@ -28,6 +28,8 @@ export default function CategoriesSelect({ control }: SelectProps) {
           isDisabled={isLoading}
           {...field}
           placeholder="دسته بندی را انتخاب نمایید"
+          required
+          error={error}
         />
       )}
     />
