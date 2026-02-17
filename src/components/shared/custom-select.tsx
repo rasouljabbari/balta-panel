@@ -4,7 +4,6 @@ import Select, { type MultiValue, type SingleValue } from 'react-select';
 import type { CustomSelectProps, Option } from './type';
 
 
-
 export default function CustomSelect({
   name,
   control,
@@ -16,7 +15,9 @@ export default function CustomSelect({
   label,
   value,
   onChange,
-}: CustomSelectProps) {
+  required = false, 
+}: CustomSelectProps & { required?: boolean }) {
+  // حالت با RHF
   if (control && name) {
     return (
       <Controller
@@ -25,17 +26,20 @@ export default function CustomSelect({
         render={({ field }) => {
           const selectedValue = isMulti
             ? options.filter((o) =>
-              (field.value as number[] | undefined)?.includes(
-                o.value as number,
-              ),
-            )
+                (field.value as (string | number)[] | undefined)?.includes(
+                  o.value as string | number,
+                ),
+              )
             : options.find((o) => o.value === field.value) || null;
 
           return (
             <div className="flex flex-col gap-1">
               {label && (
-                <label className="text-gray-light-700 text-sm">
-                  {label}
+                <label className="text-gray-light-700 text-sm flex items-center gap-1">
+                  {label}{' '}
+                  {required && (
+                    <span className="text-rtext-brand-tertiary-600">*</span>
+                  )}
                 </label>
               )}
               <div className={cn(error && 'dv-select-error')}>
@@ -60,7 +64,11 @@ export default function CustomSelect({
                   classNamePrefix="my-select"
                 />
               </div>
-              {error && <p className="text-sm text-rtext-error-primary-600">{error}</p>}
+              {error && (
+                <p className="text-sm text-rtext-error-primary-600 mt-1">
+                  {error}
+                </p>
+              )}
             </div>
           );
         }}
@@ -74,9 +82,11 @@ export default function CustomSelect({
     : (value as Option) || null;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-1">
       {label && (
-        <label className="text-gray-light-900 text-sm mb-1">{label}</label>
+        <label className="text-gray-light-900 text-sm flex items-center gap-1">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
       )}
       <Select
         isMulti={isMulti}
@@ -93,7 +103,9 @@ export default function CustomSelect({
         }}
         classNamePrefix="my-select"
       />
-      {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+      {error && (
+        <p className="text-sm text-rtext-error-primary-600 mt-1">{error}</p>
+      )}
     </div>
   );
 }

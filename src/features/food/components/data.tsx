@@ -23,7 +23,7 @@ export const fakeFoods: FoodItem[] = [
     price: 150000,
     category: 'فست فود',
     image: '/assets/images/fake-image/food.png',
-    mealTypes: ['نهار', 'شام'],
+    mealTypes: ['ناهار', 'شام'],
     menuType: 'اقتصادی',
     description:
       'گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه.',
@@ -113,11 +113,6 @@ export const columns: TableColumn<FoodItem>[] = [
     label: '',
     render: () => <SquarePen size={20} color="var(--color-gray-light-700)" />,
   },
-];
-export const fakeOptions = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
 ];
 
 export const meal = [
