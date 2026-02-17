@@ -31,4 +31,9 @@ export interface AddDriverModalProps {
 }
 
 
+export interface DriverTableHeaderProps {
+  count: number;
+}
+
+
 

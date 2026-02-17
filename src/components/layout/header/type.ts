@@ -10,6 +10,7 @@ export interface HeaderActionButton {
 export interface HeaderProps {
   onMenuClick: () => void;
   actionButton?: HeaderActionButton;
+  extra?: ReactNode;
 }
 
 export interface HeaderNotificationBoxProps {

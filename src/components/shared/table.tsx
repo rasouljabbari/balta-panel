@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Pagination } from 'rg-dst';
-import EmptyBox from './empty-box';
 import type { TableColumn, TableProps } from './type';
+
 
 interface ExtendedTableProps<T> extends TableProps<T> {
   header?: ReactNode;
@@ -11,7 +11,6 @@ export default function Table<T = any>({
   columns,
   data,
   pagination,
-  emptyState,
   rowKey = (_, index) => index,
   summaryRow,
   header,
@@ -71,38 +70,26 @@ export default function Table<T = any>({
           <tbody>
             {summaryRow && summaryRow}
 
-            {data.length === 0 ? (
-              <tr>
-                <td colSpan={columns.length} className="px-3xl py-xl">
-                  {emptyState ? (
-                    <EmptyBox title={emptyState.title} />
-                  ) : (
-                    <p>داده‌ای برای نمایش وجود ندارد</p>
-                  )}
-                </td>
+            {data.map((row, index) => (
+              <tr
+                key={rowKey(row, index)}
+                className="border-b border-gray-light-200 last:border-b-0"
+              >
+                {columns.map((column) => (
+                  <td
+                    key={column.id}
+                    className="px-3xl py-xl text-sm text-rtext-primary-900 whitespace-nowrap"
+                    style={
+                      column.width
+                        ? { width: column.width, minWidth: column.width }
+                        : undefined
+                    }
+                  >
+                    {getCellValue(column, row, index)}
+                  </td>
+                ))}
               </tr>
-            ) : (
-              data.map((row, index) => (
-                <tr
-                  key={rowKey(row, index)}
-                  className="border-b border-gray-light-200 last:border-b-0"
-                >
-                  {columns.map((column) => (
-                    <td
-                      key={column.id}
-                      className="px-3xl py-xl text-sm text-rtext-primary-900 whitespace-nowrap"
-                      style={
-                        column.width
-                          ? { width: column.width, minWidth: column.width }
-                          : undefined
-                      }
-                    >
-                      {getCellValue(column, row, index)}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            )}
+            ))}
           </tbody>
         </table>
       </div>

@@ -10,7 +10,7 @@ export default function DriverTable({ data, onAllocatedOrders }: DriverTableProp
       columns={driverTableColumns(onAllocatedOrders)}
       data={data}
       rowKey={(row) => row.id}
-      header={<DriverTableHeader />}
+      header={<DriverTableHeader count={data.length}/>}
       pagination={{
         currentPage: 1,
         totalPages: 1,

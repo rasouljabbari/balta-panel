@@ -48,15 +48,16 @@ export const driverTableColumns = (
     label: '',
     render: (_, row) => (
       <TooltipWrapper
-        content="سفارشات تخصیص یافته"
+        content="مشاهده اطلاعات راننده"
         position="top"
         contentClassName="text-xs font-semibold"
       >
-        <Eye
-          size={20}
-          className="cursor-pointer text-gray-light-700 hover:text-primary-600 transition-colors"
+        <button
           onClick={() => onAllocatedOrders(row)}
-        />
+          className="!p-2"
+        >
+          <Eye size={18} />
+        </button>
       </TooltipWrapper>
     ),
   },

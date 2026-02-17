@@ -1,42 +1,43 @@
-import { useLocation } from 'react-router-dom';
-import { routeInfos } from '@/components/layout/header/data';
-import type { RouteInfo } from '@/components/layout/header/type';
+import { MoveRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
+interface Props {
+  title?: string;
+  description?: string;
+  showBackButton?: boolean;
+}
 
-const matchRoute = (pathname: string, pattern: string): boolean => {
-  const patternParts = pattern.split('/');
-  const pathParts = pathname.split('/');
+export default function HeaderUserInformationBox({
+  title = 'داشبورد',
+  description,
+  showBackButton = false,
+}: Props) {
+  const navigate = useNavigate();
 
-  if (patternParts.length !== pathParts.length) return false;
-
-  return patternParts.every(
-    (part, i) => part.startsWith(':') || part === pathParts[i],
-  );
-};
-
-const getRouteInfo = (pathname: string): RouteInfo => {
-  if (routeInfos[pathname]) return routeInfos[pathname];
-
-  for (const [pattern, info] of Object.entries(routeInfos)) {
-    if (matchRoute(pathname, pattern)) return info;
-  }
-
-  return { title: 'داشبورد' };
-};
-
-export default function HeaderUserInformationBox() {
-  const location = useLocation();
-  const routeInfo = getRouteInfo(location.pathname);
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-xl">
+      {showBackButton && (
+        <button
+          type="button"
+          onClick={handleGoBack}
+          className="flex items-center justify-center border border-gray-light-300 w-12 h-12 rounded-md shadow-xs hover:bg-gray-light-100 transition-colors"
+          aria-label="بازگشت"
+        >
+          <MoveRight size={20} color="var(--color-gray-light-500)" />
+        </button>
+      )}
+
       <div className="flex flex-col gap-xs">
         <h3 className="text-2xl font-semibold leading-5 text-gray-light-700 pl-5">
-          {routeInfo.title}
+          {title}
         </h3>
 
-        {routeInfo.description && (
-          <p className="text-sm text-gray-light-600">{routeInfo.description}</p>
+        {description && (
+          <p className="text-sm text-gray-light-600">{description}</p>
         )}
       </div>
     </div>

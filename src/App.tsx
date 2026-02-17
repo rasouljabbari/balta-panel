@@ -3,8 +3,8 @@ import { CirclePlus } from 'lucide-react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './components/layout/header';
 import Sidebar from './components/layout/sidebar';
+import AddDriverModal from './features/drivers/components/add-driver-modal';
 import { useDisableScroll } from './hooks/use-disable-scroll';
-import AddDriverModal from './features/drivers/components/add-food-modal';
 
 
 function App() {
@@ -23,6 +23,8 @@ function App() {
   };
 
   const isDriversPage = location.pathname.startsWith('/drivers');
+  const isDriverDetailPage = /^\/drivers\/\d+$/.test(location.pathname);
+
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -55,7 +57,11 @@ function App() {
           />
         </header>
 
-        <div className="flex-1 overflow-y-auto p-4 lg:p-7">
+        <div
+          className={`flex-1 overflow-y-auto ${
+            isDriverDetailPage ? '' : 'p-4 lg:p-7'
+          }`}
+        >
           <Outlet />
         </div>
       </main>

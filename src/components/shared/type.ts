@@ -156,4 +156,6 @@ export interface DatePickerFieldProps {
   onChange?: (date: any) => void;
   placeholder?: string;
   className?: string;
+  iconPosition?: 'left' | 'right';
+  showDivider?: boolean;
 }

@@ -31,7 +31,6 @@ export default function TableFood() {
   return (
     <>
       <FoodTable data={foods} onAdd={handleAdd} onEdit={handleEdit} />
-
       <FoodSheet
         open={isOpen}
         onClose={handleClose}

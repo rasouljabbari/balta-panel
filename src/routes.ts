@@ -1,9 +1,11 @@
 import App from '@/App';
 import Login from '@/pages/auth/login';
 import { createBrowserRouter } from 'react-router-dom';
+import DriverDetail from './features/drivers/components/driver-detail';
 import DefinitionPage from './pages/definition';
+import DeriversPage from './pages/drivers';
 import TableFood from './pages/food';
-import DeriversPage from './pages/deivers';
+import DriverEditForm from './features/drivers/components/driver-edit-form';
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -51,8 +53,8 @@ export const router = createBrowserRouter([
       { path: '/definition', Component: DefinitionPage },
       { path: '/foods', Component: TableFood },
       { path: 'drivers', Component: DeriversPage },
-      // { path: 'tickets', Component: Tickets },
-      // { path: 'tickets/:id', Component: TicketDetailsPage },
+      { path: 'drivers/:id', Component: DriverDetail },
+      { path: 'drivers/edit/:id', Component: DriverEditForm },
     ],
     //   { path: 'new-ticket', Component: NewTicket },
     //   { path: 'weekly-plan', Component: WeeklyPlan },
