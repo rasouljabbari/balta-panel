@@ -146,11 +146,23 @@ div[role='button']:focus-within,
   }
 
 .my-select__control {
-  border-radius: 8px !important; 
+  border-radius: 8px !important;
+  min-height: 40px !important;
   height: 40px !important;
   box-shadow: none !important;
+  align-items: flex-start !important;
 }
 
+.my-select__value-container {
+  max-height: 35px !important;
+  overflow-y: auto !important;
+  flex-wrap: wrap !important;
+  padding: 2px 8px !important;
+}
+
+.my-select__multi-value {
+  margin: 2px !important;
+}
 
 
 .my-select__indicator-separator {

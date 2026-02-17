@@ -34,5 +34,5 @@ deploy-job: # This job runs in the deploy stage.
     - pnpm install
     - pnpm build
     - echo "Application successfully deployed."
-  # only:
-  #   - dev
+  only:
+    - stage
