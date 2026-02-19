@@ -35,5 +35,18 @@ export interface DriverTableHeaderProps {
   count: number;
 }
 
+export type DriverFormValues = {
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  nationalCode: string;
+  birthDate?: Date | null;
+  gender?: { label: string; value: string } | null;
+  carType?: string;
+  plateNumber?: string;
+  userCode?: string;
+  joinDate?: string;
+};
+
 
 

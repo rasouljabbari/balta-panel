@@ -3,6 +3,7 @@ import { CirclePlus } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import { Input } from 'rg-dst';
+import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
@@ -32,6 +33,10 @@ const {
     plateNumber: '',
   },
 });
+    const handleClose = useResetOnClose<FormValues>({
+      reset,
+      onClose,
+    });
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log('Form Submitted:', data);
     reset();
@@ -47,7 +52,7 @@ const {
   return (
     <SharedModal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
       title="راننده جدید"
       icon={<CirclePlus color="var(--color-gray-light-500)" />}
       iconBgClass="bg-gray-light-100"
@@ -151,7 +156,7 @@ const {
                 options={options}
                 label="جنسیت"
                 placeholder="انتخاب کنید"
-                value={value} 
+                value={value}
                 onChange={(option) => field.onChange(option?.value)}
               />
             );

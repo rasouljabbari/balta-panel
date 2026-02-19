@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 
+
 export const addDriverSchema = yup.object({
   firstName: yup.string().required('نام الزامی است'),
   lastName: yup.string().required('نام خانوادگی الزامی است'),
@@ -13,12 +14,12 @@ export const addDriverSchema = yup.object({
     .required('کد ملی الزامی است'),
   birthDate: yup.date().nullable(),
   gender: yup.string().required('جنسیت الزامی است'),
-  carType: yup.string().nullable(), // اختیاری
+  carType: yup.string().nullable(),
   plateNumber: yup
     .string()
-    .nullable() // اختیاری
+    .nullable()
     .matches(
-      /^\d{1,2}\s?-\s?\d{1,3}\s?[آ-ی]?\s?\d{1,3}$/,
-      'فرمت پلاک معتبر نیست، مثال: ۱۵ - ۱۳۹ ج ۱۲',
+      /^[0-9۰-۹]{2}\s?-\s?[0-9۰-۹]{3}\s?[بجدرسصطقلمنوهی]\s?[0-9۰-۹]{2}$/,
+      'فرمت پلاک معتبر نیست (مثال: 15 - 139 ج 12)',
     ),
 });

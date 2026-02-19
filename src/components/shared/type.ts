@@ -1,6 +1,5 @@
 import type { ImgHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
-
 export interface ImageProps extends Omit<
   ImgHTMLAttributes<HTMLImageElement>,
   'src' | 'alt'
@@ -149,7 +148,6 @@ export interface SearchInputProps extends Omit<
   iconPosition?: 'left' | 'right';
 }
 
-
 export interface DatePickerFieldProps {
   label: string;
   value?: any;
@@ -159,3 +157,13 @@ export interface DatePickerFieldProps {
   iconPosition?: 'left' | 'right';
   showDivider?: boolean;
 }
+
+export type DetailItem = {
+  label: string;
+  value: string | number | null | undefined;
+};
+
+export type DetailGridProps = {
+  items: DetailItem[];
+  className?: string;
+};

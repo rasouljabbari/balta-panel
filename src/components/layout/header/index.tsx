@@ -5,6 +5,7 @@ import HeaderNotificationBox from '@/components/layout/header/header-notificatio
 import type { HeaderProps } from '@/components/layout/header/type';
 import HeaderUserInformationBox from './header-info';
 
+
 const drivers = [
   { id: 1, fullName: 'حسین عباسی', code: 'DRV-001', status: 'active' },
   { id: 2, fullName: 'رضا کریمی', code: 'DRV-002', status: 'inactive' },
@@ -98,6 +99,7 @@ export default function Header({
             onToggle={() => {
               console.log('status changed');
             }}
+            className="data-[state=checked]:bg-utility-brand-600"
           />
           <span className="text-sm font-semibold text-gray-light-700">
             وضعیت فعالیت

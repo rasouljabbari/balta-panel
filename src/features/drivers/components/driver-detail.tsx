@@ -3,24 +3,33 @@ import { ChevronDown, Pencil } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'rg-dst';
 import { TruckIcon } from '@/components/icons/drivers-icon';
+import { Card } from '@/components/shared/card';
+import DetailGrid from '@/components/shared/detail-grid';
+
 
 export default function DriverDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isOpen, setIsOpen] = useState(true);
-
-  const toggleSection = () => {
-    setIsOpen((prev) => !prev);
-  };
+  const driverFakeData = [
+    { label: 'نام راننده', value: 'حسین عباسی' },
+    { label: 'جنسیت', value: 'مرد' },
+    { label: 'تاریخ تولد', value: '۱۳۷۹/۱۱/۱۰' },
+    { label: 'شماره موبایل', value: '۰۹۹۰۹۹۹۹۹۹۹' },
+    { label: 'کد راننده', value: '۱۲۳۴۵۶' },
+    { label: 'کدملی', value: '۱۴۵۱۵۷۹۵۹۴' },
+    { label: 'نوع خودرو', value: 'پژو ۴۰۵' },
+    { label: 'پلاک خودرو', value: '۶۵۸ ج ۱۶' },
+    { label: 'تاریخ عضویت', value: '۱۴۰۰/۰۲/۰۲' },
+  ];
 
   return (
     <div className="bg-gray-light-50 h-full max-w-[400px] border-r mr-auto border-gray-light-200 p-3xl">
-      <div className="flex flex-col gap-lg border border-gray-light-200 rounded-lg">
-        {/* Header */}
+      <Card>
         <div
           className="flex items-center justify-between p-lg cursor-pointer"
-          onClick={toggleSection}
+          onClick={() => setIsOpen((prev) => !prev)}
         >
           <div className="flex items-center gap-xl">
             <div className="flex items-center justify-center w-10 h-10 border border-gray-light-200 rounded-lg">
@@ -44,42 +53,11 @@ export default function DriverDetail() {
           <>
             <hr className="border-gray-light-200" />
 
-            <div className="p-lg">
-              <div className="grid grid-cols-2 gap-md border border-gray-light-100 bg-gray-light-50 p-lg rounded-md">
-                <span className="text-sm text-gray-light-500">نام راننده</span>
-                <span className="text-sm text-gray-light-700">حسین عباسی</span>
-
-                <span className="text-sm text-gray-light-500">جنسیت</span>
-                <span className="text-sm text-gray-light-700">مرد</span>
-
-                <span className="text-sm text-gray-light-500">تاریخ تولد</span>
-                <span className="text-sm text-gray-light-700">۱۳۷۹/۱۱/۱۰</span>
-
-                <span className="text-sm text-gray-light-500">
-                  شماره موبایل
-                </span>
-                <span className="text-sm text-gray-light-700">۰۹۹۰۹۹۹۹۹۹۹</span>
-
-                <span className="text-sm text-gray-light-500">کد راننده</span>
-                <span className="text-sm text-gray-light-700">۱۲۳۴۵۶</span>
-
-                <span className="text-sm text-gray-light-500">کدملی</span>
-                <span className="text-sm text-gray-light-700">۱۴۵۱۵۷۹۵۹۴</span>
-
-                <span className="text-sm text-gray-light-500">نوع خودرو</span>
-                <span className="text-sm text-gray-light-700">پژو ۴۰۵</span>
-
-                <span className="text-sm text-gray-light-500">پلاک خودرو</span>
-                <span className="text-sm text-gray-light-700">۶۵۸ ج ۱۶</span>
-
-                <span className="text-sm text-gray-light-500">تاریخ عضویت</span>
-                <span className="text-sm text-gray-light-700">۱۴۰۰/۰۲/۰۲</span>
-              </div>
-            </div>
+            <DetailGrid items={driverFakeData} />
 
             <hr className="border-gray-light-200" />
 
-            <div className="p-lg mr-auto">
+            <div className="p-lg flex justify-end items-end">
               <Button
                 variant="secondaryGray"
                 leftIcon={
@@ -92,7 +70,7 @@ export default function DriverDetail() {
             </div>
           </>
         )}
-      </div>
+      </Card>
     </div>
   );
 }
