@@ -1,5 +1,6 @@
 import type { ImgHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
+
 export interface ImageProps extends Omit<
   ImgHTMLAttributes<HTMLImageElement>,
   'src' | 'alt'
@@ -167,3 +168,10 @@ export type DetailGridProps = {
   items: DetailItem[];
   className?: string;
 };
+
+export interface InfoHeaderProps {
+  icon: ReactNode;
+  title: string;
+  description?: string;
+  children?: ReactNode;
+}

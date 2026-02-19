@@ -5,8 +5,8 @@ import { Button, Input } from 'rg-dst';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
+import InfoHeader from '@/components/shared/info-header';
 import type { DriverFormValues } from '../types';
-
 
 
 export default function DriverEditForm() {
@@ -40,19 +40,11 @@ export default function DriverEditForm() {
   return (
     <Card className="p-0">
       <CardHeader>
-        <div className="flex items-center gap-xl">
-          <div className="flex justify-center items-center w-10 h-10 border border-gray-light-200 rounded-lg">
-            <User size={20} color="var(--color-gray-light-500)" />
-          </div>
-          <div className="flex flex-col gap-xs">
-            <h2 className="text-lg font-semibold text-gray-light-900">
-              اطلاعات شخصی
-            </h2>
-            <p className="text-sm text-gray-light-500">
-              در این قسمت، اطلاعات شخصی راننده را مشاهده و به روزرسانی کنید
-            </p>
-          </div>
-        </div>
+        <InfoHeader
+          title="اطلاعات شخصی"
+          description="در این قسمت، اطلاعات شخصی راننده را مشاهده و به روزرسانی کنید"
+          icon={<User size={20} color="var(--color-gray-light-500)" />}
+        />
       </CardHeader>
 
       <div className="p-3xl">
@@ -60,32 +52,18 @@ export default function DriverEditForm() {
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-2 gap-5"
         >
-          <Input
-            className="w-full"
-            label="نام"
-            required
-          />
+          <Input className="w-full" label="نام" required />
 
-          <Input
-            className="w-full"
-            label="نام خانوادگی"
-            required
-          />
+          <Input className="w-full" label="نام خانوادگی" required />
 
           <Input
             className="w-full"
             label="شماره موبایل"
             type="number"
             required
-
           />
 
-          <Input
-            className="w-full"
-            label="کد ملی"
-            type="number"
-            required
-          />
+          <Input className="w-full" label="کد ملی" type="number" required />
 
           {/* Date Picker */}
           <Controller

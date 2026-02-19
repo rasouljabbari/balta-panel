@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CirclePlus } from 'lucide-react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 import Header from './components/layout/header';
 import Sidebar from './components/layout/sidebar';
 import AddDriverModal from './features/drivers/components/add-driver-modal';
@@ -10,7 +10,6 @@ import { useDisableScroll } from './hooks/use-disable-scroll';
 function App() {
   useDisableScroll();
 
-  const location = useLocation(); 
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isAddDriverOpen, setIsAddDriverOpen] = useState(false); 
 
@@ -22,8 +21,12 @@ function App() {
     setIsMobileSidebarOpen(false);
   };
 
-  const isDriversPage = location.pathname.startsWith('/drivers');
-  const isDriverDetailPage = /^\/drivers\/\d+$/.test(location.pathname);
+  const driversMatch = useMatch('/drivers/*');
+  const driverDetailMatch = useMatch('/drivers/:id');
+
+  const isDriversPage = !!driversMatch;
+  const isDriverDetailPage = !!driverDetailMatch;
+
 
 
   return (
