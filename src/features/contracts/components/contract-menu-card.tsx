@@ -3,6 +3,8 @@ import { useMenus } from '@/features/definition/hooks/menu';
 import { Checkbox } from 'rg-dst';
 import { EssentialIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
+import { Skeleton } from '@/components/shared/skeleton-loader';
+
 
 export default function ContractMenusCard() {
   const { data: menusData, isLoading } = useMenus();
@@ -21,7 +23,7 @@ export default function ContractMenusCard() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-xl">
-            <div className="flex items-center justify-center w-10 h-10 border border-gray-light-200 rounded-lg">
+            <div className="flex items-center justify-center w-10 h-10 border border-gray-light-200 rounded-lg shadow-xs">
               <EssentialIcon />
             </div>
             <h2 className="text-lg font-semibold text-gray-light-900">
@@ -32,9 +34,12 @@ export default function ContractMenusCard() {
 
         <div className="p-3xl flex flex-col gap-lg">
           {isLoading ? (
-            <span className="text-sm text-gray-light-400">
-              در حال دریافت منوها...
-            </span>
+            Array.from({ length: 5 }).map((_, index) => (
+              <div key={index} className="flex items-center gap-md">
+                <Skeleton width={20} height={20} rounded="sm" />
+                <Skeleton width="60%" height={16} />
+              </div>
+            ))
           ) : menuList.length > 0 ? (
             menuList.map((menu) => (
               <Checkbox

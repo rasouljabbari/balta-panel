@@ -4,6 +4,7 @@ import { ContactCalenderIcon } from '@/components/icons/contract-icon';
 import type { TableColumn } from '@/components/shared/table';
 import type { ContractItem, MealType } from '../type';
 
+
 export const contractTableColumns = (
   onEdit: (row: ContractItem) => void,
 ): TableColumn<ContractItem>[] => [
@@ -59,7 +60,10 @@ export const contractTableColumns = (
           position="top"
           contentClassName="text-xs font-semibold"
         >
-          <button type="button">
+          <button
+            type="button"
+            className="p-md rounded-md hover:bg-gray-light-50 transition-colors cursor-pointer"
+          >
             <ContactCalenderIcon />
           </button>
         </TooltipWrapper>
@@ -72,7 +76,7 @@ export const contractTableColumns = (
           <button
             type="button"
             onClick={() => onEdit(row)}
-            className="cursor-pointer"
+            className="p-md rounded-md hover:bg-gray-light-50 transition-colors cursor-pointer"
           >
             <Settings size={20} color="var(--color-gray-light-700)" />
           </button>

@@ -8,7 +8,7 @@ export function MealLimitsCard() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-xl">
-            <div className="flex-center border w-10 h-10 rounded-lg border-gray-light-200">
+            <div className="flex-center border w-10 h-10 rounded-lg border-gray-light-200 shadow-xs">
               <InterfaceIcon />
             </div>
             <h2 className="text-lg font-semibold text-gray-light-900">

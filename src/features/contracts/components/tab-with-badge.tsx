@@ -9,7 +9,6 @@ export function TabsWithBadges({
   setActiveTab,
 }: TabsWithBadgesProps) {
   return (
-    <div className="flex flex-col">
       <div className="flex items-center justify-between">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <Tabs.List
@@ -55,6 +54,5 @@ export function TabsWithBadges({
           })}
         </div>
       </div>
-    </div>
   );
 }

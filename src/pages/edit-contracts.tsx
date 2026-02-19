@@ -29,7 +29,7 @@ export default function EditContract() {
           <MealLimitsCard />
           <ContractMenusCard />
         </div>
-        <Button className="mr-auto">ثبت تنظیمات</Button>
+        <Button className="mr-auto bg-utility-brand-600">ثبت تنظیمات</Button>
       </div>
     </div>
   );

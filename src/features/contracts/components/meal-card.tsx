@@ -1,8 +1,9 @@
-import  { useState } from 'react';
-import { ContactFoodIcon } from '@/components/icons/contract-icon';
-import CustomSelect from '@/components/shared/custom-select';
-import { Card, CardHeader } from '@/components/shared/card';
+import { useState } from 'react';
 import { Input, Switch } from 'rg-dst';
+import { ContactFoodIcon } from '@/components/icons/contract-icon';
+import { Card, CardHeader } from '@/components/shared/card';
+import CustomSelect from '@/components/shared/custom-select';
+
 
 export function MealCard() {
   const [isServiceActive, setIsServiceActive] = useState(false);
@@ -11,7 +12,7 @@ export function MealCard() {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-xl">
-          <div className="flex-center border w-10 h-10 rounded-lg border-gray-light-200">
+          <div className="flex-center border w-10 h-10 rounded-lg border-gray-light-200 shadow-xs">
             <ContactFoodIcon />
           </div>
           <h2 className="text-lg font-semibold text-gray-light-900">
@@ -25,6 +26,7 @@ export function MealCard() {
           label="وضعیت سرویس‌دهی"
           checked={isServiceActive}
           onToggle={() => setIsServiceActive(!isServiceActive)}
+          className="data-[state=checked]:bg-utility-brand-600"
         />
 
         <div className="grid grid-cols-3 gap-6">
