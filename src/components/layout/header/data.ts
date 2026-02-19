@@ -29,4 +29,9 @@ export const routeInfos: Record<string, RouteInfo> = {
     title: 'غذاها',
     description: 'در این قسمت، می‌توانید غذاهای ثبت شده را مدیریت کنید.',
   },
+  '/contracts': {
+    title: 'قراردادها',
+    description:
+      'در این قسمت، می‌توانید لیست مشتریان را مشاهده و وعده‌های غذایی آنها را مدیریت کنید.',
+  },
 };

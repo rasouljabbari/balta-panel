@@ -1,8 +1,10 @@
 import App from '@/App';
 import Login from '@/pages/auth/login';
 import { createBrowserRouter } from 'react-router-dom';
+import ContractsPage from './pages/contracts';
 import DefinitionPage from './pages/definition';
 import TableFood from './pages/food';
+import EditContract from './pages/edit-contracts';
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -49,7 +51,8 @@ export const router = createBrowserRouter([
       // { path: 'dashboard', Component: Dashboard },
       { path: '/definition', Component: DefinitionPage },
       { path: '/foods', Component: TableFood },
-      // { path: 'reports', Component: Reports },
+      { path: '/contracts', Component: ContractsPage },
+      { path: '/contracts/edit/:id', Component: EditContract },
       // { path: 'tickets', Component: Tickets },
       // { path: 'tickets/:id', Component: TicketDetailsPage },
     ],
