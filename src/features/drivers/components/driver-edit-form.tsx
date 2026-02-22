@@ -18,7 +18,7 @@ export default function DriverEditForm() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<FormValues>({
+  } = useForm({
     resolver: yupResolver(addDriverSchema) as any,
     defaultValues: {...addDriverDefaultValues, userCode: id || ''
     },

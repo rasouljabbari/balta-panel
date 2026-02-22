@@ -7,8 +7,8 @@ import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
-import type { AddDriverModalProps, FormValues } from '../types';
-import { addDriverDefaultValues, addDriverSchema } from './validation';
+import type { AddDriverModalProps } from '../types';
+import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
 
 
 export default function AddDriverModal({
@@ -20,11 +20,11 @@ const {
   handleSubmit,
   formState: { errors },
   reset,
-} = useForm<FormValues>({
+} = useForm({
   resolver: yupResolver(addDriverSchema) as any,
   defaultValues: addDriverDefaultValues, 
 });
-    const handleClose = useResetOnClose<FormValues>({
+    const handleClose = useResetOnClose({
       reset,
       onClose,
     });

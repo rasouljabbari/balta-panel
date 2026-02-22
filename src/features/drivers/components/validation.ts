@@ -1,8 +1,10 @@
+import { plateNumberRegex } from '@/utils/regex';
 import * as yup from 'yup';
 import type { InferType } from 'yup';
 
+
 export const addDriverSchema = yup.object({
-  firstName: yup.string().required(), 
+  firstName: yup.string().required(),
   lastName: yup.string().required(),
   mobile: yup
     .string()
@@ -18,21 +20,10 @@ export const addDriverSchema = yup.object({
   plateNumber: yup
     .string()
     .optional()
-    .test(
-      'plate-format',
-      'فرمت پلاک معتبر نیست (مثال: 15 - 139 ج 12)',
-      (value) => {
-        if (!value) return true;
-        return /^[0-9۰-۹]{2}\s?-\s?[0-9۰-۹]{3}\s?[بجدرسصطقلمنوهی]\s?[0-9۰-۹]{2}$/.test(
-          value,
-        );
-      },
-    ),
+    .matches(plateNumberRegex, 'فرمت پلاک معتبر نیست (مثال: 15 - 139 ج 12)'),
   userCode: yup.string().optional(),
   joinDate: yup.string().optional(),
 });
-
-export type FormValues = InferType<typeof addDriverSchema>;
 
 export const addDriverDefaultValues: FormValues = {
   firstName: '',
@@ -44,3 +35,5 @@ export const addDriverDefaultValues: FormValues = {
   carType: undefined,
   plateNumber: undefined,
 };
+
+export type FormValues = InferType<typeof addDriverSchema>;
