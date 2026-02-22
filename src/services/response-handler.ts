@@ -1,4 +1,4 @@
-import { deleteCookie } from "../cookies";
+import { deleteCookie } from "../utils/cookies";
 
 export const handleResponse = (response: any): any => {
   const status = response?.status;

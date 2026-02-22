@@ -1,5 +1,5 @@
 import type { Category, GetCategoryResponse } from "@/features/definition/type";
-import { getData, getFormDataPost } from "@/utils/api-methods/api-method-functions";
+import { getData, getFormDataPost } from "@/services/api-method-functions";
 
 export const getCategoriesService = async (): Promise<GetCategoryResponse> => {
     return getData({
@@ -20,7 +20,7 @@ export const createCategoryService = async (payload: Category) => {
     });
 };
 
-export const updateCategoryService = async (payload: Category & {id: number}) => {
+export const updateCategoryService = async (payload: Category & { id: number }) => {
     return getFormDataPost({
         endPoint: `admin/v1/definitions/category/${payload.id}`,
         type: 'put',
