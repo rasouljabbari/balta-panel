@@ -6,6 +6,7 @@ import DefinitionPage from './pages/definition';
 import DeriversPage from './pages/drivers';
 import TableFood from './pages/food';
 import DriverEditForm from './features/drivers/components/driver-edit-form';
+import OrderPage from '@/pages/order'
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
       { path: 'drivers', Component: DeriversPage },
       { path: 'drivers/:id', Component: DriverDetail },
       { path: 'drivers/edit/:id', Component: DriverEditForm },
+      { path: 'orders', Component: OrderPage },
     ],
     //   { path: 'new-ticket', Component: NewTicket },
     //   { path: 'weekly-plan', Component: WeeklyPlan },
