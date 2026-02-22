@@ -3,7 +3,6 @@ import { routeInfos } from '@/components/layout/header/data';
 import type { Driver, HeaderInfoResult } from '../type';
 
 
-
 export function useHeaderInfo(drivers: Driver[]): HeaderInfoResult {
   const location = useLocation();
 
@@ -59,17 +58,22 @@ export function useHeaderInfo(drivers: Driver[]): HeaderInfoResult {
       title = routeInfos[path].title;
       description = routeInfos[path].description;
     } else {
-      // مسیرهای داینامیک / پارامترها
-      for (const [pattern, info] of Object.entries(routeInfos)) {
-        const regex = new RegExp(
-          '^' + pattern.replace(/:[^\s/]+/g, '([\\w-]+)') + '$',
-        );
-        if (regex.test(path)) {
-          title = info.title;
-          description = info.description;
-          break;
-        }
+    for (const [pattern, info] of Object.entries(routeInfos)) {
+      // Convert a route pattern like "/drivers/:id" into a regex that can match actual paths.
+      // Explanation:
+      // 1. `:[^\s/]+` matches any route parameter (e.g., ":id").
+      // 2. `.replace(/:[^\s/]+/g, '([\\w-]+)')` replaces it with a capturing group for word characters or dashes.
+      // 3. Adding '^' at the start and '$' at the end ensures the regex matches the entire path exactly.
+      const regex = new RegExp(
+        '^' + pattern.replace(/:[^\s/]+/g, '([\\w-]+)') + '$',
+      );
+
+      if (regex.test(path)) {
+        title = info.title;
+        description = info.description;
+        break;
       }
+    }
     }
   }
 

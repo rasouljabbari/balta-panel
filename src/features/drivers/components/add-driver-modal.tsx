@@ -8,7 +8,7 @@ import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import type { AddDriverModalProps, FormValues } from '../types';
-import { addDriverSchema } from './validation';
+import { addDriverDefaultValues, addDriverSchema } from './validation';
 
 
 export default function AddDriverModal({
@@ -22,16 +22,7 @@ const {
   reset,
 } = useForm<FormValues>({
   resolver: yupResolver(addDriverSchema) as any,
-  defaultValues: {
-    firstName: '',
-    lastName: '',
-    mobile: '',
-    nationalCode: '',
-    birthDate: null, 
-    gender: '',
-    carType: '',
-    plateNumber: '',
-  },
+  defaultValues: addDriverDefaultValues, 
 });
     const handleClose = useResetOnClose<FormValues>({
       reset,
@@ -58,6 +49,7 @@ const {
       iconBgClass="bg-gray-light-100"
       confirmText="ثبت راننده"
       onConfirm={submitHandler}
+      aria-label="افزودن راننده جدید"
     >
       <form className="grid grid-cols-2 gap-xl">
         <Controller
@@ -72,6 +64,7 @@ const {
               destructive={!!errors.firstName}
               destructiveText={errors.firstName?.message}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="نام"
             />
           )}
         />
@@ -88,6 +81,7 @@ const {
               destructive={!!errors.lastName}
               destructiveText={errors.lastName?.message}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="نام خانوادگی"
             />
           )}
         />
@@ -105,6 +99,7 @@ const {
               destructive={!!errors.mobile}
               destructiveText={errors.mobile?.message}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="شماره موبایل"
             />
           )}
         />
@@ -122,6 +117,7 @@ const {
               destructive={!!errors.nationalCode}
               destructiveText={errors.nationalCode?.message}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="کد ملی"
             />
           )}
         />
@@ -137,6 +133,7 @@ const {
               onChange={(date) => field.onChange(date)}
               value={field.value}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="تاریخ تولد"
             />
           )}
         />
@@ -158,6 +155,7 @@ const {
                 placeholder="انتخاب کنید"
                 value={value}
                 onChange={(option) => field.onChange(option?.value)}
+                aria-label="جنسیت"
               />
             );
           }}
@@ -174,6 +172,7 @@ const {
               destructive={!!errors.carType}
               destructiveText={errors.carType?.message}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="نوع خودرو"
             />
           )}
         />
@@ -189,6 +188,7 @@ const {
               destructive={!!errors.plateNumber}
               destructiveText={errors.plateNumber?.message}
               className="placeholder:text-sm placeholder:text-gray-light-500"
+              aria-label="پلاک خودرو"
             />
           )}
         />

@@ -18,10 +18,10 @@ export interface FormValues {
   lastName: string;
   mobile: string;
   nationalCode: string;
-  birthDate: Date | null;
+  birthDate: Date | null | undefined;
   gender: string;
-  carType: string;
-  plateNumber: string;
+  carType: string | undefined;
+  plateNumber: string | undefined;
 }
 
 

@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { User } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -6,7 +7,7 @@ import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
-import type { DriverFormValues } from '../types';
+import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
 
 
 export default function DriverEditForm() {
@@ -17,24 +18,15 @@ export default function DriverEditForm() {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<DriverFormValues>({
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      mobile: '',
-      nationalCode: '',
-      birthDate: null,
-      gender: null,
-      carType: '',
-      plateNumber: '',
-      userCode: id || '',
-      joinDate: '',
+  } = useForm<FormValues>({
+    resolver: yupResolver(addDriverSchema) as any,
+    defaultValues: {...addDriverDefaultValues, userCode: id || ''
     },
   });
 
-  const onSubmit = (data: DriverFormValues) => {
+  const onSubmit = (data: FormValues) => {
     console.log('form data:', data);
-    // updateDriverApi(data)
+    // Call your API here: updateDriverApi(data)
   };
 
   return (
@@ -52,74 +44,100 @@ export default function DriverEditForm() {
           onSubmit={handleSubmit(onSubmit)}
           className="grid grid-cols-2 gap-5"
         >
-          <Input className="w-full" label="نام" required />
-
-          <Input className="w-full" label="نام خانوادگی" required />
-
+          {/* First Name */}
           <Input
+            label="نام"
+            {...register('firstName')}
+            error={errors.firstName?.message}
             className="w-full"
-            label="شماره موبایل"
-            type="number"
-            required
+            aria-label="نام"
           />
 
-          <Input className="w-full" label="کد ملی" type="number" required />
+          {/* Last Name */}
+          <Input
+            label="نام خانوادگی"
+            {...register('lastName')}
+            error={errors.lastName?.message}
+            className="w-full"
+            aria-label="نام خانوادگی"
+          />
 
-          {/* Date Picker */}
+          {/* Mobile */}
+          <Input
+            label="شماره موبایل"
+            type="number"
+            {...register('mobile')}
+            error={errors.mobile?.message}
+            className="w-full"
+            aria-label="شماره موبایل"
+          />
+
+          {/* National Code */}
+          <Input
+            label="کد ملی"
+            type="number"
+            {...register('nationalCode')}
+            error={errors.nationalCode?.message}
+            className="w-full"
+            aria-label="کد ملی"
+          />
+
+          {/* Birth Date */}
           <Controller
             control={control}
             name="birthDate"
-            rules={{ required: 'تاریخ تولد الزامی است' }}
             render={({ field }) => (
               <DatePickerField
                 {...field}
                 label="تاریخ تولد"
                 iconPosition="right"
                 showDivider={false}
+                aria-label="تاریخ تولد"
               />
             )}
           />
-
-          {/* Gender Select */}
-          <Controller
+          <CustomSelect
             control={control}
             name="gender"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                label="جنسیت"
-                placeholder="انتخاب کنید"
-                options={[
-                  { label: 'مرد', value: 'male' },
-                  { label: 'زن', value: 'female' },
-                ]}
-                error={errors.gender?.message}
-              />
-            )}
+            label="جنسیت"
+            placeholder="انتخاب کنید"
+            options={[
+              { label: 'مرد', value: 'male' },
+              { label: 'زن', value: 'female' },
+            ]}
+            error={errors.gender?.message}
+            isMulti={false}
+            aria-label="جنسیت"
           />
 
+          {/* Car Type */}
           <Input
             label="نوع خودرو"
-            className="w-full"
             {...register('carType')}
+            error={errors.carType?.message}
+            className="w-full"
+            aria-label="نوع خودرو"
           />
 
+          {/* Plate Number */}
           <Input
             label="پلاک خودرو"
-            className="w-full"
             {...register('plateNumber')}
+            error={errors.plateNumber?.message}
+            className="w-full"
+            aria-label="پلاک خودرو"
           />
 
           <Input
-            label="کد کاربر"
             className="w-full"
+            label="کد کاربر"
             disabled
             {...register('userCode')}
           />
 
           <Input
-            label="تاریخ عضویت"
             className="w-full"
+            label="تاریخ عضویت"
             disabled
             {...register('joinDate')}
           />
@@ -127,7 +145,7 @@ export default function DriverEditForm() {
           <hr className="-mx-3xl my-4 border-gray-light-200 col-span-2" />
 
           <div className="flex items-center gap-lg mr-auto col-span-2">
-            <Button type="submit" className="bg-utility-brand-600">
+            <Button type="submit" className="bg-utility-brand-600" aria-label = "ذخیره تغییرات">
               ذخیره تغییرات
             </Button>
           </div>
