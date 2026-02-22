@@ -21,3 +21,12 @@ export interface TabsWithBadgesProps {
   activeTab: string;
   setActiveTab: (value: string) => void;
 }
+
+
+export type SidebarInfoPanelProps = {
+  openStates: Record<string, boolean>;
+  toggle: (key: string) => void;
+  userData: { label: string; value: string }[];
+  branchData: { label: string; value: string }[];
+};
+

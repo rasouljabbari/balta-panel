@@ -175,3 +175,12 @@ export interface InfoHeaderProps {
   description?: string;
   children?: ReactNode;
 }
+
+
+export type AccordionCardProps = {
+  title: string;
+  icon: ReactNode;
+  isOpen: boolean;
+  onToggle: () => void;
+  children: ReactNode;
+};

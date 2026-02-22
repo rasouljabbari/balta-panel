@@ -216,3 +216,61 @@ export const EssentialIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
+
+export const BuildingIcon: React.FC<IconProps> = ({
+  width = 20,
+  height = 20,
+  className,
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 20 20"
+    fill="none"
+    className={className}
+  >
+    <path
+      d="M13.3334 17.5V3.33333C13.3334 2.8731 12.9603 2.5 12.5001 2.5H6.25008C5.78984 2.5 5.41675 2.8731 5.41675 3.33333V6.91482"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M17.4999 17.5V10.75C17.4999 10.3358 17.1641 10 16.7499 10H13.3333"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9.16687 17.5L9.12177 7.07962C9.11994 6.64734 8.8949 6.24669 8.5267 6.0202C8.1585 5.79372 7.69941 5.77354 7.31277 5.96686L3.42134 7.91248C2.85669 8.19479 2.5 8.77191 2.5 9.40321V17.5"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M18.3334 17.5H1.66675"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5 11.6667H6.66667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5 14.1667H6.66667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
