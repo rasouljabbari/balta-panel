@@ -34,4 +34,13 @@ export const routeInfos: Record<string, RouteInfo> = {
     description:
       'در این قسمت، می‌توانید لیست مشتریان را مشاهده و وعده‌های غذایی آنها را مدیریت کنید.',
   },
+  '/drivers': {
+    title: 'رانندگان',
+    description:
+      'در این قسمت، می‌توانید لیست رانندگان را مشاهده و مدیریت کنید.',
+  },
+  '/drivers/:id': {
+    title: '',
+    description: '',
+  },
 };

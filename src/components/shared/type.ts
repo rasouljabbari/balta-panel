@@ -1,4 +1,4 @@
-import type { ImgHTMLAttributes, ReactNode } from 'react';
+import type { ImgHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
 
 export interface ImageProps extends Omit<
@@ -137,4 +137,41 @@ export interface SheetProps {
   side?: 'left' | 'right';
   children: React.ReactNode;
   width?: string;
+}
+
+export interface SearchInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'size'
+> {
+  containerClassName?: string;
+  inputClassName?: string;
+  icon?: ReactNode;
+  iconPosition?: 'left' | 'right';
+}
+
+export interface DatePickerFieldProps {
+  label: string;
+  value?: any;
+  onChange?: (date: any) => void;
+  placeholder?: string;
+  className?: string;
+  iconPosition?: 'left' | 'right';
+  showDivider?: boolean;
+}
+
+export type DetailItem = {
+  label: string;
+  value: string | number | null | undefined;
+};
+
+export type DetailGridProps = {
+  items: DetailItem[];
+  className?: string;
+};
+
+export interface InfoHeaderProps {
+  icon: ReactNode;
+  title: string;
+  description?: string;
+  children?: ReactNode;
 }
