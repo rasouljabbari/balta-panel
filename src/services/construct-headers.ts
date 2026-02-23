@@ -1,5 +1,5 @@
 import type { Headers } from '@/types/api';
-import { getCookie } from '../cookies';
+import { getCookie } from '../utils/cookies';
 
 const TENANT = import.meta.env.VITE_API_TENANT;
 
