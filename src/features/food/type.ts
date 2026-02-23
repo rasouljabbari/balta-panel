@@ -1,4 +1,3 @@
-import type { Control } from "react-hook-form";
 import type { MultiValue } from "react-select";
 
 
@@ -58,7 +57,7 @@ export interface FoodFormValues {
 
 
 export interface SelectProps {
-  control: Control<FoodFormValues>;
-  error?:string
+  control: any;
+  error?: any
 }
 

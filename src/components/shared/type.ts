@@ -125,7 +125,7 @@ export interface CustomSelectProps {
   placeholder?: string;
   isMulti?: boolean;
   isDisabled?: boolean;
-  error?: string;
+  error?: any;
   label?: string;
   value?: Option | readonly Option[] | null;
   onChange?: (val: any) => void;
