@@ -1,3 +1,6 @@
+import type { Option } from "@/components/shared/type";
+
+
 export type MealType = 'صبحانه' | 'ناهار' | 'شام' | 'ثبت نشده';
 
 export type ContractItem = {
@@ -30,3 +33,17 @@ export type SidebarInfoPanelProps = {
   branchData: { label: string; value: string }[];
 };
 
+export type ContractsFilterModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  selectedMeals: Option[];
+  setSelectedMeals: (val: Option[]) => void;
+  mealOptions: Option[];
+};
+
+
+export type ContractsTableCardProps = {
+  data: ContractItem[];
+  onEdit: (row: ContractItem) => void;
+  onOpenFilter: () => void;
+};

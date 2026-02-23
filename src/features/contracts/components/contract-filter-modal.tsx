@@ -1,16 +1,10 @@
-import { Funnel, Trash2 } from 'lucide-react';
-import { Button } from 'rg-dst';
+import { Funnel } from 'lucide-react';
+import { ClearFiltersButton } from '@/components/shared/clear-filter-button';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import type { Option } from '@/components/shared/type';
+import type { ContractsFilterModalProps } from '../type';
 
-type Props = {
-  isOpen: boolean;
-  onClose: () => void;
-  selectedMeals: Option[];
-  setSelectedMeals: (val: Option[]) => void;
-  mealOptions: Option[];
-};
 
 export default function ContractsFilterModal({
   isOpen,
@@ -18,10 +12,13 @@ export default function ContractsFilterModal({
   selectedMeals,
   setSelectedMeals,
   mealOptions,
-}: Props) {
+}: ContractsFilterModalProps) {
   const handleReset = () => {
     setSelectedMeals([]);
   };
+
+  // تعداد فیلتر فعال
+  const activeFiltersCount = selectedMeals?.length ?? 0;
 
   return (
     <SharedModal
@@ -32,14 +29,10 @@ export default function ContractsFilterModal({
       iconBgClass="bg-gray-light-100"
       confirmText="اعمال"
       footerLeft={
-        <Button
-          variant="secondaryColor"
-          className="bg-white border-0"
-          leftIcon={<Trash2 size={20} />}
-          onClick={handleReset}
-        >
-          حذف تمام فیلترها
-        </Button>
+        <ClearFiltersButton
+          activeFiltersCount={activeFiltersCount}
+          onClear={handleReset}
+        />
       }
     >
       <div className="flex flex-col gap-xl">

@@ -75,8 +75,8 @@ export const ContactFoodIcon: React.FC<IconProps> = ({
     className={className}
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M12.5 15.4167H5.83334C4.45251 15.4167 3.33334 14.2975 3.33334 12.9167V8.75001C3.33334 8.29001 3.70668 7.91667 4.16668 7.91667H14.1667C14.6267 7.91667 15 8.29001 15 8.75001V12.9167C15 14.2975 13.8808 15.4167 12.5 15.4167Z"
       stroke="#667085"
       strokeWidth="1.5"
@@ -199,8 +199,8 @@ export const EssentialIcon: React.FC<IconProps> = ({
       strokeLinejoin="round"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M1.66663 15.8333C1.66663 16.7542 2.41246 17.5 3.33329 17.5H11.6666C12.5875 17.5 13.3333 16.7542 13.3333 15.8333V2.5H3.33329C2.41246 2.5 1.66663 3.24583 1.66663 4.16667V15.8333Z"
       stroke="#667085"
       strokeWidth="1.5"

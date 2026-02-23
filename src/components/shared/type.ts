@@ -184,3 +184,13 @@ export type AccordionCardProps = {
   onToggle: () => void;
   children: ReactNode;
 };
+
+export type ClearFiltersButtonProps = {
+  activeFiltersCount: number;
+  onClear: () => void;
+};
+
+export type DownloadButtonProps = {
+  url: string;
+  fileName?: string;
+};

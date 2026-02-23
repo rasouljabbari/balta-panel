@@ -41,6 +41,7 @@ export function MealCard() {
               className="w-full placeholder:text-sm placeholder:text-gray-light-500"
               leadingTextValue="پرس"
               placeholder="تعداد را وارد کنید"
+              type = "number"
             />
           </div>
 

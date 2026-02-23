@@ -1,20 +1,15 @@
-import type { ContractItem } from '@/features/contracts/type';
-import { Download, FileText, Funnel } from 'lucide-react';
+import { FileText, Funnel } from 'lucide-react';
 import { Button } from 'rg-dst';
 import Table from '@/components/shared/table';
+import type { ContractsTableCardProps } from '../type';
 import { contractTableColumns } from './table-columns';
-
-type Props = {
-  data: ContractItem[];
-  onEdit: (row: ContractItem) => void;
-  onOpenFilter: () => void;
-};
+import { DownloadButton } from '@/components/shared/download-button';
 
 export default function ContractsTableCard({
   data,
   onEdit,
   onOpenFilter,
-}: Props) {
+}: ContractsTableCardProps) {
   return (
     <Table
       columns={contractTableColumns(onEdit)}
@@ -42,14 +37,10 @@ export default function ContractsTableCard({
               فیلترها
             </Button>
 
-            <Button
-              variant="secondaryGray"
-              leftIcon={
-                <Download size={20} color="var(--color-gray-light-700)" />
-              }
-            >
-              دانلود
-            </Button>
+            <DownloadButton
+              url="/api/contracts/export"
+              fileName="contracts.xlsx"
+            />
           </div>
         </div>
       }

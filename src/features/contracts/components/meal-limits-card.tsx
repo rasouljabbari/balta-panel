@@ -2,6 +2,7 @@ import { Input } from 'rg-dst';
 import { InterfaceIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 
+
 export function MealLimitsCard() {
   return (
     <div className="col-span-6">
@@ -33,6 +34,7 @@ export function MealLimitsCard() {
                   className="w-full placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
+                  type="number"
                 />
               </div>
 
@@ -45,6 +47,7 @@ export function MealLimitsCard() {
                   className="w-full placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
+                  type="number"
                 />
               </div>
             </div>
@@ -65,6 +68,7 @@ export function MealLimitsCard() {
                   className="w-[344px] placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
+                  type="number"
                 />
               </div>
             </div>
