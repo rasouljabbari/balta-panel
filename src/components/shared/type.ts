@@ -174,6 +174,7 @@ export interface InfoHeaderProps {
   title: string;
   description?: string;
   children?: ReactNode;
+  className?: string;
 }
 
 
