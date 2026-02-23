@@ -10,7 +10,7 @@ export default function DriverTableHeader({ count }: DriverTableHeaderProps) {
       title="اطلاعات رانندگان"
       description={`${count} راننده`}
     >
-      <SearchInput placeholder="جستجو در رانندگان" />
+      {count > 0 && <SearchInput placeholder="جستجو در رانندگان" />}
     </InfoHeader>
   );
 }

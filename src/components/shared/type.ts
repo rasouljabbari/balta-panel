@@ -39,7 +39,7 @@ export interface EmptyBoxProps {
 
 export type SharedModalProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   title: string;
   icon?: ReactNode;
   children: ReactNode;
@@ -57,6 +57,8 @@ export type SharedModalProps = {
   };
   isPending?: boolean;
   footerLeft?: React.ReactNode;
+  showFooter?: boolean;
+  bodyClassName?: string;
 };
 
 export interface CardProps {
@@ -157,6 +159,9 @@ export interface DatePickerFieldProps {
   className?: string;
   iconPosition?: 'left' | 'right';
   showDivider?: boolean;
+  required?: boolean;
+  error?: boolean;
+  errorText?: string;
 }
 
 export type DetailItem = {

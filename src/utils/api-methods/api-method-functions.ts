@@ -1,7 +1,7 @@
 import { handleError } from '@/helper/handle-error';
-import type { GetData } from '@/types/api';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
+import type { GetData } from '@/types/api';
 import { getCookie } from '../cookies';
 import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
@@ -193,7 +193,7 @@ export const getData = async ({
 
     case 'delete':
       return makeDeleteRequest(baseUrl, endPoint, dataParams, headers);
-    
+
     case 'patch':
       return makePatchRequest(endPoint, dataParams, headers);
 

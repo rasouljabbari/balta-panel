@@ -1,12 +1,12 @@
 import { Eye } from 'lucide-react';
 import { Badge, TooltipWrapper } from 'rg-dst';
 import type { TableColumn } from '@/components/shared/table';
-import type { DriverItem } from '../types';
+import type { DriverItem, DriverResponse } from '../types';
 
 
 export const driverTableColumns = (
-  onAllocatedOrders: (row: DriverItem) => void,
-): TableColumn<DriverItem>[] => [
+  onAllocatedOrders: (row: DriverResponse) => void,
+): TableColumn<DriverResponse>[] => [
   {
     id: 'id',
     label: 'کد راننده',
@@ -52,10 +52,7 @@ export const driverTableColumns = (
         position="top"
         contentClassName="text-xs font-semibold"
       >
-        <button
-          onClick={() => onAllocatedOrders(row)}
-          className="!p-2"
-        >
+        <button onClick={() => onAllocatedOrders(row)} className="!p-2">
           <Eye size={18} />
         </button>
       </TooltipWrapper>

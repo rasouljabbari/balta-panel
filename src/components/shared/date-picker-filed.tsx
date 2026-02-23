@@ -6,6 +6,7 @@ import { Calendar } from 'react-multi-date-picker';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import type { DatePickerFieldProps } from './type';
 
+
 export default function DatePickerField({
   label,
   value,
@@ -14,6 +15,9 @@ export default function DatePickerField({
   className = '',
   iconPosition = 'left',
   showDivider = true,
+  required = false,
+  error = false, 
+  errorText,
 }: DatePickerFieldProps) {
   const [showCalendar, setShowCalendar] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -27,8 +31,10 @@ export default function DatePickerField({
       ref={wrapperRef}
       className={`flex flex-col gap-1.5 relative  ${className}`}
     >
-      <label className="text-sm text-gray-light-700 text-right">{label}</label>
-
+      <label className="text-sm text-gray-light-700 text-right flex items-center gap-1">
+        {label}
+        {required && <span className="text-rtext-brand-tertiary-600">*</span>}
+      </label>
       <div className="relative">
         {/* Divider */}
         {showDivider && (
@@ -65,6 +71,12 @@ export default function DatePickerField({
           `}
         />
       </div>
+
+      {error && errorText && (
+        <span className="text-sm text-rtext-error-primary-600 mt-1">
+          {errorText}
+        </span>
+      )}
 
       {showCalendar && (
         <div className="absolute top-full mt-2 z-50">

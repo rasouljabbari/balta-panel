@@ -65,7 +65,7 @@ export default function CustomSelect({
                 />
               </div>
               {error && (
-                <p className="text-sm text-rtext-error-primary-600 mt-1">
+                <p className="text-sm text-rtext-brand-tertiary-600 mt-1">
                   {error}
                 </p>
               )}
