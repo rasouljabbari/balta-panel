@@ -2,7 +2,7 @@ import type { OrderItemProps } from "@/features/order/types";
 
 export const TABS = [
 { label: "هفته جاری", value: "current week" },
-{ label: "هفته آینده", value: "feature week" },
+{ label: "هفته آینده", value: "future week" },
 ] as const;
 
 export const FAKE_ORDERS: OrderItemProps[][] = [
@@ -22,7 +22,6 @@ export const FAKE_ORDERS: OrderItemProps[][] = [
     { mealType: 'dinner', mealName: 'چلومرغ', mealCount: 38 },
     { mealType: 'dinner', mealName: 'چلو جوجه‌کباب', mealCount: 58 },
     { mealType: 'dinner', mealName: 'خورشت قیمه', mealCount: 47 },
-    { mealType: 'dinner', mealName: 'خورشت قورمه‌سبزی', mealCount: 70 },
   ],
   [
     { mealType: 'breakfast', mealName: 'نان و پنیر', mealCount: 12 },

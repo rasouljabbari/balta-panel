@@ -1,4 +1,4 @@
-export type TabType = "current week" | "feature week";
+export type TabType = "current week" | "future week";
 
 export type MealType = "breakfast" | "lunch" | "dinner";
 
@@ -23,5 +23,4 @@ export interface OrderHeaderProps {
 
 export interface OrderGridProps {
   days: DayItem[];
-  isCurrentWeek: boolean;
 }

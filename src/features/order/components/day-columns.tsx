@@ -6,10 +6,9 @@ export default function DayColumn({
   day,
 }: {
   day: DayItem;
-  isCurrentWeek: boolean;
 }) {
   return (
-    <div className="p-lg flex flex-col gap-lg border-r border-gray-light-200 hover:bg-gray-light-50">
+    <div role="gridcell" aria-label={`سفارش‌های ${day.dayName} ${day.fullDate}`} className="py-lg px-md 2xl:px-xl flex flex-col gap-lg border-r border-gray-light-200 hover:bg-gray-light-50">
         <div className="flex items-center justify-between">
           <span
             className={cn(
@@ -25,20 +24,24 @@ export default function DayColumn({
 
       <hr
         className={cn(
-          "-mx-lg",
+          "-mx-md 2xl:-mx-xl",
           day.isToday ? "border-utility-brand-600" : "border-gray-light-200"
         )}
       />
 
-      <div className="mt-md flex-1 flex flex-col gap-xs px-lg">
-        {day.orders.map((order, index) => (
+      <div role="list" aria-label="لیست سفارش‌ها" className="mt-md flex-1 flex flex-col gap-xs px-md 2xl:px-lg">
+        {day?.orders?.length === 0 ? (
+            <span className="text-center text-sm text-gray-light-500">سفارشی ثبت نشده است</span>
+        ) : (
+          day?.orders?.length > 0 && day?.orders?.map((order, index) => (
           <OrderItem
             key={index}
             mealType={order.mealType}
             mealName={order.mealName}
             mealCount={order.mealCount}
-          />
-        ))}
+            />
+          ))
+        )}
       </div>
     </div>
   );

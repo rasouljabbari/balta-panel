@@ -1,5 +1,5 @@
-import type { DayItem } from './types';
-import { FAKE_ORDERS } from './data';
+import type { DayItem } from '@/features/order/types';
+import { FAKE_ORDERS } from '@/features/order/data';
 
 
 function getStartOfWeek(date: Date) {
@@ -37,14 +37,4 @@ export function getWeekDays(week: 'current' | 'next'): DayItem[] {
   }
 
   return days;
-}
-
-export function isToday(dayDate: Date) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const target = new Date(dayDate);
-  target.setHours(0, 0, 0, 0);
-
-  return target.getTime() === today.getTime();
 }
