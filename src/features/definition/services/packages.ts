@@ -1,5 +1,5 @@
 import type { GetPackageResponse, Package } from "@/features/definition/type";
-import { getData, getFormDataPost } from "@/utils/api-methods/api-method-functions";
+import { getData, getFormDataPost } from "@/services/api-method-functions";
 
 export const getPackagesService = async (): Promise<GetPackageResponse> => {
     return getData({

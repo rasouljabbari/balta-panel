@@ -3,7 +3,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import './assets/fonts/yekan-bakh-fonts/fontiran.css';
+import './assets/fonts/IranYekanX-fonts/fontiran.css';
 import './lib/yup-locale';
 import { router } from './routes';
 import './styles/index.css';

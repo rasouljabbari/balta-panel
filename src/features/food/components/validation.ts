@@ -1,8 +1,7 @@
 import * as yup from 'yup';
-import type { FoodFormValues } from '../type';
 
 
-export const foodSheetSchema: yup.ObjectSchema<FoodFormValues> = yup.object({
+export const foodSheetSchema = yup.object({
   name: yup.string().required('نام آیتم الزامی است'),
 
   meals: yup.array().of(

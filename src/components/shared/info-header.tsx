@@ -1,14 +1,15 @@
 import type { InfoHeaderProps } from "./type";
-
+import { cn } from "@/utils/cn";
 
 export default function InfoHeader({
   icon,
   title,
   description,
   children,
+  className,
 }: InfoHeaderProps) {
   return (
-    <div className="flex items-center justify-between w-full">
+    <div className={cn("flex items-center justify-between w-full", className)}>
       <div className="flex items-center gap-xl">
         <div className="flex-center border border-gray-light-200 w-10 h-10 rounded-lg">
           {icon}

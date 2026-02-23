@@ -1,5 +1,5 @@
 import type { GetMenusResponse, Menu } from "@/features/definition/type";
-import { getData, getFormDataPost } from "@/utils/api-methods/api-method-functions";
+import { getData, getFormDataPost } from "@/services/api-method-functions";
 
 export const getMenusService = async (): Promise<GetMenusResponse> => {
     return getData({

@@ -125,7 +125,7 @@ export interface CustomSelectProps {
   placeholder?: string;
   isMulti?: boolean;
   isDisabled?: boolean;
-  error?: string;
+  error?: any;
   label?: string;
   value?: Option | readonly Option[] | null;
   onChange?: (val: any) => void;
@@ -174,6 +174,7 @@ export interface InfoHeaderProps {
   title: string;
   description?: string;
   children?: ReactNode;
+<<<<<<< HEAD
 }
 
 
@@ -194,3 +195,7 @@ export type DownloadButtonProps = {
   url: string;
   fileName?: string;
 };
+=======
+  className?: string;
+}
+>>>>>>> ded917f38e6bd55a4b0c468f1362929bdc3d69e8
