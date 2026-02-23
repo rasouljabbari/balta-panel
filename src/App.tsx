@@ -6,29 +6,44 @@ import Sidebar from './components/layout/sidebar';
 import AddDriverModal from './features/drivers/components/add-driver-modal';
 import { useDisableScroll } from './hooks/use-disable-scroll';
 
-
 function App() {
   useDisableScroll();
 
+  // ------------------------
+  // State
+  // ------------------------
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
-  const [isAddDriverOpen, setIsAddDriverOpen] = useState(false); 
+  const [isAddDriverOpen, setIsAddDriverOpen] = useState(false);
 
-  const toggleMobileSidebar = () => {
-    setIsMobileSidebarOpen(!isMobileSidebarOpen);
-  };
+  // ------------------------
+  // Sidebar handlers
+  // ------------------------
+  const toggleMobileSidebar = () => setIsMobileSidebarOpen((prev) => !prev);
+  const closeMobileSidebar = () => setIsMobileSidebarOpen(false);
 
-  const closeMobileSidebar = () => {
-    setIsMobileSidebarOpen(false);
-  };
-
+  // ------------------------
+  // Route matches
+  // ------------------------
   const driversMatch = useMatch('/drivers/*');
   const driverDetailMatch = useMatch('/drivers/:id');
+  const contractEditMatch = useMatch('/contracts/edit/:id');
 
+  // ------------------------
+  // Derived flags
+  // ------------------------
   const isDriversPage = !!driversMatch;
   const isDriverDetailPage = !!driverDetailMatch;
+  const isContractEdit = !!contractEditMatch;
 
+  // ------------------------
+  // Dynamic padding for content
+  // ------------------------
+  const contentPadding =
+    isDriverDetailPage || isContractEdit ? '' : 'p-4 lg:p-7';
 
-
+  // ------------------------
+  // Render
+  // ------------------------
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Desktop Sidebar */}
@@ -44,6 +59,7 @@ function App() {
       />
 
       <main className="flex-1 flex flex-col h-screen overflow-hidden bg-gray-modern-50">
+        {/* Header */}
         <header className="sticky top-0 z-10 bg-white">
           <Header
             onMenuClick={toggleMobileSidebar}
@@ -60,14 +76,13 @@ function App() {
           />
         </header>
 
-        <div
-          className={`flex-1 overflow-y-auto ${
-            isDriverDetailPage ? '' : 'p-4 lg:p-7'
-          }`}
-        >
+        {/* Main Content */}
+        <div className={`flex-1 overflow-y-auto ${contentPadding}`}>
           <Outlet />
         </div>
       </main>
+
+      {/* Add Driver Modal */}
       <AddDriverModal
         isOpen={isAddDriverOpen}
         onClose={() => setIsAddDriverOpen(false)}

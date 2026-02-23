@@ -17,7 +17,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 
 stages: # List of stages for jobs, and their order of execution
-  # - test
+  - lint
   - deploy
 
 # unit-test-job: # This job runs in the test stage.
@@ -25,6 +25,17 @@ stages: # List of stages for jobs, and their order of execution
 #   script:
 #     - echo "Running unit tests... This will take about 60 seconds."
 #     - npm install && npm run test
+
+deploy-job: # This job runs in the deploy stage.
+  stage: lint # It only runs when *both* jobs in the test stage complete successfully.
+  environment: development
+  script:
+    - echo "checking..."
+    - pnpm install
+    - pnpm build
+    - echo "Not found any lint error"
+  only:
+    - dev
 
 deploy-job: # This job runs in the deploy stage.
   stage: deploy # It only runs when *both* jobs in the test stage complete successfully.

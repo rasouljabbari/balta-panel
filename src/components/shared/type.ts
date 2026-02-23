@@ -179,5 +179,23 @@ export interface InfoHeaderProps {
   title: string;
   description?: string;
   children?: ReactNode;
-  className?: string;
 }
+
+
+export type AccordionCardProps = {
+  title: string;
+  icon: ReactNode;
+  isOpen: boolean;
+  onToggle: () => void;
+  children: ReactNode;
+};
+
+export type ClearFiltersButtonProps = {
+  activeFiltersCount: number;
+  onClear: () => void;
+};
+
+export type DownloadButtonProps = {
+  url: string;
+  fileName?: string;
+};

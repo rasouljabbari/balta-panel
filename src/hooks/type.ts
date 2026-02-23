@@ -1,5 +1,6 @@
 import type { FieldValues, UseFormReset } from "react-hook-form";
 
+
 export interface IChatMessage {
   id: string;
   me: boolean;
@@ -19,3 +20,6 @@ export interface UseResetOnCloseProps<T extends FieldValues> {
   resetValues?: T;
 }
 
+export type ToggleState = {
+  [key: string]: boolean;
+};
