@@ -127,7 +127,7 @@ export interface CustomSelectProps {
   placeholder?: string;
   isMulti?: boolean;
   isDisabled?: boolean;
-  error?: string;
+  error?: any;
   label?: string;
   value?: Option | readonly Option[] | null;
   onChange?: (val: any) => void;
@@ -179,4 +179,5 @@ export interface InfoHeaderProps {
   title: string;
   description?: string;
   children?: ReactNode;
+  className?: string;
 }

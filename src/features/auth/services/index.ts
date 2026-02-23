@@ -1,6 +1,5 @@
 import type { LoginApiResponse } from '@/features/auth/type';
-
-const url = 'store/login-register';
+import { getData } from '@/services/api-method-functions';
 
 export const loginApi = async ({
   phone,
@@ -11,20 +10,11 @@ export const loginApi = async ({
 
   formData.append('phone', phone);
 
-  const response = await postFormDataHandler({
-    endPoint: url,
-    formData,
-    default_token: null,
+  return getData({
+    endPoint: 'admin/v1/login',
+    type: 'post',
+    dataParams: {
+      phone
+    },
   });
-
-  if (response && typeof response === 'object' && 'status' in response) {
-    if ('data' in response) {
-      return {
-        status: response.status,
-        data: response.data,
-      } as LoginApiResponse;
-    }
-  }
-
-  throw new Error('Unexpected response format from login API');
 };

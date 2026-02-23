@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { CirclePlus, X } from 'lucide-react';
-import { Controller, useForm } from 'react-hook-form';
-import { Button, Checkbox, Input, Switch, TextArea } from 'rg-dst';
-import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import CustomSelect from '@/components/shared/custom-select';
 import Sheet from '@/components/shared/sheet';
+import { useResetOnClose } from '@/hooks/use-reset-onClose';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CirclePlus, X } from 'lucide-react';
+import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Button, Checkbox, Input, Switch, TextArea } from 'rg-dst';
 import type { FoodFormValues, SheetFormProps } from '../type';
 import CategoriesSelect from './category-select';
 import { meal, weekDays } from './data';
@@ -40,12 +40,12 @@ export default function FoodSheet({
     setValue,
     reset,
     formState: { errors },
-  } = useForm<FoodFormValues>({
+  } = useForm<any>({
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(foodSheetSchema),
   });
 
-  const mapFoodToForm = (food: any): FoodFormValues => ({
+  const mapFoodToForm = (food: any): any => ({
     name: food.name ?? '',
     meals: food.meals ?? [],
     menus: food.menus ?? [],

@@ -1,5 +1,5 @@
 import { showUniqueErrorToast } from "@/helper/show-unique-error-toast";
-import { apiErrorHandler } from "@/utils/api-methods/api-error-handler";
+import { apiErrorHandler } from "@/services/api-error-handler";
 
 const NETWORK_ERROR_CODES = [
   'ERR_NETWORK',
