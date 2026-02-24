@@ -1,13 +1,14 @@
-import { useRef, useState } from 'react';
-import { cn } from '@/utils/cn';
-import { CirclePlus } from 'lucide-react';
-import { Button } from 'rg-dst';
-import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { Card, CardBody, CardHeader } from '@/components/shared/card';
 import SharedModal from '@/components/shared/custom-modal';
 import EmptyBox from '@/components/shared/empty-box';
 import ErrorBox from '@/components/shared/error-box';
+import ErrorsBox from '@/components/shared/errors-box';
 import { Skeleton } from '@/components/shared/skeleton-loader';
+import { useResetOnClose } from '@/hooks/use-reset-onClose';
+import { cn } from '@/utils/cn';
+import { CirclePlus } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Button } from 'rg-dst';
 import type { Item, ItemProps } from '../type';
 import DefinitionItemList from './item-list';
 
@@ -50,14 +51,14 @@ export default function DefinitionItem({
     setModalOpen(true);
   };
 
-const handleCloseModal = useResetOnClose({
-  reset: () => {}, 
-  resetValues: undefined, 
-  onClose: () => {
-    setModalOpen(false);
-    if (setServerValidationError) setServerValidationError(null); 
-  },
-});
+  const handleCloseModal = useResetOnClose({
+    reset: () => { },
+    resetValues: undefined,
+    onClose: () => {
+      setModalOpen(false);
+      if (setServerValidationError) setServerValidationError(null);
+    },
+  });
 
   const onSubmit = (data: Item) => {
     if (mode === 'add') {
@@ -139,6 +140,12 @@ const handleCloseModal = useResetOnClose({
           serverValidationError={serverValidationError}
           modalOpen={modalOpen}
         />
+
+        {
+          typeof serverValidationError?.error === 'string' &&
+          <ErrorsBox className='mt-6' errors={serverValidationError?.error as string} />
+        }
+
       </SharedModal>
     </>
   );
