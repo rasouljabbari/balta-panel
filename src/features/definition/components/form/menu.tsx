@@ -32,7 +32,7 @@ const MenuForm = forwardRef<{ submit: () => void }, MenuFormProps>(
 
     useEffect(() => {
       if (serverValidationError)
-        serverValidationError?.error?.validation_errors.forEach((err: any) => {
+        serverValidationError?.error?.validation_errors?.forEach((err: any) => {
           setError(err.field, {
             type: 'server',
             message: err.message,

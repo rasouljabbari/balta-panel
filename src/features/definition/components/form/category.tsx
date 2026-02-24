@@ -14,7 +14,6 @@ const tabs = [
 
 const CategoryForm = forwardRef<{ submit: () => void }, CategoryFormProps>(
   ({ defaultValues, onSubmit, serverValidationError }, ref) => {
-
     const { register, formState: { errors }, handleSubmit, control, setValue, setError } = useForm<addCategoryValuesTypes>({
       resolver: yupResolver(addCategoryResolver) as any,
       defaultValues:
@@ -27,7 +26,7 @@ const CategoryForm = forwardRef<{ submit: () => void }, CategoryFormProps>(
 
     useEffect(() => {
       if (serverValidationError)
-        serverValidationError?.error?.validation_errors.forEach((err: any) => {
+        serverValidationError?.error?.validation_errors?.forEach((err: any) => {
           setError(err.field, {
             type: 'server',
             message: err.message,

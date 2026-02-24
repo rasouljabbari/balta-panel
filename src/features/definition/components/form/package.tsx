@@ -20,7 +20,7 @@ const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
 
     useEffect(() => {
       if (serverValidationError)
-        serverValidationError?.error?.validation_errors.forEach((err: any) => {
+        serverValidationError?.error?.validation_errors?.forEach((err: any) => {
           setError(err.field, {
             type: 'server',
             message: err.message,
@@ -47,6 +47,7 @@ const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
 
         <div dir="ltr" className="dv-price-input">
           <Input
+            type="number"
             label="قیمت بسته‌بندی"
             leadingTextValue="تومان"
             inputType="leadingText"

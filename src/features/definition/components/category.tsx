@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useCategories, useChangeStatusCategory, useCreateCategory, useUpdateCategory } from '@/features/definition/hooks/category';
 import { CategoryIcon } from '@/components/icons/definition-icons';
+import { useCategories, useChangeStatusCategory, useCreateCategory, useUpdateCategory } from '@/features/definition/hooks/category';
+import { useState } from 'react';
 import type { Category } from '../type';
 import CategoryForm from './form/category';
 import DefinitionItem from './item';
@@ -11,18 +11,16 @@ export default function CategoryDefinition() {
   const [statusModalOpen, setStatusModalOpen] = useState(false);
   const [serverValidationError, setServerValidationError] = useState<any>(null);
 
-  
-
   const { data: categories = [], isLoading, isError } = useCategories();
 
-   const createCategoryServiceMutation = useCreateCategory(
-     setModalOpen,
-     setServerValidationError,
-   );
-   const updateCategoryServiceMutation = useUpdateCategory(
-     setModalOpen,
-     setServerValidationError,
-   );
+  const createCategoryServiceMutation = useCreateCategory(
+    setModalOpen,
+    setServerValidationError,
+  );
+  const updateCategoryServiceMutation = useUpdateCategory(
+    setModalOpen,
+    setServerValidationError,
+  );
   const changeStatusCategoryServiceMutation = useChangeStatusCategory(setStatusModalOpen)
 
   const handleAdd = (data: Category) => {
@@ -57,6 +55,6 @@ export default function CategoryDefinition() {
       changeStatusDirectly={(id: number) => changeStatusCategoryServiceMutation.mutate(id)}
       serverValidationError={serverValidationError}
       setServerValidationError={setServerValidationError}
-      />
+    />
   );
 }
