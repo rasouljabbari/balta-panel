@@ -8,9 +8,6 @@ import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
 import { handleResponse } from './response-handler';
 
-// Authentication token
-const AUTH_TOKEN = getCookie('auth_token');
-
 // Types for better type safety
 interface FormDataPostParams {
   endPoint: string;
@@ -175,6 +172,9 @@ export const getData = async ({
 
   // Determine authentication requirements
   const needsAuth = requiresAuthentication(endPoint);
+
+  const AUTH_TOKEN = getCookie('auth_token');
+
   const token = default_token ?? (isToken && needsAuth ? AUTH_TOKEN : null);
 
   const headers = constructHeaders(token, isHeaderJson);
@@ -216,6 +216,8 @@ export const submitFormData = async ({
   isHeaderJson = false,
   hasTenant = false,
 }: FormDataPostParams): Promise<any> => {
+  const AUTH_TOKEN = getCookie('auth_token');
+
   const token = default_token || AUTH_TOKEN;
   const headers = constructHeaders(token, isHeaderJson, hasTenant);
   const baseUrl = getBaseUrl(false);
