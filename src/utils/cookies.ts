@@ -27,3 +27,11 @@ export const getCookie = (name: string): string | undefined => {
 export const deleteCookie = (name: string) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
 };
+
+// Delete all cookies
+export const deleteAllCookie = () => {
+  document.cookie.split(';').forEach((cookie) => {
+    const name = cookie.split('=')[0].trim();
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  });
+};

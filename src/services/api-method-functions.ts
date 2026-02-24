@@ -1,15 +1,12 @@
 import { handleError } from '@/helper/handle-error';
 import type { GetData } from '@/types/api';
+import { API_MAIN_URL, CRM_API_URL, MAIN_URL } from '@/utils/config';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { getCookie } from '../utils/cookies';
 import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
 import { handleResponse } from './response-handler';
-
-// Environment configuration
-const MAIN_URL = import.meta.env.VITE_API_MAIN_URL;
-const AUTHENTICATION_URL = import.meta.env.VITE_API_AUTHENTICATION_URL;
 
 // Authentication token
 const AUTH_TOKEN = getCookie('auth_token');
@@ -55,8 +52,8 @@ const validateApiParams = (endPoint: string, type: string): void => {
 /**
  * Determines the appropriate base URL based on the endpoint
  */
-const getBaseUrl = (endPoint: string): string => {
-  return endPoint?.includes('connect/token') ? AUTHENTICATION_URL : MAIN_URL;
+const getBaseUrl = (isCrm: boolean): string => {
+  return isCrm ? CRM_API_URL : API_MAIN_URL;
 };
 
 /**
@@ -169,7 +166,7 @@ export const getData = async ({
   isToken = true,
   isHeaderJson = false,
   default_token = null,
-  hasTenant = false,
+  isCrm = false,
 }: GetData): Promise<any> => {
   // Validate input parameters
   validateApiParams(endPoint, type);
@@ -178,8 +175,8 @@ export const getData = async ({
   const needsAuth = requiresAuthentication(endPoint);
   const token = default_token ?? (isToken && needsAuth ? AUTH_TOKEN : null);
 
-  const headers = constructHeaders(token, isHeaderJson, hasTenant);
-  const baseUrl = getBaseUrl(endPoint);
+  const headers = constructHeaders(token, isHeaderJson);
+  const baseUrl = getBaseUrl(isCrm);
 
   switch (type.toLowerCase()) {
     case 'post':
@@ -216,11 +213,10 @@ export const getFormDataPost = async ({
   default_token = undefined,
   isHeaderJson = false,
   hasTenant = false,
-  hasExcel = false,
 }: FormDataPostParams): Promise<any> => {
   const url = MAIN_URL + endPoint;
   const token = default_token || AUTH_TOKEN;
-  const headers = constructHeaders(token, isHeaderJson, hasTenant, hasExcel);
+  const headers = constructHeaders(token, isHeaderJson, hasTenant);
 
   try {
     const response: AxiosResponse<any> = await axios[type](

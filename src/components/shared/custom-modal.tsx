@@ -1,7 +1,7 @@
+import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { cn } from '@/utils/cn';
 import { createPortal } from 'react-dom';
 import { Button } from 'rg-dst';
-import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { InfoCircleIcon } from '../icons/modal-icons';
 import type { SharedModalProps } from './type';
 
@@ -35,9 +35,8 @@ export default function SharedModal({
     >
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'
+          }`}
         onClick={onClose}
       />
 
@@ -71,6 +70,7 @@ export default function SharedModal({
                 type="button"
                 className="bg-base-white text-gray-light-700 border border-gray-light-300 hover:bg-base-white p-[10px] px-xl"
                 onClick={onClose}
+                aria-label="cancel-button"
               >
                 {cancelText}
               </Button>
@@ -87,6 +87,7 @@ export default function SharedModal({
                     confirmButtonType === 'button' ? onConfirm : undefined
                   }
                   disabled={confirmDisabled || isPending}
+                  aria-label="confirm-button"
                 >
                   {confirmText}
                 </Button>

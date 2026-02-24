@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { X } from 'lucide-react';
 import { KnifeForkIcon, SideBarIcon } from '@/components/icons/layout-icons';
 import type { SidebarProps } from '@/components/layout/sidebar/type';
+import { useEscapeKey } from '@/hooks/use-escape-key';
+import { X } from 'lucide-react';
+import { useEffect } from 'react';
 import SidebarInfoBox from './info-box';
 import SidebarLogoBox from './logo-box';
 import SidebarMenu from './menu';
-import { useEscapeKey } from '@/hooks/use-escape-key';
 
 export default function Sidebar({
   isMobileOpen = false,
@@ -44,9 +44,8 @@ export default function Sidebar({
         )}
 
         <div
-          className={`fixed top-0 right-0 h-screen w-[280px] bg-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden shadow-xl ${
-            isMobileOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className={`fixed top-0 right-0 h-screen w-[280px] bg-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden shadow-xl ${isMobileOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
         >
           <div className="flex flex-col h-full border-l border-gray-light-300">
             {/* Header */}
@@ -101,7 +100,7 @@ export default function Sidebar({
         <SidebarMenu />
       </div>
 
-      <div className="flex-shrink-0 pb-4xl flex flex-col px-3xl">
+      <div className="shrink-0 pb-4xl flex flex-col px-3xl">
         <SidebarInfoBox />
       </div>
     </div>

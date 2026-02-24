@@ -1,14 +1,11 @@
 import Image from '@/components/shared/image';
-import LoginPageContent from '@/features/auth/components/login/content';
-import { useDisableScroll } from '@/hooks/use-disable-scroll';
+import NewPasswordPageContent from '@/features/auth/components/new-password/content';
 
-export default function Login() {
-  useDisableScroll();
-
+export default function NewPasswordPage() {
   return (
     <div className="h-screen grid grid-cols-12 overflow-hidden">
-      <LoginPageContent />
-      <div className="hidden lg:block xl:col-span-5 col-span-12 h-full overflow-hidden p-5xl ps-0">
+      <NewPasswordPageContent />
+      <div className="hidden lg:block lg:col-span-5 h-full overflow-hidden p-5xl ps-0">
         <Image
           src="/assets/images/login.webp"
           alt="Login"
