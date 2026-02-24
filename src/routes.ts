@@ -1,8 +1,10 @@
 import App from '@/App';
 import Login from '@/pages/auth/login';
 import Dashboard from '@/pages/dashboard';
+import NotFound from '@/pages/not-found';
 import OrderPage from '@/pages/order';
-import { createBrowserRouter } from 'react-router-dom';
+import { getCookie } from '@/utils/cookies';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 import DriverDetail from './features/drivers/components/driver-detail';
 import DriverEditForm from './features/drivers/components/driver-edit-form';
 import ContractsPage from './pages/contracts';
@@ -28,29 +30,20 @@ import TableFood from './pages/food';
 // import UserLogsPage from './pages/user-logs.tsx';
 // import WeeklyPlan from './pages/weekly-plan.tsx';
 
-// const requireAuth = () => {
-//   const token = getCookie('auth_token');
+const requireAuth = () => {
+  const token = getCookie('auth_token');
 
-//   if (!token) {
-//     return redirect('/auth/login');
-//   }
-//   return null;
-// };
+  if (!token) {
+    return redirect('/auth/login');
+  }
+  return null;
+};
 
 export const router = createBrowserRouter([
-  // {
-  //   path: '/',
-  //   Component: App,
-  //   loader: requireAuth,
-  //   children: [
-  //     { index: true, Component: Dashboard },
-  //     { path: 'dashboard', Component: Dashboard },
-  //   ],
-  // },
   {
     path: '/',
     Component: App,
-    // children: [
+    loader: requireAuth,
     children: [
       { index: true, Component: Dashboard },
       { path: 'dashboard', Component: Dashboard },
@@ -65,18 +58,15 @@ export const router = createBrowserRouter([
       { path: 'drivers/edit/:id', Component: DriverEditForm },
       { path: 'orders', Component: OrderPage },
     ],
-    //   { path: 'new-ticket', Component: NewTicket },
-    //   { path: 'weekly-plan', Component: WeeklyPlan },
-    //   { path: 'notifications', Component: Notifications },
-    //   { path: 'announcements', Component: Announcements },
-    //   { path: 'order', Component: Order },
-    //   { path: 'ticket/new', Component: NewTicket },
-    // ],
   },
   {
     path: '/auth/login',
     Component: Login,
   },
+  {
+    path: '*',
+    Component: NotFound
+  }
 
   // {
   //   path: '/auth/forgot-password',
