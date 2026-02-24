@@ -184,7 +184,7 @@ export interface InfoHeaderProps {
 
 
 export type AccordionCardProps = {
-  title: string;
+  title: ReactNode;
   icon: ReactNode;
   isOpen: boolean;
   onToggle: () => void;

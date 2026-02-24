@@ -1,7 +1,9 @@
-import type { ValidationError } from '@/types/api';
 import { AxiosError } from 'axios';
+import type { ValidationError } from '@/types/api';
+
 
 export const apiErrorHandler = async (e: AxiosError): Promise<any> => {
+  console.log('e.response', e.response, extractErrorMessage(e.response?.data));
   return {
     status: e.response?.status ?? 422,
     error: extractErrorMessage(e.response?.data),

@@ -127,13 +127,12 @@ const makePutRequest = async (
 const makePatchRequest = async (
   baseUrl: string,
   endPoint: string,
-  dataParams: any,
   headers: any,
 ): Promise<any> => {
   try {
-    const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.patch(
-      `${baseUrl}${endPoint}${formData}`,
+      `${baseUrl}${endPoint}`,
+      null,
       headers,
     );
     return handleResponse(response);
@@ -197,7 +196,7 @@ export const getData = async ({
       return makePostRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'patch':
-      return makePatchRequest(baseUrl, endPoint, dataParams, headers);
+      return makePatchRequest(baseUrl, endPoint, headers);
     case 'delete':
       return makeDeleteRequest(baseUrl, endPoint, dataParams, headers);
 

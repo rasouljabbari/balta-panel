@@ -1,6 +1,7 @@
 import type { DateObject } from 'react-multi-date-picker';
 import * as yup from 'yup';
 import type { InferType } from 'yup';
+import { LETTERS } from './data';
 
 
 export const addDriverSchema = yup.object({
@@ -33,42 +34,8 @@ export const addDriverSchema = yup.object({
         .required('دو رقم اول الزامی است'),
       letter: yup
         .string()
-        .oneOf(
-          [
-            'ب',
-            'پ',
-            'ت',
-            'ث',
-            'ج',
-            'چ',
-            'ح',
-            'خ',
-            'د',
-            'ذ',
-            'ر',
-            'ز',
-            'ژ',
-            'س',
-            'ش',
-            'ص',
-            'ض',
-            'ط',
-            'ظ',
-            'ع',
-            'غ',
-            'ف',
-            'ق',
-            'ک',
-            'گ',
-            'ل',
-            'م',
-            'ن',
-            'و',
-            'ه',
-            'ی',
-          ],
-          'حرف وسط پلاک معتبر نیست',
-        )
+        .oneOf(LETTERS, 'حرف وسط پلاک معتبر نیست')
+
         .required('حرف وسط الزامی است'),
       second: yup
         .number()
@@ -84,9 +51,7 @@ export const addDriverSchema = yup.object({
     .required('پلاک خودرو الزامی است'),
 });
 
-// -----------------------------
-// نوع TypeScript فرم
-// -----------------------------
+
 export type FormValues = Omit<
   InferType<typeof addDriverSchema>,
   'birthDate' | 'plateNumber'
@@ -94,14 +59,12 @@ export type FormValues = Omit<
   birthDate: DateObject | null;
   plateNumber: {
     first: number;
-    letter: string; // allow any string here
+    letter: string; 
     second: number;
     state: number;
   };
 };
-// -----------------------------
-// مقدارهای پیش‌فرض فرم
-// -----------------------------
+
 export const addDriverDefaultValues: FormValues = {
   firstName: '',
   lastName: '',

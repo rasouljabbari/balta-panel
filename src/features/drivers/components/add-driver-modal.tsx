@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CirclePlus } from 'lucide-react';
@@ -19,31 +18,28 @@ export default function AddDriverModal({
   isOpen,
   onClose,
 }: AddDriverModalProps) {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<FormValues>({
-    resolver: yupResolver(addDriverSchema) as any,
-    defaultValues: addDriverDefaultValues,
-  });
-
+const {
+  control,
+  handleSubmit,
+  formState: { errors },
+  reset,
+} = useForm<FormValues>({
+  resolver: yupResolver(addDriverSchema) as any,
+  defaultValues: addDriverDefaultValues,
+});
   const handleClose = useResetOnClose({ reset, onClose });
-  const [serverError, setServerError] = useState<string | null>(null);
 
-const { mutate: createDriver, isPending } = useCreateDriver(
-  handleClose,
-  setServerError,
-);
-
+  const { mutate: createDriver, isPending } = useCreateDriver(handleClose);
+  
 const onSubmit: SubmitHandler<FormValues> = (data) => {
   const payload: CreateDriverPayload = {
     first_name: data.firstName.trim(),
     last_name: data.lastName.trim(),
     phone: data.mobile.trim(),
     national_id: data.nationalCode?.trim(),
-    birth_date: convertPersianToGregorian(data.birthDate),
+    birth_date: data.birthDate
+      ? convertPersianToGregorian(data.birthDate)
+      : undefined,
     gender:
       data.gender === 'male' || data.gender === 'female'
         ? data.gender
@@ -75,7 +71,6 @@ return (
     widthClass="w-[640px]"
   >
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-xl">
-   
 
       <div className="grid grid-cols-2 gap-xl px-3xl">
         {/* نام */}

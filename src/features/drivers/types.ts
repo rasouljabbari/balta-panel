@@ -136,3 +136,23 @@ export interface GetDriverByIdResponse {
   };
 }
 
+export interface PlateInputProps {
+  value?: { first: number; letter: string; second: number; state: number };
+  onChange?: (value: {
+    first: number;
+    letter: string;
+    second: number;
+    state: number;
+  }) => void;
+  error?: boolean;
+  errorText?: string;
+  required?: boolean;
+  label?: string;
+}
+
+export interface PlateParts {
+  part1: number;
+  part2: number;
+  letter: string;
+  part3: number;
+}

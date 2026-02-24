@@ -1,64 +1,22 @@
+;
 
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { FlagIcon } from '@/components/icons/drivers-icon';
+import type { PlateInputProps, PlateParts } from '../types';
+import { LETTERS } from './data';
 
 
-interface PlateInputProps {
-  value?: { first: number; letter: string; second: number; state: number };
-  onChange?: (value: {
-    first: number;
-    letter: string;
-    second: number;
-    state: number;
-  }) => void;
-  error?: boolean;
-  errorText?: string;
-  required?: boolean;
-  label?: string;
-}
+;
 
-interface PlateParts {
-  part1: number; 
-  part2: number; 
-  letter: string;
-  part3: number; 
-}
 
-const LETTERS = [
-  'ب',
-  'پ',
-  'ت',
-  'ث',
-  'ج',
-  'چ',
-  'ح',
-  'خ',
-  'د',
-  'ذ',
-  'ر',
-  'ز',
-  'ژ',
-  'س',
-  'ش',
-  'ص',
-  'ض',
-  'ط',
-  'ظ',
-  'ع',
-  'غ',
-  'ف',
-  'ق',
-  'ک',
-  'گ',
-  'ل',
-  'م',
-  'ن',
-  'و',
-  'ه',
-  'ی',
-];
+
+
+
+
+
+
 
 export default function PlateInput({
   value,
@@ -67,7 +25,8 @@ export default function PlateInput({
   errorText,
   required,
   label,
-}: PlateInputProps) {
+  showFlag = true,
+}: PlateInputProps & { showFlag?: boolean }) {
   const [plate, setPlate] = useState<PlateParts>({
     part1: value?.first ?? 0,
     part2: value?.second ?? 0,
@@ -78,7 +37,6 @@ export default function PlateInput({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  
   const handleChange = (key: keyof PlateParts, val: string) => {
     setPlate((prev) => {
       const newPlate =
@@ -105,18 +63,16 @@ export default function PlateInput({
     });
   };
 
-
- useEffect(() => {
-   if (value) {
-     setPlate({
-       part1: Number(value.first) || 0,
-       part2: Number(value.second) || 0,
-       letter: value.letter || 'ب',
-       part3: Number(value.state) || 0,
-     });
-   }
- }, [value]);
-
+  useEffect(() => {
+    if (value) {
+      setPlate({
+        part1: Number(value.first) || 0,
+        part2: Number(value.second) || 0,
+        letter: value.letter || 'ب',
+        part3: Number(value.state) || 0,
+      });
+    }
+  }, [value]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -134,7 +90,7 @@ export default function PlateInput({
   return (
     <div className="flex flex-col gap-0.5 relative">
       {label && (
-        <label className="text-sm text-gray-light-700 flex items-center gap-1">
+        <label className="text-gray-light-900 text-sm flex items-center gap-1">
           {label} {required && <span className="text-red-500">*</span>}
         </label>
       )}
@@ -164,7 +120,7 @@ export default function PlateInput({
               if (val.length > 3) val = val.slice(0, 3);
               handleChange('part2', val);
             }}
-            className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-[56px] h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
           />
 
           <div className="relative" ref={dropdownRef}>
@@ -178,7 +134,7 @@ export default function PlateInput({
             </button>
 
             {dropdownOpen && (
-              <div className="absolute top-full mt-1 left-0 bg-white border border-gray-300 rounded shadow-md z-50 max-h-40 overflow-y-auto">
+              <div className="absolute top-full mt-1 left-0 bg-white border border-gray-300 rounded shadow-md z-50 w-15 max-h-40 overflow-y-auto">
                 {LETTERS.map((l) => (
                   <div
                     key={l}
@@ -198,16 +154,18 @@ export default function PlateInput({
             value={plate.part3 === 0 ? '' : plate.part3}
             onChange={(e) => {
               let val = e.target.value;
-              if (val.length > 2) val = val.slice(0, 2); 
+              if (val.length > 2) val = val.slice(0, 2);
               handleChange('part3', val);
             }}
             className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
           />
         </div>
 
-        <div className="bg-gray-light-100 h-10 w-10 flex-center rounded-md">
-          <FlagIcon />
-        </div>
+        {showFlag && (
+          <div className="bg-gray-light-100 h-10 w-10 flex-center rounded-md">
+            <FlagIcon />
+          </div>
+        )}
       </div>
 
       {error && errorText && (

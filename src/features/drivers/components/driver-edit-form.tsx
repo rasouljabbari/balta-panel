@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { User } from 'lucide-react';
 import DateObject from 'react-date-object';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Button, Input } from 'rg-dst';
@@ -11,54 +13,18 @@ import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
 import { useDriverById, useEditDriverPage } from '../hook/drivers';
+import { LETTERS } from './data';
 import PlateInput from './plate-input';
 import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
-import persian from 'react-date-object/calendars/persian';
-import persian_fa from 'react-date-object/locales/persian_fa';
-
-
-const LETTERS = [
-  'ب',
-  'پ',
-  'ت',
-  'ث',
-  'ج',
-  'چ',
-  'ح',
-  'خ',
-  'د',
-  'ذ',
-  'ر',
-  'ز',
-  'ژ',
-  'س',
-  'ش',
-  'ص',
-  'ض',
-  'ط',
-  'ظ',
-  'ع',
-  'غ',
-  'ف',
-  'ق',
-  'ک',
-  'گ',
-  'ل',
-  'م',
-  'ن',
-  'و',
-  'ه',
-  'ی',
-];
+import { Skeleton } from '@/components/shared/skeleton-loader';
 
 
 export default function DriverEditForm() {
   const { id } = useParams();
   const { data: driver, isLoading } = useDriverById(id);
   
-   const [serverError, setServerError] = useState<string | null>(null);
 
-   const editDriverMutation = useEditDriverPage(setServerError);
+   const editDriverMutation = useEditDriverPage();
   const {
   reset,
   control,
@@ -110,9 +76,11 @@ useEffect(() => {
         last_name: data.lastName,
         phone: data.mobile,
         national_id: data.nationalCode,
-        birth_date: convertPersianToGregorian(data.birthDate),
+        birth_date: data.birthDate
+          ? convertPersianToGregorian(data.birthDate)
+          : undefined,
         gender: data.gender,
-        joined_at: driver.joined_at,
+        joined_at: driver.joined_at ?? undefined,
         car_type: data.carType,
         car_plate: {
           first: data.plateNumber.first.toString(),
@@ -125,9 +93,29 @@ useEffect(() => {
   };
 
 
-if (isLoading || !driver) {
-  return <div>در حال بارگذاری اطلاعات راننده...</div>;
-}
+  if (isLoading || !driver) {
+    return (
+      <div className="p-7">
+        <Card className="p-0">
+          <CardHeader>
+            <Skeleton className="h-6 w-1/3 mb-2" />
+            <Skeleton className="h-4 w-2/3" />
+          </CardHeader>
+          <div className="p-3xl space-y-5">
+            {Array.from({ length: 8 }).map((_, idx) => (
+              <div key={idx} className="flex gap-5">
+                <Skeleton className="w-1/2 h-10" rounded="md" />
+                <Skeleton className="w-1/2 h-10" rounded="md" />
+              </div>
+            ))}
+            <div className="flex justify-start gap-5">
+              <Skeleton className="w-32 h-10" rounded="md" />
+            </div>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="p-7">
@@ -265,6 +253,7 @@ if (isLoading || !driver) {
                   label="پلاک خودرو"
                   error={!!errors.plateNumber}
                   errorText={errors.plateNumber?.message}
+                  showFlag={false}
                 />
               )}
             />

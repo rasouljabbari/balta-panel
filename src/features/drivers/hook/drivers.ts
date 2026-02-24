@@ -16,18 +16,16 @@ export const useCreateDriver = (
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
-
       closeModal();
-
       setServerValidationError?.(null);
     },
 
     onError: (error: any) => {
-      setServerValidationError?.(error?.message || 'خطایی رخ داد');
+      const serverError = error?.response?.data || error;
+      setServerValidationError?.(serverError);
     },
   });
 };
-
 export const useEditDriverPage = (
   setServerValidationError?: (err: any) => void,
 ) => {
