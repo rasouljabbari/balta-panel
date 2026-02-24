@@ -5,7 +5,6 @@ import { loginValidationSchema } from '@/features/auth/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 import { Button, Input } from 'rg-dst';
 
 
@@ -48,7 +47,7 @@ export default function LoginForm() {
         <Input
           {...register('identification_code')}
           label="کدملی"
-          type="text"
+          type="number"
           placeholder="کدملی را وارد کنید"
           destructive={errors.identification_code?.message}
           destructiveText={errors.identification_code?.message}
@@ -71,9 +70,9 @@ export default function LoginForm() {
         />
       </div>
 
-      <Link to="/auth/forgot-password" className="text-gray-light-600 flex justify-center text-sm font-normal">
+      {/* <Link to="/auth/forgot-password" className="text-gray-light-600 flex justify-center text-sm font-normal">
         فراموشی رمزعبور
-      </Link>
+      </Link> */}
 
       <ErrorsBox errors={serverError as string} />
 
@@ -83,7 +82,7 @@ export default function LoginForm() {
         size="md"
         fullWidth
         loading={isSubmitting || isPending}
-        className='bg-rbg-brand-solid'
+        className='bg-rbg-brand-solid mt-8'
         aria-label="submit-button"
       >
         ورود
