@@ -26,7 +26,7 @@ export type GetData = {
   isToken?: boolean;
   isHeaderJson?: boolean;
   default_token?: string | null;
-  hasTenant?: boolean;
+  isCrm?: boolean;
 };
 
 export type PostFormData = {
@@ -47,6 +47,21 @@ export interface serverValidationErrorProps {
   error: {
     type: string;
     message: string;
-    validation_errors: {filed: string, message: string}[]
+    validation_errors: { filed: string, message: string }[]
   }
+}
+
+export interface ValidationError {
+  field: string;
+  message: string;
+}
+
+export interface ApiErrorResponse {
+  error?: {
+    type?: string;
+    status?: number;
+    message?: string;
+    timestamp?: string;
+    validation_errors?: ValidationError[];
+  };
 }

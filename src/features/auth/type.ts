@@ -1,20 +1,34 @@
-export interface LoginFormData {
-  phone_number: string;
+import type { FieldErrors, FieldValues, UseFormRegister, UseFormWatch } from "react-hook-form";
+
+export interface LoginFormValues {
+  identification_code: string;
+  password: string;
 }
 
-export interface LoginApiResponseData {
-  already_registered: boolean;
-  phone: string | null;
-  success: boolean;
-  time: number | null;
+export interface ForgotPasswordFormValues {
+  phone: string;
 }
 
-export interface LoginApiResponse {
-  status: number;
-  data: LoginApiResponseData;
+export interface VerifyCodeFormValues {
+  code: string;
 }
 
-export interface LoginFormProps {
-  onSubmit: (data: LoginFormData) => void;
-  isLoading?: boolean;
+export interface ResetPasswordFormValues {
+  password: string;
+  password_confirmation: string;
 }
+
+export interface ForgetUsernameFormValues {
+  phone: string;
+}
+
+export interface NewPasswordFormValues {
+  password: string;
+  password_confirmation: string;
+}
+
+export type PasswordFieldsProps<T extends FieldValues> = {
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  watch: UseFormWatch<T>;
+};

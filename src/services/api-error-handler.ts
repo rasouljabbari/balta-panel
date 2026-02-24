@@ -1,46 +1,32 @@
+import type { ValidationError } from '@/types/api';
 import { AxiosError } from 'axios';
 
-export const apiErrorHandler = async (e: AxiosError) => {
-  const status = e.response?.status ?? 500;
-  const data = e.response?.data as any;
-
-  // ✅ Validation error (422)
-  if (status === 422 && data?.error?.validation_errors) {
-    return {
-      status,
-      error: {
-        type: data.error.type,
-        message: data.error.message,
-        validation_errors: data.error.validation_errors,
-      },
-    };
-  }
-
-  // 404
-  if (status === 404) {
-    return {
-      status,
-      error: {
-        message: 'Api Route Not Found',
-      },
-    };
-  }
-
-  // Network error
-  if (!e.response) {
-    return {
-      status: 500,
-      error: {
-        message: 'Network error. Please check your connection.',
-      },
-    };
-  }
-
-  // Fallback
+export const apiErrorHandler = async (e: AxiosError): Promise<any> => {
   return {
-    status,
-    error: {
-      message: `Server error (status code : ${status})`,
-    },
+    status: e.response?.status ?? 422,
+    error: extractErrorMessage(e.response?.data),
   };
+};
+
+export const extractErrorMessage = (err: any): string => {
+  return (
+    err?.error?.message ||
+    err?.data?.message ||
+    err?.response?.data?.message ||
+    err?.response?.data?.error?.message ||
+    'ورود با خطا مواجه شد. دوباره تلاش کنید.'
+  );
+};
+
+export const extractValidationErrors = (err: any): ValidationError[] => {
+  const errorData = err?.response?.data || err?.data || err;
+
+  if (
+    errorData?.error?.validation_errors &&
+    Array.isArray(errorData.error.validation_errors)
+  ) {
+    return errorData.error.validation_errors;
+  }
+
+  return [];
 };

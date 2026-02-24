@@ -1,11 +1,10 @@
 import type { GetPackageResponse, Package } from "@/features/definition/type";
-import { getData, getFormDataPost } from "@/services/api-method-functions";
+import { getData, submitFormData } from "@/services/api-method-functions";
 
 export const getPackagesService = async (): Promise<GetPackageResponse> => {
     return getData({
         endPoint: 'admin/v1/definitions/packaging',
-        type: 'get',
-        hasTenant: true,
+        type: 'get'
     });
 };
 
@@ -21,7 +20,7 @@ export const createPackageService = async (payload: Package) => {
 };
 
 export const updatePackageService = async (payload: Package) => {
-    return getFormDataPost({
+    return submitFormData({
         endPoint: `admin/v1/definitions/packaging/${payload.id}`,
         type: 'put',
         formData: payload,

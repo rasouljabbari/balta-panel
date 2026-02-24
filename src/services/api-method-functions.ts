@@ -1,4 +1,9 @@
 import { handleError } from '@/helper/handle-error';
+<<<<<<< HEAD
+=======
+import type { GetData } from '@/types/api';
+import { API_MAIN_URL, CRM_API_URL } from '@/utils/config';
+>>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import type { GetData } from '@/types/api';
@@ -7,11 +12,14 @@ import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
 import { handleResponse } from './response-handler';
 
+<<<<<<< HEAD
 
 // Environment configuration
 const MAIN_URL = import.meta.env.VITE_API_MAIN_URL;
 const AUTHENTICATION_URL = import.meta.env.VITE_API_AUTHENTICATION_URL;
 
+=======
+>>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 // Authentication token
 const AUTH_TOKEN = getCookie('auth_token');
 
@@ -30,7 +38,7 @@ interface FormDataPostParams {
  * Utility function to determine if an endpoint requires authentication
  */
 const requiresAuthentication = (endPoint: string): boolean => {
-  const publicEndpoints = ['connect/token', 'register', 'forgot-password'];
+  const publicEndpoints = ['auth/login', 'register', 'forgot-password'];
   return !publicEndpoints.some((publicEndpoint) =>
     endPoint.includes(publicEndpoint),
   );
@@ -56,8 +64,8 @@ const validateApiParams = (endPoint: string, type: string): void => {
 /**
  * Determines the appropriate base URL based on the endpoint
  */
-const getBaseUrl = (endPoint: string): string => {
-  return endPoint?.includes('connect/token') ? AUTHENTICATION_URL : MAIN_URL;
+const getBaseUrl = (isCrm: boolean): string => {
+  return isCrm ? CRM_API_URL : API_MAIN_URL;
 };
 
 /**
@@ -119,6 +127,7 @@ const makeDeleteRequest = async (
  * Makes a PATCH request
  */
 const makePatchRequest = async (
+  baseUrl: string,
   endPoint: string,
   dataParams: any,
   headers: any,
@@ -126,8 +135,7 @@ const makePatchRequest = async (
   try {
     const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.patch(
-      `${MAIN_URL}${endPoint}${formData}`,
-      null,
+      `${baseUrl}${endPoint}${formData}`,
       headers,
     );
     return handleResponse(response);
@@ -141,6 +149,7 @@ const makePatchRequest = async (
  * Makes a GET request
  */
 const makeGetRequest = async (
+  baseUrl: string,
   endPoint: string,
   dataParams: any,
   headers: any,
@@ -148,7 +157,7 @@ const makeGetRequest = async (
   try {
     const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.get(
-      `${MAIN_URL}${endPoint}${formData}`,
+      `${baseUrl}${endPoint}${formData}`,
       headers,
     );
     return handleResponse(response);
@@ -171,7 +180,7 @@ export const getData = async ({
   isToken = true,
   isHeaderJson = false,
   default_token = null,
-  hasTenant = false,
+  isCrm = false,
 }: GetData): Promise<any> => {
   // Validate input parameters
   validateApiParams(endPoint, type);
@@ -179,9 +188,15 @@ export const getData = async ({
   // Determine authentication requirements
   const needsAuth = requiresAuthentication(endPoint);
   const token = default_token ?? (isToken && needsAuth ? AUTH_TOKEN : null);
+<<<<<<< HEAD
 console.log(token)
   const headers = constructHeaders(token, isHeaderJson, hasTenant);
   const baseUrl = getBaseUrl(endPoint);
+=======
+
+  const headers = constructHeaders(token, isHeaderJson);
+  const baseUrl = getBaseUrl(isCrm);
+>>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 
   console.log(headers)
 
@@ -199,11 +214,11 @@ console.log(token)
       return makeDeleteRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'patch':
-      return makePatchRequest(endPoint, dataParams, headers);
+      return makePatchRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'get':
     default:
-      return makeGetRequest(endPoint, dataParams, headers);
+      return makeGetRequest(baseUrl, endPoint, dataParams, headers);
   }
 };
 
@@ -213,22 +228,21 @@ console.log(token)
  * @param params - Configuration object for the form data request
  * @returns Promise resolving to the API response
  */
-export const getFormDataPost = async ({
+export const submitFormData = async ({
   endPoint,
   formData,
   type = 'post',
   default_token = undefined,
   isHeaderJson = false,
   hasTenant = false,
-  hasExcel = false,
 }: FormDataPostParams): Promise<any> => {
-  const url = MAIN_URL + endPoint;
   const token = default_token || AUTH_TOKEN;
-  const headers = constructHeaders(token, isHeaderJson, hasTenant, hasExcel);
+  const headers = constructHeaders(token, isHeaderJson, hasTenant);
+  const baseUrl = getBaseUrl(false);
 
   try {
     const response: AxiosResponse<any> = await axios[type](
-      url,
+      baseUrl + endPoint,
       formData,
       headers,
     );
@@ -237,6 +251,7 @@ export const getFormDataPost = async ({
     await handleError(error);
     return Promise.reject(error);
   }
+<<<<<<< HEAD
 };
 
 /**
@@ -301,4 +316,6 @@ export const apiUpload = async (
     type: 'post',
     ...options,
   });
+=======
+>>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 };
