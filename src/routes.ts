@@ -1,14 +1,15 @@
 import App from '@/App';
 import Login from '@/pages/auth/login';
+import Dashboard from '@/pages/dashboard';
+import OrderPage from '@/pages/order';
 import { createBrowserRouter } from 'react-router-dom';
-import ContractsPage from './pages/contracts';
 import DriverDetail from './features/drivers/components/driver-detail';
+import DriverEditForm from './features/drivers/components/driver-edit-form';
+import ContractsPage from './pages/contracts';
 import DefinitionPage from './pages/definition';
 import DeriversPage from './pages/drivers';
-import TableFood from './pages/food';
 import EditContract from './pages/edit-contracts';
-import DriverEditForm from './features/drivers/components/driver-edit-form';
-import OrderPage from '@/pages/order'
+import TableFood from './pages/food';
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -51,8 +52,8 @@ export const router = createBrowserRouter([
     Component: App,
     // children: [
     children: [
-      // { index: true, Component: Dashboard },
-      // { path: 'dashboard', Component: Dashboard },
+      { index: true, Component: Dashboard },
+      { path: 'dashboard', Component: Dashboard },
       { path: '/definition', Component: DefinitionPage },
       { path: '/foods', Component: TableFood },
       { path: '/contracts', Component: ContractsPage },
@@ -76,8 +77,6 @@ export const router = createBrowserRouter([
     path: '/auth/login',
     Component: Login,
   },
-
-  // TODO: remove this after testing
 
   // {
   //   path: '/auth/forgot-password',

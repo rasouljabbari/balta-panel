@@ -195,3 +195,23 @@ export type DownloadButtonProps = {
   url: string;
   fileName?: string;
 };
+
+export interface ErrorsBoxProps {
+  errors?: string | string[] | null;
+  title?: string;
+  variant?: 'default' | 'compact';
+  className?: string;
+  icon?: ReactNode;
+}
+
+export interface OTPInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  'size' | 'value' | 'onChange'
+> {
+  length?: number;
+  value: string;
+  onChange: (value: string) => void;
+  onComplete?: (value: string) => void;
+  error?: string;
+  className?: string;
+}
