@@ -1,10 +1,12 @@
 import { handleError } from '@/helper/handle-error';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
+import type { GetData } from '@/types/api';
 import { getCookie } from '../utils/cookies';
 import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
 import { handleResponse } from './response-handler';
+
 
 // Environment configuration
 const MAIN_URL = import.meta.env.VITE_API_MAIN_URL;
@@ -125,6 +127,7 @@ const makePatchRequest = async (
     const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.patch(
       `${MAIN_URL}${endPoint}${formData}`,
+      null,
       headers,
     );
     return handleResponse(response);
@@ -176,9 +179,11 @@ export const getData = async ({
   // Determine authentication requirements
   const needsAuth = requiresAuthentication(endPoint);
   const token = default_token ?? (isToken && needsAuth ? AUTH_TOKEN : null);
-
+console.log(token)
   const headers = constructHeaders(token, isHeaderJson, hasTenant);
   const baseUrl = getBaseUrl(endPoint);
+
+  console.log(headers)
 
   switch (type.toLowerCase()) {
     case 'post':

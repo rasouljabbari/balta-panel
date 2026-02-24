@@ -25,7 +25,10 @@ function App() {
   // Route matches
   // ------------------------
   const driversMatch = useMatch('/drivers/*');
+
   const driverDetailMatch = useMatch('/drivers/:id');
+  const driverEditMatch = useMatch('/drivers/edit/:id'); 
+
   const contractEditMatch = useMatch('/contracts/edit/:id');
 
   // ------------------------
@@ -33,13 +36,22 @@ function App() {
   // ------------------------
   const isDriversPage = !!driversMatch;
   const isDriverDetailPage = !!driverDetailMatch;
+  const isDriverEditPage = !!driverEditMatch;
+
   const isContractEdit = !!contractEditMatch;
 
   // ------------------------
-  // Dynamic padding for content
+  // Driver ID (detail + edit)
+  // ------------------------
+  const driverId = driverDetailMatch?.params.id || driverEditMatch?.params.id;
+
+  // ------------------------
+  // Dynamic padding
   // ------------------------
   const contentPadding =
-    isDriverDetailPage || isContractEdit ? '' : 'p-4 lg:p-7';
+    isDriverDetailPage || isDriverEditPage || isContractEdit
+      ? ''
+      : 'p-4 lg:p-7';
 
   // ------------------------
   // Render
@@ -62,6 +74,7 @@ function App() {
         {/* Header */}
         <header className="sticky top-0 z-10 bg-white">
           <Header
+            driverId={driverId ? Number(driverId) : undefined}
             onMenuClick={toggleMobileSidebar}
             actionButton={
               isDriversPage

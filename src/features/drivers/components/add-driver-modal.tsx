@@ -32,17 +32,17 @@ export default function AddDriverModal({
   const handleClose = useResetOnClose({ reset, onClose });
   const [serverError, setServerError] = useState<string | null>(null);
 
-  const { mutate: createDriver, isPending } = useCreateDriver(
-    (modalOpen: boolean) => modalOpen && handleClose(),
-    setServerError,
-  );
+const { mutate: createDriver, isPending } = useCreateDriver(
+  handleClose,
+  setServerError,
+);
 
 const onSubmit: SubmitHandler<FormValues> = (data) => {
   const payload: CreateDriverPayload = {
     first_name: data.firstName.trim(),
     last_name: data.lastName.trim(),
     phone: data.mobile.trim(),
-    national_id: data.nationalCode?.trim() || undefined,
+    national_id: data.nationalCode?.trim(),
     birth_date: convertPersianToGregorian(data.birthDate),
     gender:
       data.gender === 'male' || data.gender === 'female'
@@ -51,13 +51,14 @@ const onSubmit: SubmitHandler<FormValues> = (data) => {
     car_type: data.carType?.trim() || undefined,
     car_plate: data.plateNumber
       ? {
-          first: data.plateNumber.first,
+          first: String(data.plateNumber.first),
           letter: data.plateNumber.letter,
-          second: data.plateNumber.second,
-          state: data.plateNumber.state,
+          second: String(data.plateNumber.second),
+          state: String(data.plateNumber.state),
         }
       : undefined,
   };
+
 console.log('Payload to API:', JSON.stringify(payload, null, 2));  createDriver(payload);
 };
 

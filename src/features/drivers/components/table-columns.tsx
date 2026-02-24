@@ -1,19 +1,19 @@
-import { Eye } from 'lucide-react';
 import { Badge, TooltipWrapper } from 'rg-dst';
 import type { TableColumn } from '@/components/shared/table';
-import type { DriverItem, DriverResponse } from '../types';
+import type { DriverItem } from '../types';
+import { Eye } from 'lucide-react';
 
 
 export const driverTableColumns = (
-  onAllocatedOrders: (row: DriverResponse) => void,
-): TableColumn<DriverResponse>[] => [
+  onAllocatedOrders: (row: DriverItem) => void,
+): TableColumn<DriverItem>[] => [
   {
     id: 'id',
     label: 'کد راننده',
     accessor: (row) => row.id,
   },
   {
-    id: 'نام و نام خانوادگی',
+    id: 'fullName',
     label: 'نام راننده',
     accessor: (row) => row.fullName,
   },
@@ -22,7 +22,6 @@ export const driverTableColumns = (
     label: 'نوع خودرو',
     accessor: (row) => row.vehicleType,
   },
-
   {
     id: 'plate',
     label: 'پلاک خودرو',

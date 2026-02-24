@@ -1,4 +1,63 @@
+export interface DriverTableProps {
+  data: DriverItem[];
+  onAllocatedOrders: (driver: DriverItem) => void;
+}
 
+export interface AddDriverModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+// ===============================
+// 1️⃣ آیتم خامی که از API لیست میاد
+// ===============================
+export interface DriverApiItem {
+  id: number;
+  first_name: string;
+  last_name: string;
+  birth_date: string;
+  phone: string;
+  national_id: string;
+  car_type: string;
+  car_plate: {
+    first: string;
+    letter: string;
+    second: string;
+    state: string;
+  } | null;
+  description?: string | null;
+  joined_at?: string | null;
+  user_code?: string | null;
+  is_active: boolean;
+  gender: 'male' | 'female';
+  gender_translation: string;
+}
+
+// ===============================
+// 2️⃣ Meta اطلاعات صفحه‌بندی
+// ===============================
+export interface DriversMeta {
+  current_page: number;
+  last_page: number;
+  per_page: number;
+  total: number;
+}
+
+// ===============================
+// 3️⃣ پاسخ API لیست راننده‌ها
+// ===============================
+export interface GetDriversResponse {
+  status: 'success' | 'error';
+  message: string;
+  data: {
+    drivers: DriverApiItem[];
+    meta: DriversMeta;
+  };
+}
+
+// ===============================
+// 4️⃣ تایپ مخصوص جدول (ViewModel)
+// ===============================
 export interface DriverItem {
   id: number;
   fullName: string;
@@ -8,24 +67,17 @@ export interface DriverItem {
   status: 'active' | 'inactive';
 }
 
+// ===============================
+// 5️⃣ Props جدول
+// ===============================
 export interface DriverTableProps {
   data: DriverItem[];
   onAllocatedOrders: (driver: DriverItem) => void;
 }
 
-
-
-export interface AddDriverModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-
-export interface DriverTableHeaderProps {
-  count: number;
-}
-
-
+// ===============================
+// 6️⃣ ساخت Payload ساخت راننده
+// ===============================
 export interface CreateDriverPayload {
   first_name: string;
   last_name: string;
@@ -34,10 +86,10 @@ export interface CreateDriverPayload {
   national_id?: string;
   car_type?: string;
   car_plate?: {
-    first?: number;
+    first?: string;
     letter?: string;
-    second?: number;
-    state?: number;
+    second?: string;
+    state?: string;
   };
   description?: string;
   joined_at?: string;
@@ -46,46 +98,41 @@ export interface CreateDriverPayload {
   gender?: 'male' | 'female';
 }
 
-export interface DriverResponse {
+export interface CreateDriverResponse {
   status: 'success' | 'error';
   message: string;
   data: {
-    driver: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      birth_date: string;
-      phone: string;
-      national_id: string;
-      car_type: string;
-      car_plate: string;
-      description?: string;
-      joined_at?: string;
-      user_code?: string;
-      is_active: boolean;
-      gender: 'male' | 'female';
-      gender_translation: string;
-    };
+    driver: DriverApiItem; 
   };
 }
 
-
-
-export interface DriversMeta {
-  current_page: number;
-  from: number;
-  last_page: number;
-  per_page: number;
-  to: number;
-  total: number;
+export interface DriverDetail {
+  id: number;
+  first_name: string;
+  last_name: string;
+  birth_date: string;
+  phone: string;
+  national_id: string;
+  car_type: string;
+  car_plate: {
+    first: string;
+    letter: string;
+    second: string;
+    state: string;
+  } | null;
+  description?: string | null;
+  joined_at?: string | null;
+  user_code?: string | null;
+  is_active: boolean;
+  gender: 'male' | 'female';
+  gender_translation: string;
 }
 
-export interface GetDriversResponse {
-  status: string;
+export interface GetDriverByIdResponse {
+  status: 'success' | 'error';
   message: string;
   data: {
-    drivers: DriverResponse[];
-    meta: DriversMeta;
+    driver: DriverDetail;
   };
 }
 

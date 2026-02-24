@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+
 export interface HeaderActionButton {
   label: string;
   onClick: () => void;
@@ -55,4 +56,6 @@ export interface HeaderInfoResult {
   description?: string;
   showBackButton: boolean;
   driver?: Driver;
+  isDriverEdit: boolean;
+  isDriverDetail: boolean;
 }

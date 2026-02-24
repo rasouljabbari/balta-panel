@@ -1,3 +1,4 @@
+import type { DateObject } from 'react-multi-date-picker';
 import * as yup from 'yup';
 import type { InferType } from 'yup';
 
@@ -15,8 +16,7 @@ export const addDriverSchema = yup.object({
     .matches(/^\d{10}$/, 'کد ملی باید ۱۰ رقم باشد')
     .required('کد ملی الزامی است'),
 
-  birthDate: yup.string().required('تاریخ تولد الزامی است'),
-
+  birthDate: yup.mixed().nullable().required('تاریخ تولد الزامی است'),
   gender: yup
     .string()
     .oneOf(['male', 'female'], 'جنسیت را انتخاب کنید')
@@ -87,8 +87,12 @@ export const addDriverSchema = yup.object({
 // -----------------------------
 // نوع TypeScript فرم
 // -----------------------------
-export type FormValues = InferType<typeof addDriverSchema>;
-
+export type FormValues = Omit<
+  InferType<typeof addDriverSchema>,
+  'birthDate'
+> & {
+  birthDate: DateObject | null;
+};
 // -----------------------------
 // مقدارهای پیش‌فرض فرم
 // -----------------------------
