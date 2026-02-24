@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import type { SidebarMenuItemProps } from '@/components/layout/sidebar/type';
 import { cn } from '@/utils/cn';
 import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import type { SidebarMenuItemProps } from '@/components/layout/sidebar/type';
 
 export default function SidebarMenuItem({
   icon,
@@ -13,7 +13,7 @@ export default function SidebarMenuItem({
   isChild = false,
   onItemClick,
 }: SidebarMenuItemProps) {
-  
+
   const pathname = useLocation().pathname;
 
   const [isHover, setIsHover] = useState(false);
@@ -98,6 +98,7 @@ export default function SidebarMenuItem({
     >
       <Link
         to={to || '#'}
+        aria-label={to}
         onClick={onItemClick}
         className={cn(
           'py-2 px-3 flex items-center gap-3 hover:text-utility-brand-600 hover:bg-rbg-brand-primary/60 rounded-lg transition-all duration-200',
