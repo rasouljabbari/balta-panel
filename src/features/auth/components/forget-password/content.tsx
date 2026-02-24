@@ -1,5 +1,5 @@
+import Image from '@/components/shared/image';
 import ForgetPasswordForm from '@/features/auth/components/forget-password/form';
-import Image from '@/components/ui/image';
 
 
 export default function ForgetPasswordPageContent() {
@@ -8,7 +8,7 @@ export default function ForgetPasswordPageContent() {
       <div className="flex flex-col justify-between gap-7xl 2xl:pt-[140px] xl:pt-[600px] pt-[200px]">
         <div className="flex flex-col items-center justify-center gap-6xl">
           <Image
-            src="/assets/images/logo.webp"
+            src="/assets/images/Logo.webp"
             alt="Login"
             objectFit="cover"
             loading="eager"
