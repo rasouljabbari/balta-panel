@@ -39,7 +39,7 @@ export interface EmptyBoxProps {
 
 export type SharedModalProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (v?: any) => void;
   title: string;
   icon?: ReactNode;
   children: ReactNode;
