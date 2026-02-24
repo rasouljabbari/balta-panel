@@ -23,7 +23,7 @@ export default function SharedModal({
   confirmButtonWidth = 'w-11xl',
   isPending = false,
   footerLeft,
-  showFooter,
+  showFooter = true,
   bodyClassName = '',
 }: SharedModalProps) {
   const { visible, showPortal, handleTransitionEnd } = useAnimatedModal(isOpen);

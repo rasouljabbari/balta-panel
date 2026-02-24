@@ -1,5 +1,4 @@
 export type Headers = {
-  'Accept-Language': string;
   'Access-Control-Allow-Methods': string;
   'Access-Control-Allow-Headers': string;
   'Access-Control-Allow-Origin'?: string;
@@ -7,15 +6,13 @@ export type Headers = {
   Accept?: string;
   Authorization?: string;
   'Access-Control-Allow-Credentials'?: string;
-  __tenant?: string;
-  'Accept-currency'?: string;
 };
 
 export interface HeadersConfig {
   headers: Headers;
 }
 
-export type RequestType = 'get' | 'post' | 'delete' | 'patch';
+export type RequestType = 'get' | 'post' | 'delete' | 'patch' | 'put';
 
 export type DataParams = Record<string, any>;
 

@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { User } from 'lucide-react';
+import DateObject from 'react-date-object';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Button, Input } from 'rg-dst';
@@ -8,14 +10,55 @@ import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
-import { useDriverById } from '../hook/drivers';
+import { useDriverById, useEditDriverPage } from '../hook/drivers';
+import PlateInput from './plate-input';
 import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
-import DateObject from 'react-date-object';
+import persian from 'react-date-object/calendars/persian';
+import persian_fa from 'react-date-object/locales/persian_fa';
+
+
+const LETTERS = [
+  'ب',
+  'پ',
+  'ت',
+  'ث',
+  'ج',
+  'چ',
+  'ح',
+  'خ',
+  'د',
+  'ذ',
+  'ر',
+  'ز',
+  'ژ',
+  'س',
+  'ش',
+  'ص',
+  'ض',
+  'ط',
+  'ظ',
+  'ع',
+  'غ',
+  'ف',
+  'ق',
+  'ک',
+  'گ',
+  'ل',
+  'م',
+  'ن',
+  'و',
+  'ه',
+  'ی',
+];
 
 
 export default function DriverEditForm() {
   const { id } = useParams();
-const { data: driver, isLoading } = useDriverById(id);
+  const { data: driver, isLoading } = useDriverById(id);
+  
+   const [serverError, setServerError] = useState<string | null>(null);
+
+   const editDriverMutation = useEditDriverPage(setServerError);
   const {
   reset,
   control,
@@ -34,14 +77,53 @@ useEffect(() => {
       lastName: driver.last_name,
       mobile: driver.phone,
       nationalCode: driver.national_id,
-      birthDate: driver.birth_date ? new DateObject(driver.birth_date) : null,
+      birthDate: driver.birth_date
+        ? new DateObject({
+            date: new Date(driver.birth_date), 
+            calendar: persian, 
+            locale: persian_fa, 
+          })
+        : null,
+      gender: driver.gender,
+      carType: driver.car_type,
+      plateNumber: driver.car_plate
+        ? {
+            first: Number(driver.car_plate.first) || 0,
+            letter: (LETTERS.includes(driver.car_plate.letter)
+              ? driver.car_plate.letter
+              : 'ب') as (typeof LETTERS)[number],
+            second: Number(driver.car_plate.second) || 0,
+            state: Number(driver.car_plate.state) || 0,
+          }
+        : { first: 0, letter: 'ب', second: 0, state: 0 },
     });
   }
 }, [driver, reset]);
-
+  
   const onSubmit = (data: FormValues) => {
-    console.log('form data:', data);
+    if (!driver) return;
+
+    editDriverMutation.mutate({
+      id: driver.id,
+      payload: {
+        first_name: data.firstName,
+        last_name: data.lastName,
+        phone: data.mobile,
+        national_id: data.nationalCode,
+        birth_date: convertPersianToGregorian(data.birthDate),
+        gender: data.gender,
+        joined_at: driver.joined_at,
+        car_type: data.carType,
+        car_plate: {
+          first: data.plateNumber.first.toString(),
+          letter: data.plateNumber.letter,
+          second: data.plateNumber.second.toString(),
+          state: data.plateNumber.state.toString(),
+        },
+      },
+    });
   };
+
 
 if (isLoading || !driver) {
   return <div>در حال بارگذاری اطلاعات راننده...</div>;
@@ -76,7 +158,6 @@ if (isLoading || !driver) {
                 />
               )}
             />
-
             <Controller
               name="lastName"
               control={control}
@@ -104,21 +185,20 @@ if (isLoading || !driver) {
                 />
               )}
             />
-
             <Controller
+              name="nationalCode"
               control={control}
-              name="birthDate"
               render={({ field }) => (
-                <DatePickerField
+                <Input
+                  label="کد ملی"
+                  type="number"
                   {...field}
-                  label="تاریخ تولد"
-                  iconPosition="right"
-                  showDivider={false}
-                  aria-label="تاریخ تولد"
+                  error={errors.nationalCode?.message}
+                  className="w-full"
+                  aria-label="کد ملی"
                 />
               )}
             />
-
             {/* Birth Date */}
             <Controller
               control={control}
@@ -146,46 +226,56 @@ if (isLoading || !driver) {
               isMulti={false}
               aria-label="جنسیت"
             />
-
-            {/* Car Type */}
-            {/* <Input
-              label="نوع خودرو"
-              {...register('carType')}
-              error={errors.carType?.message}
-              className="w-full"
-              aria-label="نوع خودرو"
-            /> */}
-
-            {/* Plate Number */}
-            {/* <Input
-              label="پلاک خودرو"
-              {...register('plateNumber')}
-              error={errors.plateNumber?.message}
-              className="w-full"
-              aria-label="پلاک خودرو"
-            /> */}
-
-            {/* <Input
-              className="w-full"
+            <Input
               label="کد کاربر"
-              disabled
-              {...register('userCode')}
-            /> */}
-
-            {/* <Input
               className="w-full"
-              label="تاریخ عضویت"
               disabled
-              {...register('joinDate')}
-            /> */}
+              value={driver?.user_code || '---'}
+            />
+            {/* Join Date */}
+            <Input
+              label="تاریخ عضویت"
+              className="w-full"
+              disabled
+              value={
+                driver?.joined_at
+                  ? new Date(driver.joined_at).toLocaleDateString('fa-IR')
+                  : ''
+              }
+            />
+            <Controller
+              name="carType"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  label="نوع خودرو"
+                  {...field}
+                  error={errors.carType?.message}
+                  className="w-full"
+                  aria-label="نوع خودرو"
+                />
+              )}
+            />
+            <Controller
+              name="plateNumber"
+              control={control}
+              render={({ field }) => (
+                <PlateInput
+                  {...field}
+                  label="پلاک خودرو"
+                  error={!!errors.plateNumber}
+                  errorText={errors.plateNumber?.message}
+                />
+              )}
+            />
 
             <hr className="-mx-3xl my-4 border-gray-light-200 col-span-2" />
-
             <div className="flex items-center gap-lg mr-auto col-span-2">
               <Button
                 type="submit"
                 className="bg-utility-brand-600"
                 aria-label="ذخیره تغییرات"
+                loading={editDriverMutation.isPending}
               >
                 ذخیره تغییرات
               </Button>

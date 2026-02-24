@@ -1,11 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  createDriverService,
-  getDriverByIdService,
-  getDriversService,
-  toggleDriverStatusService,
-} from '../services/drivers';
+import { createDriverService, editDriverService, getDriverByIdService, getDriversService, toggleDriverStatusService } from '../services/drivers';
 import type { CreateDriverPayload, CreateDriverResponse } from '../types';
+
 
 export const DRIVERS_QUERY_KEY = ['drivers'];
 
@@ -23,6 +19,29 @@ export const useCreateDriver = (
 
       closeModal();
 
+      setServerValidationError?.(null);
+    },
+
+    onError: (error: any) => {
+      setServerValidationError?.(error?.message || 'خطایی رخ داد');
+    },
+  });
+};
+
+export const useEditDriverPage = (
+  setServerValidationError?: (err: any) => void,
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation<
+    CreateDriverResponse,
+    any,
+    { id: number | string; payload: CreateDriverPayload }
+  >({
+    mutationFn: ({ id, payload }) => editDriverService(id, payload),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
       setServerValidationError?.(null);
     },
 

@@ -75,9 +75,7 @@ return (
     widthClass="w-[640px]"
   >
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-xl">
-      {serverError && (
-        <div className="text-red-500 text-sm mb-3">{serverError}</div>
-      )}
+   
 
       <div className="grid grid-cols-2 gap-xl px-3xl">
         {/* نام */}

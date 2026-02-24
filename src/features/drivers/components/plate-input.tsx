@@ -1,6 +1,9 @@
+
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { FlagIcon } from '@/components/icons/drivers-icon';
+
 
 interface PlateInputProps {
   value?: { first: number; letter: string; second: number; state: number };
@@ -102,25 +105,19 @@ export default function PlateInput({
     });
   };
 
-  // -----------------------------
-  // مقداردهی اولیه از prop value فقط یک بار
-  // -----------------------------
-  useEffect(() => {
-    if (value) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setPlate({
-        part1: value.first,
-        part2: value.second,
-        letter: value.letter,
-        part3: value.state,
-      });
-    }
-    // فقط یک بار هنگام mount
-  }, []);
 
-  // -----------------------------
-  // بسته شدن dropdown وقتی کلیک بیرون شد
-  // -----------------------------
+ useEffect(() => {
+   if (value) {
+     setPlate({
+       part1: Number(value.first) || 0,
+       part2: Number(value.second) || 0,
+       letter: value.letter || 'ب',
+       part3: Number(value.state) || 0,
+     });
+   }
+ }, [value]);
+
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -147,8 +144,12 @@ export default function PlateInput({
           <input
             type="number"
             max={99}
-            value={plate.part1}
-            onChange={(e) => handleChange('part1', e.target.value)}
+            value={plate.part1 === 0 ? '' : plate.part1}
+            onChange={(e) => {
+              let val = e.target.value;
+              if (val.length > 2) val = val.slice(0, 2);
+              handleChange('part1', val);
+            }}
             className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
           />
 
@@ -157,8 +158,12 @@ export default function PlateInput({
           <input
             type="number"
             max={999}
-            value={plate.part2}
-            onChange={(e) => handleChange('part2', e.target.value)}
+            value={plate.part2 === 0 ? '' : plate.part2}
+            onChange={(e) => {
+              let val = e.target.value;
+              if (val.length > 3) val = val.slice(0, 3);
+              handleChange('part2', val);
+            }}
             className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
           />
 
@@ -190,8 +195,12 @@ export default function PlateInput({
           <input
             type="number"
             max={99}
-            value={plate.part3}
-            onChange={(e) => handleChange('part3', e.target.value)}
+            value={plate.part3 === 0 ? '' : plate.part3}
+            onChange={(e) => {
+              let val = e.target.value;
+              if (val.length > 2) val = val.slice(0, 2); 
+              handleChange('part3', val);
+            }}
             className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
           />
         </div>

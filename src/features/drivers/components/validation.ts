@@ -89,9 +89,15 @@ export const addDriverSchema = yup.object({
 // -----------------------------
 export type FormValues = Omit<
   InferType<typeof addDriverSchema>,
-  'birthDate'
+  'birthDate' | 'plateNumber'
 > & {
   birthDate: DateObject | null;
+  plateNumber: {
+    first: number;
+    letter: string; // allow any string here
+    second: number;
+    state: number;
+  };
 };
 // -----------------------------
 // مقدارهای پیش‌فرض فرم
@@ -105,4 +111,5 @@ export const addDriverDefaultValues: FormValues = {
   gender: undefined as any,
   carType: '',
   plateNumber: { first: 0, letter: 'ب', second: 0, state: 0 },
+  
 };

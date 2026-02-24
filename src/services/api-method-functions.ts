@@ -1,9 +1,5 @@
 import { handleError } from '@/helper/handle-error';
-<<<<<<< HEAD
-=======
-import type { GetData } from '@/types/api';
 import { API_MAIN_URL, CRM_API_URL } from '@/utils/config';
->>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import type { GetData } from '@/types/api';
@@ -12,14 +8,7 @@ import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
 import { handleResponse } from './response-handler';
 
-<<<<<<< HEAD
 
-// Environment configuration
-const MAIN_URL = import.meta.env.VITE_API_MAIN_URL;
-const AUTHENTICATION_URL = import.meta.env.VITE_API_AUTHENTICATION_URL;
-
-=======
->>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 // Authentication token
 const AUTH_TOKEN = getCookie('auth_token');
 
@@ -54,7 +43,7 @@ const validateApiParams = (endPoint: string, type: string): void => {
   if (!type) {
     throw new Error('Request type is required');
   }
-  if (!['get', 'post', 'delete', 'patch'].includes(type.toLowerCase())) {
+  if (!['get', 'post', 'delete', 'patch', 'put'].includes(type.toLowerCase())) {
     throw new Error(
       `Invalid request type: ${type}. Must be 'get', 'post', or 'delete'`,
     );
@@ -69,13 +58,6 @@ const getBaseUrl = (isCrm: boolean): string => {
 };
 
 /**
- * Prepares form data based on content type
- */
-const prepareFormData = (dataParams: any, isHeaderJson: boolean): any => {
-  return isHeaderJson ? dataParams : new URLSearchParams(dataParams);
-};
-
-/**
  * Makes a POST request
  */
 const makePostRequest = async (
@@ -83,13 +65,11 @@ const makePostRequest = async (
   endPoint: string,
   dataParams: any,
   headers: any,
-  isHeaderJson: boolean,
 ): Promise<any> => {
-  const formData = prepareFormData(dataParams, isHeaderJson);
   try {
     const response: AxiosResponse<any> = await axios.post(
       `${baseUrl}${endPoint}`,
-      formData,
+      dataParams,
       headers,
     );
     return handleResponse(response);
@@ -115,6 +95,28 @@ const makeDeleteRequest = async (
         ...headers,
         data: dataParams,
       },
+    );
+    return handleResponse(response);
+  } catch (error) {
+    await handleError(error);
+    return Promise.reject(error);
+  }
+};
+
+/**
+ * Makes a PUT request
+ */
+const makePutRequest = async (
+  baseUrl: string,
+  endPoint: string,
+  dataParams: any,
+  headers: any,
+): Promise<any> => {
+  try {
+    const response: AxiosResponse<any> = await axios.put(
+      `${baseUrl}${endPoint}`,
+      dataParams,
+      headers,
     );
     return handleResponse(response);
   } catch (error) {
@@ -178,7 +180,6 @@ export const getData = async ({
   type,
   dataParams = {},
   isToken = true,
-  isHeaderJson = false,
   default_token = null,
   isCrm = false,
 }: GetData): Promise<any> => {
@@ -188,33 +189,21 @@ export const getData = async ({
   // Determine authentication requirements
   const needsAuth = requiresAuthentication(endPoint);
   const token = default_token ?? (isToken && needsAuth ? AUTH_TOKEN : null);
-<<<<<<< HEAD
-console.log(token)
-  const headers = constructHeaders(token, isHeaderJson, hasTenant);
-  const baseUrl = getBaseUrl(endPoint);
-=======
 
-  const headers = constructHeaders(token, isHeaderJson);
+  const headers = constructHeaders(token);
   const baseUrl = getBaseUrl(isCrm);
->>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
-
-  console.log(headers)
 
   switch (type.toLowerCase()) {
     case 'post':
-      return makePostRequest(
-        baseUrl,
-        endPoint,
-        dataParams,
-        headers,
-        isHeaderJson,
-      );
-
-    case 'delete':
-      return makeDeleteRequest(baseUrl, endPoint, dataParams, headers);
+      return makePostRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'patch':
       return makePatchRequest(baseUrl, endPoint, dataParams, headers);
+    case 'delete':
+      return makeDeleteRequest(baseUrl, endPoint, dataParams, headers);
+
+    case 'put':
+      return makePutRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'get':
     default:
@@ -233,11 +222,9 @@ export const submitFormData = async ({
   formData,
   type = 'post',
   default_token = undefined,
-  isHeaderJson = false,
-  hasTenant = false,
 }: FormDataPostParams): Promise<any> => {
   const token = default_token || AUTH_TOKEN;
-  const headers = constructHeaders(token, isHeaderJson, hasTenant);
+  const headers = constructHeaders(token);
   const baseUrl = getBaseUrl(false);
 
   try {
@@ -251,71 +238,4 @@ export const submitFormData = async ({
     await handleError(error);
     return Promise.reject(error);
   }
-<<<<<<< HEAD
-};
-
-/**
- * Convenience function for GET requests
- */
-export const apiGet = async (
-  endPoint: string,
-  dataParams: any = {},
-  options: Partial<GetData> = {},
-): Promise<any> => {
-  return getData({
-    endPoint,
-    type: 'get',
-    dataParams,
-    ...options,
-  });
-};
-
-/**
- * Convenience function for POST requests
- */
-export const apiPost = async (
-  endPoint: string,
-  dataParams: any = {},
-  options: Partial<GetData> = {},
-): Promise<any> => {
-  return getData({
-    endPoint,
-    type: 'post',
-    dataParams,
-    ...options,
-  });
-};
-
-/**
- * Convenience function for DELETE requests
- */
-export const apiDelete = async (
-  endPoint: string,
-  dataParams: any = {},
-  options: Partial<GetData> = {},
-): Promise<any> => {
-  return getData({
-    endPoint,
-    type: 'delete',
-    dataParams,
-    ...options,
-  });
-};
-
-/**
- * Convenience function for file uploads
- */
-export const apiUpload = async (
-  endPoint: string,
-  formData: FormData,
-  options: Partial<FormDataPostParams> = {},
-): Promise<any> => {
-  return getFormDataPost({
-    endPoint,
-    formData,
-    type: 'post',
-    ...options,
-  });
-=======
->>>>>>> 0b4251732abd4fecd7f98ac469436a2a76c5caf8
 };
