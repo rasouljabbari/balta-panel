@@ -26,7 +26,7 @@ stages: # List of stages for jobs, and their order of execution
 #     - echo "Running unit tests... This will take about 60 seconds."
 #     - npm install && npm run test
 
-deploy-job: # This job runs in the deploy stage.
+lint-job: # This job runs in the deploy stage.
   stage: lint # It only runs when *both* jobs in the test stage complete successfully.
   environment: development
   script:
@@ -44,6 +44,8 @@ deploy-job: # This job runs in the deploy stage.
     - echo "Deploying application..."
     - pnpm install
     - pnpm build
+    - rsync -a dist/ $DEV_SSH_USER@$DEV_SERVER_HOST:$DEV_DEPLOY_PATH/public
+    - rsync -a --delete dist/assets $DEV_SSH_USER@$DEV_SERVER_HOST:$DEV_DEPLOY_PATH/public/assets
     - echo "Application successfully deployed."
   only:
-    - stage
+    - dev
