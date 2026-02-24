@@ -6,7 +6,6 @@ export async function loginApi(inputValues: LoginFormValues, isCrm?: boolean, cr
     endPoint: `admin/v1/auth/login`,
     type: 'post',
     dataParams: inputValues,
-    // isToken: !isCrm, // When logging into the panel, the CRM token should be passed.
     isCrm,
     default_token: crmToken ?? null
   });

@@ -1,11 +1,10 @@
 import type { GetMenusResponse, Menu } from "@/features/definition/type";
-import { getData, getFormDataPost } from "@/services/api-method-functions";
+import { getData, submitFormData } from "@/services/api-method-functions";
 
 export const getMenusService = async (): Promise<GetMenusResponse> => {
     return getData({
         endPoint: 'admin/v1/definitions/menu',
-        type: 'get',
-        hasTenant: true,
+        type: 'get'
     });
 };
 
@@ -21,7 +20,7 @@ export const createMenuService = async (payload: Menu) => {
 };
 
 export const updateMenuService = async (payload: Menu) => {
-    return getFormDataPost({
+    return submitFormData({
         endPoint: `admin/v1/definitions/menu/${payload.id}`,
         type: 'put',
         formData: payload,

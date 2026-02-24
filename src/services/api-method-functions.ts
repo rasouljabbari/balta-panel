@@ -1,6 +1,6 @@
 import { handleError } from '@/helper/handle-error';
 import type { GetData } from '@/types/api';
-import { API_MAIN_URL, CRM_API_URL, MAIN_URL } from '@/utils/config';
+import { API_MAIN_URL, CRM_API_URL } from '@/utils/config';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { getCookie } from '../utils/cookies';
@@ -26,7 +26,7 @@ interface FormDataPostParams {
  * Utility function to determine if an endpoint requires authentication
  */
 const requiresAuthentication = (endPoint: string): boolean => {
-  const publicEndpoints = ['connect/token', 'register', 'forgot-password'];
+  const publicEndpoints = ['auth/login', 'register', 'forgot-password'];
   return !publicEndpoints.some((publicEndpoint) =>
     endPoint.includes(publicEndpoint),
   );
@@ -115,6 +115,7 @@ const makeDeleteRequest = async (
  * Makes a PATCH request
  */
 const makePatchRequest = async (
+  baseUrl: string,
   endPoint: string,
   dataParams: any,
   headers: any,
@@ -122,7 +123,7 @@ const makePatchRequest = async (
   try {
     const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.patch(
-      `${MAIN_URL}${endPoint}${formData}`,
+      `${baseUrl}${endPoint}${formData}`,
       headers,
     );
     return handleResponse(response);
@@ -136,6 +137,7 @@ const makePatchRequest = async (
  * Makes a GET request
  */
 const makeGetRequest = async (
+  baseUrl: string,
   endPoint: string,
   dataParams: any,
   headers: any,
@@ -143,7 +145,7 @@ const makeGetRequest = async (
   try {
     const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.get(
-      `${MAIN_URL}${endPoint}${formData}`,
+      `${baseUrl}${endPoint}${formData}`,
       headers,
     );
     return handleResponse(response);
@@ -192,11 +194,11 @@ export const getData = async ({
       return makeDeleteRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'patch':
-      return makePatchRequest(endPoint, dataParams, headers);
+      return makePatchRequest(baseUrl, endPoint, dataParams, headers);
 
     case 'get':
     default:
-      return makeGetRequest(endPoint, dataParams, headers);
+      return makeGetRequest(baseUrl, endPoint, dataParams, headers);
   }
 };
 
@@ -206,7 +208,7 @@ export const getData = async ({
  * @param params - Configuration object for the form data request
  * @returns Promise resolving to the API response
  */
-export const getFormDataPost = async ({
+export const submitFormData = async ({
   endPoint,
   formData,
   type = 'post',
@@ -214,13 +216,13 @@ export const getFormDataPost = async ({
   isHeaderJson = false,
   hasTenant = false,
 }: FormDataPostParams): Promise<any> => {
-  const url = MAIN_URL + endPoint;
   const token = default_token || AUTH_TOKEN;
   const headers = constructHeaders(token, isHeaderJson, hasTenant);
+  const baseUrl = getBaseUrl(false);
 
   try {
     const response: AxiosResponse<any> = await axios[type](
-      url,
+      baseUrl + endPoint,
       formData,
       headers,
     );
@@ -229,68 +231,4 @@ export const getFormDataPost = async ({
     await handleError(error);
     return Promise.reject(error);
   }
-};
-
-/**
- * Convenience function for GET requests
- */
-export const apiGet = async (
-  endPoint: string,
-  dataParams: any = {},
-  options: Partial<GetData> = {},
-): Promise<any> => {
-  return getData({
-    endPoint,
-    type: 'get',
-    dataParams,
-    ...options,
-  });
-};
-
-/**
- * Convenience function for POST requests
- */
-export const apiPost = async (
-  endPoint: string,
-  dataParams: any = {},
-  options: Partial<GetData> = {},
-): Promise<any> => {
-  return getData({
-    endPoint,
-    type: 'post',
-    dataParams,
-    ...options,
-  });
-};
-
-/**
- * Convenience function for DELETE requests
- */
-export const apiDelete = async (
-  endPoint: string,
-  dataParams: any = {},
-  options: Partial<GetData> = {},
-): Promise<any> => {
-  return getData({
-    endPoint,
-    type: 'delete',
-    dataParams,
-    ...options,
-  });
-};
-
-/**
- * Convenience function for file uploads
- */
-export const apiUpload = async (
-  endPoint: string,
-  formData: FormData,
-  options: Partial<FormDataPostParams> = {},
-): Promise<any> => {
-  return getFormDataPost({
-    endPoint,
-    formData,
-    type: 'post',
-    ...options,
-  });
 };
