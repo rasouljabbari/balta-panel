@@ -1,13 +1,13 @@
+import Image from '@/components/shared/image';
 import VerifyCodePageContent from '@/features/auth/components/verify-code/content';
-import Image from '@/components/ui/image';
 
 export default function VerifyCodePage() {
   return (
     <div className="h-screen grid grid-cols-12 overflow-hidden">
-          <VerifyCodePageContent />
+      <VerifyCodePageContent />
       <div className="hidden lg:block lg:col-span-5 h-full overflow-hidden p-5xl ps-0">
         <Image
-          src="/assets/images/splash.webp"
+          src="/assets/images/login.webp"
           alt="Login"
           objectFit="cover"
           loading="eager"
