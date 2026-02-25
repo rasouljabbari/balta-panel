@@ -24,11 +24,9 @@ const CategoryForm = forwardRef<{ submit: () => void }, CategoryFormProps>(
           addCategoryInitialValues,
     });
 
-    console.log("serverValidationError", serverValidationError)
-
     useEffect(() => {
       if (serverValidationError)
-        serverValidationError?.error?.validation_errors?.forEach((err: any) => {
+        serverValidationError?.error?.forEach((err: any) => {
           setError(err.field, {
             type: 'server',
             message: err.message,

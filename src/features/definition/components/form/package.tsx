@@ -20,7 +20,7 @@ const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
 
     useEffect(() => {
       if (serverValidationError)
-        serverValidationError?.error?.validation_errors?.forEach((err: any) => {
+        serverValidationError?.error?.forEach((err: any) => {
           setError(err.field, {
             type: 'server',
             message: err.message,
