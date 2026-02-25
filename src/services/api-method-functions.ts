@@ -1,4 +1,4 @@
-import { handleError } from '@/helper/handle-error';
+import { handleError } from '@/services/api-error-handler';
 import type { GetData } from '@/types/api';
 import { API_MAIN_URL, CRM_API_URL } from '@/utils/config';
 import type { AxiosResponse } from 'axios';
