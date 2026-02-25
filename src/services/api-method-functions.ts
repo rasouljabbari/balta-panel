@@ -79,6 +79,7 @@ const makePostRequest = async (
     );
     return handleResponse(response);
   } catch (error) {
+    console.log("catch error", error)
     await handleError(error);
     return Promise.reject(error);
   }

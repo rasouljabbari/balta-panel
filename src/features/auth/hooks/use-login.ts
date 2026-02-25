@@ -1,9 +1,5 @@
 import { loginApi } from '@/features/auth/services/login-api';
 import type { LoginFormValues } from '@/features/auth/type';
-import {
-  extractErrorMessage,
-  extractValidationErrors,
-} from '@/services/api-error-handler';
 import type { ValidationError } from '@/types/api';
 import { setCookie } from '@/utils/cookies';
 import { useMutation } from '@tanstack/react-query';
@@ -37,13 +33,10 @@ export function useLogin() {
     },
 
     onError: (err: any) => {
-      const validationErrs = extractValidationErrors(err);
-
-      if (validationErrs.length > 0) {
-        setValidationErrors(validationErrs);
+      if (err?.error.length > 0) {
+        setValidationErrors(err?.error);
         setServerError(null);
       } else {
-        setServerError(extractErrorMessage(err));
         setValidationErrors([]);
       }
     },
@@ -66,13 +59,10 @@ export function useLogin() {
     },
 
     onError: (err: any) => {
-      const validationErrs = extractValidationErrors(err);
-
-      if (validationErrs.length > 0) {
-        setValidationErrors(validationErrs);
+      if (err?.error.length > 0) {
+        setValidationErrors(err?.error);
         setServerError(null);
       } else {
-        setServerError(extractErrorMessage(err));
         setValidationErrors([]);
       }
     },
