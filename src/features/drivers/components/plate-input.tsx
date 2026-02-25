@@ -18,6 +18,36 @@ import { LETTERS } from './data';
 
 
 
+;
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
+
+
 export default function PlateInput({
   value,
   onChange,
@@ -98,6 +128,7 @@ export default function PlateInput({
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-md">
           <input
+            aria-label="part1"
             type="number"
             max={99}
             value={plate.part1 === 0 ? '' : plate.part1}
@@ -112,6 +143,7 @@ export default function PlateInput({
           <div className="w-px h-10 border border-dashed border-gray-modern-300" />
 
           <input
+            aria-label="part2"
             type="number"
             max={999}
             value={plate.part2 === 0 ? '' : plate.part2}
@@ -125,6 +157,7 @@ export default function PlateInput({
 
           <div className="relative" ref={dropdownRef}>
             <button
+              aria-label="ChevronDown"
               type="button"
               onClick={() => setDropdownOpen((prev) => !prev)}
               className={`w-15 h-10 text-center rounded-xl border flex items-center justify-between p-md ${error ? 'border-red-500' : 'border-gray-300'}`}
@@ -149,6 +182,7 @@ export default function PlateInput({
           </div>
 
           <input
+            aria-label="part3"
             type="number"
             max={99}
             value={plate.part3 === 0 ? '' : plate.part3}

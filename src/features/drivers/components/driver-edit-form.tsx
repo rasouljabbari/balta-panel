@@ -12,11 +12,11 @@ import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
+import { Skeleton } from '@/components/shared/skeleton-loader';
 import { useDriverById, useEditDriverPage } from '../hook/drivers';
 import { LETTERS } from './data';
 import PlateInput from './plate-input';
 import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
-import { Skeleton } from '@/components/shared/skeleton-loader';
 
 
 export default function DriverEditForm() {
@@ -254,6 +254,7 @@ useEffect(() => {
                   error={!!errors.plateNumber}
                   errorText={errors.plateNumber?.message}
                   showFlag={false}
+                  aria-label="پلاک خودرو"
                 />
               )}
             />

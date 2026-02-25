@@ -49,9 +49,9 @@ export const useEditDriverPage = (
   });
 };
 
-export const useDrivers = () => {
+export const useDrivers = (page: number) => {
   return useQuery({
-    queryKey: DRIVERS_QUERY_KEY,
+    queryKey: [...DRIVERS_QUERY_KEY, page],
     queryFn: getDriversService,
     select: (res) => res.data,
   });

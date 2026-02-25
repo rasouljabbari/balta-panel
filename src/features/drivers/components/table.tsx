@@ -3,18 +3,22 @@ import type { DriverItem, DriverTableProps } from '../types';
 import { driverTableColumns } from './table-columns';
 import DriverTableHeader from './table-headers';
 
-
-export default function DriverTable({ data, onAllocatedOrders }: DriverTableProps) {
+export default function DriverTable({
+  data,
+  meta,
+  onAllocatedOrders,
+  onPageChange,
+}: DriverTableProps) {
   return (
     <Table<DriverItem>
       columns={driverTableColumns(onAllocatedOrders)}
       data={data}
       rowKey={(row) => row.id}
-      header={<DriverTableHeader count={data.length}/>}
+      header={<DriverTableHeader count={meta?.total ?? data.length} />}
       pagination={{
-        currentPage: 1,
-        totalPages: 1,
-        onPageChange: () => {},
+        currentPage: meta?.current_page ?? 1,
+        totalPages: meta?.last_page ?? 1,
+        onPageChange: onPageChange,
       }}
     />
   );

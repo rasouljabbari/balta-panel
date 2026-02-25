@@ -71,7 +71,6 @@ return (
     widthClass="w-[640px]"
   >
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-xl">
-
       <div className="grid grid-cols-2 gap-xl px-3xl">
         {/* نام */}
         <Controller
@@ -87,6 +86,7 @@ return (
               destructiveText={errors.firstName?.message}
               value={field.value ?? ''}
               className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
+              aria-label="نام"
             />
           )}
         />
@@ -105,6 +105,7 @@ return (
               destructiveText={errors.lastName?.message}
               value={field.value ?? ''}
               className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
+              aria-label="نام خانوادگی"
             />
           )}
         />
@@ -124,6 +125,7 @@ return (
               destructiveText={errors.mobile?.message}
               value={field.value ?? ''}
               className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
+              aria-label="شماره موبایل"
             />
           )}
         />
@@ -143,6 +145,7 @@ return (
               destructiveText={errors.nationalCode?.message}
               value={field.value ?? ''}
               className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
+              aria-label="کدملی"
             />
           )}
         />
@@ -160,6 +163,7 @@ return (
               error={!!errors.birthDate}
               errorText={errors.birthDate?.message}
               required
+              aria-label="تاریخ تولد"
             />
           )}
         />
@@ -183,6 +187,7 @@ return (
                 onChange={(option) => field.onChange(option?.value)}
                 error={errors.gender?.message}
                 required
+                aria-label="جنسیت"
               />
             );
           }}
@@ -202,6 +207,7 @@ return (
               required
               value={field.value ?? ''}
               className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
+              aria-label="نوع خودرو"
             />
           )}
         />
@@ -218,6 +224,7 @@ return (
               onChange={field.onChange}
               error={!!errors.plateNumber}
               errorText={errors.plateNumber?.message}
+              aria-label="پلاک خودرو"
             />
           )}
         />
@@ -234,6 +241,7 @@ return (
           </Button>
 
           <Button
+            aria-label = " ثبت راننده"
             type="submit"
             loading={isPending}
             className="p-2.5 px-xl bg-utility-brand-600 hover:bg-utility-brand-700 text-base-white"

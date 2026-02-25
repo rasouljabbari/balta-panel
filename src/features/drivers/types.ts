@@ -1,6 +1,8 @@
 export interface DriverTableProps {
   data: DriverItem[];
   onAllocatedOrders: (driver: DriverItem) => void;
+  meta?: DriversMeta;
+  onPageChange: (page: number) => void;
 }
 
 export interface AddDriverModalProps {

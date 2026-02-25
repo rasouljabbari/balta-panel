@@ -85,6 +85,7 @@ export default function DriverDetail() {
 
         <div className="p-lg flex justify-end items-end">
           <Button
+            aria-label = "ویرایش"
             variant="secondaryGray"
             leftIcon={<Pencil size={20} />}
             onClick={() => navigate(`/drivers/edit/${id}`)}
