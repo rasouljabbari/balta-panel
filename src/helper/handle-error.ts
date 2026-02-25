@@ -1,5 +1,6 @@
 import { showUniqueErrorToast } from "@/helper/show-unique-error-toast";
 import { apiErrorHandler } from "@/services/api-error-handler";
+import { deleteAllCookie } from "@/utils/cookies";
 
 const NETWORK_ERROR_CODES = [
   'ERR_NETWORK',
@@ -34,6 +35,15 @@ export const handleError = async (error: any) => {
   if (!error?.status) {
     const message = getAxiosErrorMessage(error);
     showUniqueErrorToast(message);
+    return;
+  }
+
+  if (error?.status === 401) {
+    deleteAllCookie();
+    showUniqueErrorToast('توکن شما منقضی شده است، لطفا مجدد وارد شوید.')
+    setTimeout(() => {
+      window.location.href = '/auth/login';
+    }, 3000)
     return;
   }
 
