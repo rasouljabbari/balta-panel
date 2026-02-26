@@ -41,11 +41,7 @@ export interface ApiErrorResponse {
 
 export interface serverValidationErrorProps {
   status: number;
-  error: {
-    type: string;
-    message: string;
-    validation_errors: { filed: string, message: string }[]
-  }
+  error: { filed: string, message: string }[]
 }
 
 export interface ValidationError {

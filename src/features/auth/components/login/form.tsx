@@ -74,6 +74,11 @@ export default function LoginForm() {
         فراموشی رمزعبور
       </Link> */}
 
+      {
+        validationErrors?.find(error => error.field === "username_or_password") &&
+        <ErrorsBox errors={"رمزعبور یا کدملی وارد شده معتبر نمی باشد."} />
+      }
+
       <ErrorsBox errors={serverError as string} />
 
       <Button

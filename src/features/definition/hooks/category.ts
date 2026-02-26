@@ -24,10 +24,10 @@ export const useCreateCategory = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: CATEGORIES_QUERY_KEY });
       setModalOpen(false);
-      setServerValidationError?.(null); 
+      setServerValidationError?.(null);
     },
     onError: (error: any) => {
-      setServerValidationError?.(error); 
+      setServerValidationError?.(error);
     },
   });
 };

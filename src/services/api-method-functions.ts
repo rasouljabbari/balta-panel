@@ -1,8 +1,8 @@
-import { handleError } from '@/helper/handle-error';
+import { handleError } from '@/services/api-error-handler';
+import type { GetData } from '@/types/api';
 import { API_MAIN_URL, CRM_API_URL } from '@/utils/config';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
-import type { GetData } from '@/types/api';
 import { getCookie } from '../utils/cookies';
 import { constructGetParams } from './construct-get-params';
 import { constructHeaders } from './construct-headers';
@@ -70,6 +70,7 @@ const makePostRequest = async (
     );
     return handleResponse(response);
   } catch (error) {
+    console.log("catch error", error)
     await handleError(error);
     return Promise.reject(error);
   }
