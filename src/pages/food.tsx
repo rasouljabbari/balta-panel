@@ -7,6 +7,10 @@ import { useState } from 'react';
 export default function TableFood() {
   const [foods] = useState<FoodItem[]>(fakeFoods);
 
+  const onSearch = (val: string) => {
+    console.log(val)
+  }
+
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<'create' | 'edit'>('create');
   const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
@@ -30,7 +34,7 @@ export default function TableFood() {
 
   return (
     <>
-      <FoodTable data={foods} onAdd={handleAdd} onEdit={handleEdit} />
+      <FoodTable onSearch={onSearch} data={foods} onAdd={handleAdd} onEdit={handleEdit} />
       <FoodSheet
         open={isOpen}
         onClose={handleClose}

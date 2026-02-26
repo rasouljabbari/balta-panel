@@ -6,6 +6,10 @@ import FoodTable from './food-table';
 export default function TableFood() {
   const [foods] = useState<FoodItem[]>(fakeFoods);
 
+  const onSearch = (val: string) => {
+    console.log(val)
+  }
+
   const handleAdd = () => {
     console.log('افزودن غذا');
   };
@@ -14,5 +18,5 @@ export default function TableFood() {
     console.log('ویرایش غذا:', food);
   };
 
-  return <FoodTable data={foods} onAdd={handleAdd} onEdit={handleEdit} />;
+  return <FoodTable onSearch={onSearch} data={foods} onAdd={handleAdd} onEdit={handleEdit} />;
 }

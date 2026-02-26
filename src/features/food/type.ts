@@ -29,6 +29,7 @@ export interface FoodTableProps {
   data: FoodItem[];
   onAdd: () => void;
   onEdit: (row: FoodItem) => void;
+  onSearch: (search: string) => void;
 }
 
 export interface ImageUploadPreviewProps {
@@ -38,6 +39,7 @@ export interface ImageUploadPreviewProps {
 
 export interface FoodTableHeaderProps {
   onAdd: () => void;
+  onSearch: (v: string) => void;
 }
 
 type OptionType = { value: string; label: string };
