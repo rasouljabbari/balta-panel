@@ -1,7 +1,7 @@
 import SharedModal from '@/components/shared/custom-modal';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
-import { Switch, TooltipWrapper } from 'rg-dst';
+import { Button, Switch, TooltipWrapper } from 'rg-dst';
 import type { DefinitionItemListProps, Item } from '../type';
 
 
@@ -71,12 +71,14 @@ export default function DefinitionItemList({
             </div>
 
             <TooltipWrapper content="ویرایش" position='top'>
-              <button
+              <Button
+                variant='tertiaryGray'
                 onClick={() => onEdit(item)}
                 className="p-md rounded-md hover:bg-gray-light-50 transition-colors"
+                aria-label='edit-button'
               >
                 <SquarePen size={20} />
-              </button>
+              </Button>
             </TooltipWrapper>
           </li>
         ))}

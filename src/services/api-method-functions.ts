@@ -122,6 +122,7 @@ const makePatchRequest = async (
     const formData = constructGetParams(dataParams);
     const response: AxiosResponse<any> = await axios.patch(
       `${baseUrl}${endPoint}${formData}`,
+      null,
       headers,
     );
     return handleResponse(response);
