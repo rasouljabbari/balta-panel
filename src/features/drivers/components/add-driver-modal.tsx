@@ -85,7 +85,6 @@ export default function AddDriverModal({
                 required
                 destructive={!!errors.first_name}
                 destructiveText={errors.first_name?.message}
-                value={field.value ?? ''}
                 className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
                 aria-label="نام"
               />
@@ -104,7 +103,6 @@ export default function AddDriverModal({
                 required
                 destructive={!!errors.last_name}
                 destructiveText={errors.last_name?.message}
-                value={field.value ?? ''}
                 className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
                 aria-label="نام خانوادگی"
               />
@@ -124,7 +122,6 @@ export default function AddDriverModal({
                 required
                 destructive={!!errors.phone}
                 destructiveText={errors.phone?.message}
-                value={field.value ?? ''}
                 className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
                 aria-label="شماره موبایل"
               />
@@ -144,7 +141,6 @@ export default function AddDriverModal({
                 required
                 destructive={!!errors.national_id}
                 destructiveText={errors.national_id?.message}
-                value={field.value ?? ''}
                 className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
                 aria-label="کدملی"
               />
@@ -157,10 +153,9 @@ export default function AddDriverModal({
             name="birth_date"
             render={({ field }) => (
               <DatePickerField
+                {...field}
                 label="تاریخ تولد"
                 placeholder="برای مثال 1403/11/12"
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
                 error={!!errors.birth_date}
                 errorText={errors.birth_date?.message}
                 required

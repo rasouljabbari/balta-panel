@@ -59,7 +59,7 @@ export default function DriverDetail() {
         : '-',
     },
     { label: 'شماره موبایل', value: driver.phone },
-    { label: 'کد کاربر', value: driver.user_code ?? '-' },
+    { label: 'شناسه', value: driver.user_code ?? '-' },
     { label: 'کدملی', value: driver.national_id },
     { label: 'نوع خودرو', value: driver.car_type },
     { label: 'پلاک خودرو', value: plate },

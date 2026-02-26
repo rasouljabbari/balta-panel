@@ -5,11 +5,11 @@ import NotFound from '@/pages/not-found';
 import OrderPage from '@/pages/order';
 import { getCookie } from '@/utils/cookies';
 import { createBrowserRouter, redirect } from 'react-router-dom';
-import DriverDetail from './features/drivers/components/driver-detail';
-import DriverEditForm from './features/drivers/components/driver-edit-form';
 import ContractsPage from './pages/contracts';
 import DefinitionPage from './pages/definition';
-import DeriversPage from './pages/drivers';
+import DriverDetail from './pages/drivers/driver-detail';
+import DeriversPage from './pages/drivers/drivers';
+import DriverEditForm from './pages/drivers/update-driver';
 import EditContract from './pages/edit-contracts';
 import TableFood from './pages/food';
 
