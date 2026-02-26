@@ -1,6 +1,5 @@
 import { showUniqueErrorToast } from '@/helper/show-unique-error-toast';
 import type { ValidationError } from '@/types/api';
-import { deleteAllCookie } from '@/utils/cookies';
 import { AxiosError } from 'axios';
 
 
@@ -62,14 +61,14 @@ export const handleError = async (error: any) => {
     return;
   }
 
-  if (error?.status === 401) {
-    deleteAllCookie();
-    showUniqueErrorToast('توکن شما منقضی شده است، لطفا مجدد وارد شوید.')
-    setTimeout(() => {
-      window.location.href = '/auth/login';
-    }, 3000)
-    return;
-  }
+  // if (error?.status === 401) {
+  //   deleteAllCookie();
+  //   showUniqueErrorToast('توکن شما منقضی شده است، لطفا مجدد وارد شوید.')
+  //   setTimeout(() => {
+  //     window.location.href = '/auth/login';
+  //   }, 3000)
+  //   return;
+  // }
 
   // 🔴 network-level errors → stop here
   if (!error?.response) return;
