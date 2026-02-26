@@ -104,7 +104,7 @@ export interface CreateDriverResponse {
   status: 'success' | 'error';
   message: string;
   data: {
-    driver: DriverApiItem; 
+    driver: DriverApiItem;
   };
 }
 
@@ -157,4 +157,9 @@ export interface PlateParts {
   part2: number;
   letter: string;
   part3: number;
+}
+
+export interface SearchOption {
+  id: string | number;
+  label: string;
 }

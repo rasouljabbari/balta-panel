@@ -1,12 +1,15 @@
 import type { DateObject } from 'react-multi-date-picker';
 import * as yup from 'yup';
 import type { InferType } from 'yup';
-import { LETTERS } from './data';
+import { PERSIAN_LETTERS } from './data';
 
+const plateLetters = PERSIAN_LETTERS.map((item) => String(item.id));
 
 export const addDriverSchema = yup.object({
   firstName: yup.string().required(),
+
   lastName: yup.string().required(),
+
   mobile: yup
     .string()
     .matches(/^09\d{9}$/, 'شماره موبایل نامعتبر است')
@@ -18,6 +21,7 @@ export const addDriverSchema = yup.object({
     .required('کد ملی الزامی است'),
 
   birthDate: yup.mixed().nullable().required('تاریخ تولد الزامی است'),
+
   gender: yup
     .string()
     .oneOf(['male', 'female'], 'جنسیت را انتخاب کنید')
@@ -32,16 +36,18 @@ export const addDriverSchema = yup.object({
         .min(0, 'دو رقم اول باید حداقل 0 باشد')
         .max(99, 'دو رقم اول باید حداکثر 99 باشد')
         .required('دو رقم اول الزامی است'),
+
       letter: yup
         .string()
-        .oneOf(LETTERS, 'حرف وسط پلاک معتبر نیست')
-
+        .oneOf(plateLetters, 'حرف وسط پلاک معتبر نیست')
         .required('حرف وسط الزامی است'),
+
       second: yup
         .number()
         .min(0, 'سه رقم وسط باید حداقل 0 باشد')
         .max(999, 'سه رقم وسط باید حداکثر 999 باشد')
         .required('سه رقم وسط الزامی است'),
+
       state: yup
         .number()
         .min(0, 'دو رقم آخر باید حداقل 0 باشد')
@@ -51,7 +57,6 @@ export const addDriverSchema = yup.object({
     .required('پلاک خودرو الزامی است'),
 });
 
-
 export type FormValues = Omit<
   InferType<typeof addDriverSchema>,
   'birthDate' | 'plateNumber'
@@ -59,7 +64,7 @@ export type FormValues = Omit<
   birthDate: DateObject | null;
   plateNumber: {
     first: number;
-    letter: string; 
+    letter: string;
     second: number;
     state: number;
   };
@@ -73,6 +78,11 @@ export const addDriverDefaultValues: FormValues = {
   birthDate: null as any,
   gender: undefined as any,
   carType: '',
-  plateNumber: { first: 0, letter: 'ب', second: 0, state: 0 },
-  
+
+  plateNumber: {
+    first: 0,
+    letter: 'ب',
+    second: 0,
+    state: 0,
+  },
 };

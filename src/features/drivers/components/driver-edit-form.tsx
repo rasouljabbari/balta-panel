@@ -14,7 +14,7 @@ import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 import { useDriverById, useEditDriverPage } from '../hook/drivers';
-import { LETTERS } from './data';
+import { PERSIAN_LETTERS } from './data';
 import PlateInput from './plate-input';
 import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
 
@@ -45,21 +45,23 @@ useEffect(() => {
       nationalCode: driver.national_id,
       birthDate: driver.birth_date
         ? new DateObject({
-            date: new Date(driver.birth_date), 
-            calendar: persian, 
-            locale: persian_fa, 
+            date: new Date(driver.birth_date),
+            calendar: persian,
+            locale: persian_fa,
           })
         : null,
       gender: driver.gender,
       carType: driver.car_type,
       plateNumber: driver.car_plate
         ? {
-            first: Number(driver.car_plate.first) || 0,
-            letter: (LETTERS.includes(driver.car_plate.letter)
-              ? driver.car_plate.letter
-              : 'ب') as (typeof LETTERS)[number],
-            second: Number(driver.car_plate.second) || 0,
-            state: Number(driver.car_plate.state) || 0,
+            first: Number(driver.car_plate?.first) || 0,
+            letter: PERSIAN_LETTERS.some(
+              (l) => l.id === driver.car_plate?.letter,
+            )
+              ? driver.car_plate.letter!
+              : 'ب',
+            second: Number(driver.car_plate?.second) || 0,
+            state: Number(driver.car_plate?.state) || 0,
           }
         : { first: 0, letter: 'ب', second: 0, state: 0 },
     });

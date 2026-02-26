@@ -5,37 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { FlagIcon } from '@/components/icons/drivers-icon';
 import type { PlateInputProps, PlateParts } from '../types';
-import { LETTERS } from './data';
-
-
-;
-
-
-
-
-
-
-
-
-
-;
-
-
-
-
-
-
-
-
-
-;
-
-
-
-
-
-
-
+import { PERSIAN_LETTERS } from './data';
 
 
 ;
@@ -92,6 +62,7 @@ export default function PlateInput({
       return newPlate;
     });
   };
+
 
   useEffect(() => {
     if (value) {
@@ -167,16 +138,23 @@ export default function PlateInput({
             </button>
 
             {dropdownOpen && (
-              <div className="absolute top-full mt-1 left-0 bg-white border border-gray-300 rounded shadow-md z-50 w-15 max-h-40 overflow-y-auto">
-                {LETTERS.map((l) => (
-                  <div
-                    key={l}
-                    className="px-3 py-1 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => handleChange('letter', l)}
-                  >
-                    {l}
+              <div className="absolute top-full left-0 z-50 mt-1 max-h-40 w-15 overflow-y-auto rounded border border-gray-300 bg-white shadow-md">
+                {dropdownOpen && (
+                  <div className="absolute top-full left-0 z-50 mt-1 max-h-40 w-15 overflow-y-auto rounded border border-gray-300 bg-white shadow-md">
+                    {PERSIAN_LETTERS.map((item) => (
+                      <div
+                        key={item.id}
+                        className="cursor-pointer px-3 py-1 hover:bg-gray-100"
+                        onClick={() => {
+                          handleChange('letter', String(item.id));
+                          setDropdownOpen(false);
+                        }}
+                      >
+                        {item.label}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
             )}
           </div>
