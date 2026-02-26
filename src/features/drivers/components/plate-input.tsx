@@ -1,41 +1,40 @@
-;
-
-/* eslint-disable react-hooks/set-state-in-effect */
-import { useEffect, useRef, useState } from 'react';
-import { ChevronDown } from 'lucide-react';
 import { FlagIcon } from '@/components/icons/drivers-icon';
+import { cn } from '@/utils/cn';
+import { ChevronDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { PERSIAN_LETTERS } from '../data';
 import type { PlateInputProps, PlateParts } from '../types';
-import { PERSIAN_LETTERS } from './data';
-
-
-;
-
-
-
-
-
-
-
-
 
 export default function PlateInput({
   value,
   onChange,
   error,
-  errorText,
   required,
   label,
   showFlag = true,
 }: PlateInputProps & { showFlag?: boolean }) {
   const [plate, setPlate] = useState<PlateParts>({
-    part1: value?.first ?? 0,
-    part2: value?.second ?? 0,
-    letter: value?.letter ?? 'ب',
-    part3: value?.state ?? 0,
+    part1: value?.first,
+    part2: value?.second,
+    letter: value?.letter,
+    part3: value?.state,
   });
+
+  useEffect(() => {
+    if (!value) return;
+
+    setPlate({
+      part1: value.first ?? 0,
+      part2: value.second ?? 0,
+      letter: value.letter ?? '',
+      part3: value.state ?? 0,
+    });
+  }, [value]);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  console.log("value", value, plate)
 
   const handleChange = (key: keyof PlateParts, val: string) => {
     setPlate((prev) => {
@@ -63,18 +62,6 @@ export default function PlateInput({
     });
   };
 
-
-  useEffect(() => {
-    if (value) {
-      setPlate({
-        part1: Number(value.first) || 0,
-        part2: Number(value.second) || 0,
-        letter: value.letter || 'ب',
-        part3: Number(value.state) || 0,
-      });
-    }
-  }, [value]);
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -96,7 +83,7 @@ export default function PlateInput({
         </label>
       )}
 
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center w-fit gap-2">
         <div className="flex items-center gap-md">
           <input
             aria-label="part1"
@@ -108,7 +95,7 @@ export default function PlateInput({
               if (val.length > 2) val = val.slice(0, 2);
               handleChange('part1', val);
             }}
-            className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
+            className={cn("w-10 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
           />
 
           <div className="w-px h-10 border border-dashed border-gray-modern-300" />
@@ -123,7 +110,7 @@ export default function PlateInput({
               if (val.length > 3) val = val.slice(0, 3);
               handleChange('part2', val);
             }}
-            className={`w-[56px] h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
+            className={cn("w-14 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
           />
 
           <div className="relative" ref={dropdownRef}>
@@ -131,7 +118,7 @@ export default function PlateInput({
               aria-label="ChevronDown"
               type="button"
               onClick={() => setDropdownOpen((prev) => !prev)}
-              className={`w-15 h-10 text-center rounded-xl border flex items-center justify-between p-md ${error ? 'border-red-500' : 'border-gray-300'}`}
+              className={cn("w-15 h-10 text-center rounded-xl border flex items-center justify-between p-md", error ? 'border-red-500' : 'border-gray-300')}
             >
               {plate.letter}
               <ChevronDown size={20} color="var(--color-gray-light-500)" />
@@ -139,22 +126,18 @@ export default function PlateInput({
 
             {dropdownOpen && (
               <div className="absolute top-full left-0 z-50 mt-1 max-h-40 w-15 overflow-y-auto rounded border border-gray-300 bg-white shadow-md">
-                {dropdownOpen && (
-                  <div className="absolute top-full left-0 z-50 mt-1 max-h-40 w-15 overflow-y-auto rounded border border-gray-300 bg-white shadow-md">
-                    {PERSIAN_LETTERS.map((item) => (
-                      <div
-                        key={item.id}
-                        className="cursor-pointer px-3 py-1 hover:bg-gray-100"
-                        onClick={() => {
-                          handleChange('letter', String(item.id));
-                          setDropdownOpen(false);
-                        }}
-                      >
-                        {item.label}
-                      </div>
-                    ))}
+                {PERSIAN_LETTERS.map((item) => (
+                  <div
+                    key={item}
+                    className="cursor-pointer px-3 py-1 hover:bg-gray-100"
+                    onClick={() => {
+                      handleChange('letter', String(item));
+                      setDropdownOpen(false);
+                    }}
+                  >
+                    {item}
                   </div>
-                )}
+                ))}
               </div>
             )}
           </div>
@@ -169,7 +152,7 @@ export default function PlateInput({
               if (val.length > 2) val = val.slice(0, 2);
               handleChange('part3', val);
             }}
-            className={`w-10 h-10 text-center rounded-xl border ${error ? 'border-red-500' : 'border-gray-300'}`}
+            className={cn("w-10 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
           />
         </div>
 
@@ -180,8 +163,8 @@ export default function PlateInput({
         )}
       </div>
 
-      {error && errorText && (
-        <span className="text-xs text-red-500">{errorText}</span>
+      {error && (
+        <span className="text-sm text-rtext-error-primary-600">پلاک خودرو الزامی است</span>
       )}
     </div>
   );

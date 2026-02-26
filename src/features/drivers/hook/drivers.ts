@@ -1,3 +1,4 @@
+import type { FormValues } from '@/features/drivers/validation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createDriverService, editDriverService, getDriverByIdService, getDriversService, toggleDriverStatusService } from '../services/drivers';
 import type { CreateDriverPayload, CreateDriverResponse } from '../types';
@@ -7,9 +8,13 @@ export const DRIVERS_QUERY_KEY = ['drivers'];
 
 export const useCreateDriver = (
   closeModal: () => void,
-  setServerValidationError?: (err: any) => void,
+  setError?: any,
 ) => {
   const queryClient = useQueryClient();
+
+  // useEffect(() => {
+
+  // }, [serverValidationError, setError]);
 
   return useMutation<CreateDriverResponse, any, CreateDriverPayload>({
     mutationFn: (payload) => createDriverService(payload),
@@ -17,12 +22,31 @@ export const useCreateDriver = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
       closeModal();
-      setServerValidationError?.(null);
+      setError?.(null);
     },
 
-    onError: (error: any) => {
-      const serverError = error?.response?.data || error;
-      setServerValidationError?.(serverError);
+
+
+    onError: (err: any) => {
+      if (err?.error.length > 0) {
+        // setValidationErrors(err?.error);
+        err?.error?.forEach((validationError: any) => {
+          const fieldName = validationError.field as keyof FormValues;
+          setError(fieldName, {
+            type: 'server',
+            message: validationError.message,
+          });
+        });
+      }
+      // const serverError = error?.response?.data || error;
+      // serverError?.error?.forEach((validationError) => {
+      //   const fieldName = validationError.field as keyof FormValues;
+      //   setError(fieldName, {
+      //     type: 'server',
+      //     message: validationError.message,
+      //   });
+      // });
+      // setServerValidationError?.(serverError);
     },
   });
 };

@@ -1,3 +1,4 @@
+
 export interface DriverTableProps {
   data: DriverItem[];
   onAllocatedOrders: (driver: DriverItem) => void;
@@ -139,7 +140,7 @@ export interface GetDriverByIdResponse {
 }
 
 export interface PlateInputProps {
-  value?: { first: number; letter: string; second: number; state: number };
+  value?: any;
   onChange?: (value: {
     first: number;
     letter: string;
@@ -147,7 +148,6 @@ export interface PlateInputProps {
     state: number;
   }) => void;
   error?: boolean;
-  errorText?: string;
   required?: boolean;
   label?: string;
 }

@@ -196,6 +196,6 @@ div[role='button']:focus-within,
 }
 
 .dv-select-error .my-select__control {
-  @apply border-2 border-rborder-error
+  @apply border-2! border-rborder-error!
 }
 

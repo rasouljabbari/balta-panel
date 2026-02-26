@@ -1,4 +1,5 @@
 import type { ImgHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
 
 export interface ImageProps extends Omit<
@@ -157,11 +158,9 @@ export interface DatePickerFieldProps {
   onChange?: (date: any) => void;
   placeholder?: string;
   className?: string;
-  iconPosition?: 'left' | 'right';
-  showDivider?: boolean;
   required?: boolean;
   error?: boolean;
-  errorText?: string;
+  errorText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
 export type DetailItem = {

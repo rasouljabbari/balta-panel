@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { Card, CardHeader } from '@/components/shared/card';
+import EmptyBox from '@/components/shared/empty-box';
+import { Skeleton } from '@/components/shared/skeleton-loader';
 import DriverTable from '@/features/drivers/components/table';
 import DriverTableHeader from '@/features/drivers/components/table-headers';
 import { useDrivers } from '@/features/drivers/hook/drivers';
 import type { DriverItem } from '@/features/drivers/types';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardHeader } from '@/components/shared/card';
-import EmptyBox from '@/components/shared/empty-box';
-import { Skeleton } from '@/components/shared/skeleton-loader';
 
 export default function DriversPage() {
   const navigate = useNavigate();

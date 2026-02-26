@@ -1,94 +1,94 @@
-import { useEffect } from 'react';
+import { Card, CardHeader } from '@/components/shared/card';
+import CustomSelect from '@/components/shared/custom-select';
+import DatePickerField from '@/components/shared/date-picker-filed';
+import InfoHeader from '@/components/shared/info-header';
+import { Skeleton } from '@/components/shared/skeleton-loader';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { User } from 'lucide-react';
+import { useEffect } from 'react';
 import DateObject from 'react-date-object';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Button, Input } from 'rg-dst';
-import { Card, CardHeader } from '@/components/shared/card';
-import CustomSelect from '@/components/shared/custom-select';
-import DatePickerField from '@/components/shared/date-picker-filed';
-import InfoHeader from '@/components/shared/info-header';
-import { Skeleton } from '@/components/shared/skeleton-loader';
+import { PERSIAN_LETTERS } from '../data';
 import { useDriverById, useEditDriverPage } from '../hook/drivers';
-import { PERSIAN_LETTERS } from './data';
+import { addDriverDefaultValues, addDriverSchema, type FormValues } from '../validation';
 import PlateInput from './plate-input';
-import { addDriverDefaultValues, addDriverSchema, type FormValues } from './validation';
 
 
 export default function DriverEditForm() {
   const { id } = useParams();
   const { data: driver, isLoading } = useDriverById(id);
-  
 
-   const editDriverMutation = useEditDriverPage();
+
+  const editDriverMutation = useEditDriverPage();
   const {
-  reset,
-  control,
-  handleSubmit,
-  formState: { errors },
-} = useForm<FormValues>({
-  resolver: yupResolver(addDriverSchema) as any,
-  defaultValues: addDriverDefaultValues,
-});
+    reset,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: yupResolver(addDriverSchema) as any,
+    defaultValues: addDriverDefaultValues,
+  });
 
-useEffect(() => {
-  if (driver) {
-    reset({
-      ...addDriverDefaultValues,
-      firstName: driver.first_name,
-      lastName: driver.last_name,
-      mobile: driver.phone,
-      nationalCode: driver.national_id,
-      birthDate: driver.birth_date
-        ? new DateObject({
+  useEffect(() => {
+    if (driver) {
+      reset({
+        ...addDriverDefaultValues,
+        first_name: driver.first_name,
+        last_name: driver.last_name,
+        phone: driver.phone,
+        national_id: driver.national_id,
+        birth_date: driver.birth_date
+          ? new DateObject({
             date: new Date(driver.birth_date),
             calendar: persian,
             locale: persian_fa,
           })
-        : null,
-      gender: driver.gender,
-      carType: driver.car_type,
-      plateNumber: driver.car_plate
-        ? {
+          : null,
+        gender: driver.gender,
+        car_type: driver.car_type,
+        car_plate: driver.car_plate
+          ? {
             first: Number(driver.car_plate?.first) || 0,
             letter: PERSIAN_LETTERS.some(
-              (l) => l.id === driver.car_plate?.letter,
+              (l) => l === driver.car_plate?.letter,
             )
               ? driver.car_plate.letter!
               : 'ب',
             second: Number(driver.car_plate?.second) || 0,
             state: Number(driver.car_plate?.state) || 0,
           }
-        : { first: 0, letter: 'ب', second: 0, state: 0 },
-    });
-  }
-}, [driver, reset]);
-  
+          : { first: 0, letter: 'ب', second: 0, state: 0 },
+      });
+    }
+  }, [driver, reset]);
+
   const onSubmit = (data: FormValues) => {
     if (!driver) return;
 
     editDriverMutation.mutate({
       id: driver.id,
       payload: {
-        first_name: data.firstName,
-        last_name: data.lastName,
-        phone: data.mobile,
-        national_id: data.nationalCode,
-        birth_date: data.birthDate
-          ? convertPersianToGregorian(data.birthDate)
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phone: data.phone,
+        national_id: data.national_id,
+        birth_date: data.birth_date
+          ? convertPersianToGregorian(data.birth_date)
           : undefined,
         gender: data.gender,
         joined_at: driver.joined_at ?? undefined,
-        car_type: data.carType,
+        car_type: data.car_type,
         car_plate: {
-          first: data.plateNumber.first.toString(),
-          letter: data.plateNumber.letter,
-          second: data.plateNumber.second.toString(),
-          state: data.plateNumber.state.toString(),
+          first: data?.car_plate?.first?.toString(),
+          letter: data?.car_plate?.letter,
+          second: data?.car_plate?.second?.toString(),
+          state: data?.car_plate?.state?.toString(),
         },
       },
     });
@@ -136,54 +136,54 @@ useEffect(() => {
             className="grid grid-cols-2 gap-5"
           >
             <Controller
-              name="firstName"
+              name="first_name"
               control={control}
               render={({ field }) => (
                 <Input
                   label="نام"
                   {...field}
-                  error={errors.firstName?.message}
+                  error={errors.first_name?.message}
                   className="w-full"
                   aria-label="نام"
                 />
               )}
             />
             <Controller
-              name="lastName"
+              name="last_name"
               control={control}
               render={({ field }) => (
                 <Input
                   label="نام خانوادگی"
                   {...field}
-                  error={errors.lastName?.message}
+                  error={errors.last_name?.message}
                   className="w-full"
                   aria-label="نام خانوادگی"
                 />
               )}
             />
             <Controller
-              name="mobile"
+              name="phone"
               control={control}
               render={({ field }) => (
                 <Input
                   label="شماره موبایل"
                   type="number"
                   {...field}
-                  error={errors.mobile?.message}
+                  error={errors.phone?.message}
                   className="w-full"
                   aria-label="شماره موبایل"
                 />
               )}
             />
             <Controller
-              name="nationalCode"
+              name="national_id"
               control={control}
               render={({ field }) => (
                 <Input
                   label="کد ملی"
                   type="number"
                   {...field}
-                  error={errors.nationalCode?.message}
+                  error={errors.national_id?.message}
                   className="w-full"
                   aria-label="کد ملی"
                 />
@@ -192,13 +192,11 @@ useEffect(() => {
             {/* Birth Date */}
             <Controller
               control={control}
-              name="birthDate"
+              name="birth_date"
               render={({ field }) => (
                 <DatePickerField
                   {...field}
                   label="تاریخ تولد"
-                  iconPosition="right"
-                  showDivider={false}
                   aria-label="تاریخ تولد"
                 />
               )}
@@ -234,28 +232,26 @@ useEffect(() => {
               }
             />
             <Controller
-              name="carType"
+              name="car_type"
               control={control}
               render={({ field }) => (
                 <Input
                   label="نوع خودرو"
                   {...field}
-                  error={errors.carType?.message}
+                  error={errors.car_type?.message}
                   className="w-full"
                   aria-label="نوع خودرو"
                 />
               )}
             />
             <Controller
-              name="plateNumber"
+              name="car_plate"
               control={control}
               render={({ field }) => (
                 <PlateInput
                   {...field}
                   label="پلاک خودرو"
-                  error={!!errors.plateNumber}
-                  errorText={errors.plateNumber?.message}
-                  showFlag={false}
+                  error={!!errors.car_plate}
                   aria-label="پلاک خودرو"
                 />
               )}
