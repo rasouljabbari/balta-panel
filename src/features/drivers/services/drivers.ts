@@ -16,10 +16,11 @@ export const createDriverService = async (
   });
 };
 
-export const getDriversService = async (): Promise<GetDriversResponse> => {
+export const getDriversService = async (searchValue?: string): Promise<GetDriversResponse> => {
   return getData({
     endPoint: 'admin/v1/drivers',
     type: 'get',
+    dataParams: searchValue ? { search: searchValue } : {}
   });
 };
 

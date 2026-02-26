@@ -1,8 +1,8 @@
 import type { FormValues } from '@/features/drivers/validation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { createDriverService, editDriverService, getDriverByIdService, getDriversService, toggleDriverStatusService } from '../services/drivers';
 import type { CreateDriverPayload, CreateDriverResponse } from '../types';
-
 
 export const DRIVERS_QUERY_KEY = ['drivers'];
 
@@ -11,10 +11,6 @@ export const useCreateDriver = (
   setError?: any,
 ) => {
   const queryClient = useQueryClient();
-
-  // useEffect(() => {
-
-  // }, [serverValidationError, setError]);
 
   return useMutation<CreateDriverResponse, any, CreateDriverPayload>({
     mutationFn: (payload) => createDriverService(payload),
@@ -25,11 +21,8 @@ export const useCreateDriver = (
       setError?.(null);
     },
 
-
-
     onError: (err: any) => {
       if (err?.error.length > 0) {
-        // setValidationErrors(err?.error);
         err?.error?.forEach((validationError: any) => {
           const fieldName = validationError.field as keyof FormValues;
           setError(fieldName, {
@@ -38,18 +31,10 @@ export const useCreateDriver = (
           });
         });
       }
-      // const serverError = error?.response?.data || error;
-      // serverError?.error?.forEach((validationError) => {
-      //   const fieldName = validationError.field as keyof FormValues;
-      //   setError(fieldName, {
-      //     type: 'server',
-      //     message: validationError.message,
-      //   });
-      // });
-      // setServerValidationError?.(serverError);
     },
   });
 };
+
 export const useEditDriverPage = (
   setServerValidationError?: (err: any) => void,
 ) => {
@@ -65,6 +50,7 @@ export const useEditDriverPage = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
       setServerValidationError?.(null);
+      toast.success('ویرایش اطلاعات راننده با موفقیت ثبت شد.')
     },
 
     onError: (error: any) => {
@@ -73,10 +59,10 @@ export const useEditDriverPage = (
   });
 };
 
-export const useDrivers = (page: number) => {
+export const useDrivers = (page: number, searchValue?: string) => {
   return useQuery({
-    queryKey: [...DRIVERS_QUERY_KEY, page],
-    queryFn: getDriversService,
+    queryKey: [...DRIVERS_QUERY_KEY, page, searchValue],
+    queryFn: () => getDriversService(searchValue),
     select: (res) => res.data,
   });
 };
