@@ -2,7 +2,6 @@ import type { Headers } from '@/types/api';
 
 export const constructHeaders = (
   token: string | null | undefined,
-  isHeaderJson?: boolean,
   hasExcel?: boolean,
 ): { headers: Headers } => {
 
@@ -15,18 +14,12 @@ export const constructHeaders = (
   if (hasExcel) {
     headers['Accept'] =
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    headers['Content-Type'] = 'application/json';
   }
 
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  if (isHeaderJson) {
-    headers['Content-Type'] = 'application/x-www-form-urlencoded;';
-    headers['Accept'] = '*/*';
-    headers['Access-Control-Allow-Credentials'] = 'true';
-  }
 
   return { headers };
 };

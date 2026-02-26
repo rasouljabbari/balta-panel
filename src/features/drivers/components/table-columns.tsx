@@ -1,7 +1,7 @@
-import { Eye } from 'lucide-react';
 import { Badge, TooltipWrapper } from 'rg-dst';
 import type { TableColumn } from '@/components/shared/table';
 import type { DriverItem } from '../types';
+import { Eye } from 'lucide-react';
 
 
 export const driverTableColumns = (
@@ -13,7 +13,7 @@ export const driverTableColumns = (
     accessor: (row) => row.id,
   },
   {
-    id: 'نام و نام خانوادگی',
+    id: 'fullName',
     label: 'نام راننده',
     accessor: (row) => row.fullName,
   },
@@ -22,7 +22,6 @@ export const driverTableColumns = (
     label: 'نوع خودرو',
     accessor: (row) => row.vehicleType,
   },
-
   {
     id: 'plate',
     label: 'پلاک خودرو',
@@ -52,10 +51,7 @@ export const driverTableColumns = (
         position="top"
         contentClassName="text-xs font-semibold"
       >
-        <button
-          onClick={() => onAllocatedOrders(row)}
-          className="!p-2"
-        >
+        <button onClick={() => onAllocatedOrders(row)} className="!p-2">
           <Eye size={18} />
         </button>
       </TooltipWrapper>

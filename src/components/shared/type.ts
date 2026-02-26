@@ -1,4 +1,5 @@
 import type { ImgHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
 
 export interface ImageProps extends Omit<
@@ -57,6 +58,8 @@ export type SharedModalProps = {
   };
   isPending?: boolean;
   footerLeft?: React.ReactNode;
+  showFooter?: boolean;
+  bodyClassName?: string;
 };
 
 export interface CardProps {
@@ -155,8 +158,9 @@ export interface DatePickerFieldProps {
   onChange?: (date: any) => void;
   placeholder?: string;
   className?: string;
-  iconPosition?: 'left' | 'right';
-  showDivider?: boolean;
+  required?: boolean;
+  error?: boolean;
+  errorText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
 export type DetailItem = {
@@ -179,7 +183,7 @@ export interface InfoHeaderProps {
 
 
 export type AccordionCardProps = {
-  title: string;
+  title: ReactNode;
   icon: ReactNode;
   isOpen: boolean;
   onToggle: () => void;

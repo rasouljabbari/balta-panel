@@ -43,7 +43,7 @@ const MenuForm = forwardRef<{ submit: () => void }, MenuFormProps>(
     const { data: packaging = [], isLoading } = usePackaging();
 
     const packagingOptions = !isLoading
-      ? packaging.map((p) => ({
+      ? packaging.filter(elem => elem.is_active)?.map((p) => ({
         value: p.id,
         label: p.name,
       }))

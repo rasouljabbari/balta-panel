@@ -47,4 +47,5 @@ function CardBody({ children, className }: CardBodyProps) {
   return <div className={cn('px-3xl py-2xl', className)}>{children}</div>;
 }
 
-export { Card, CardHeader, CardBody };
+export { Card, CardBody, CardHeader };
+

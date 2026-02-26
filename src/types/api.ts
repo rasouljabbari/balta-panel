@@ -12,7 +12,7 @@ export interface HeadersConfig {
   headers: Headers;
 }
 
-export type RequestType = 'get' | 'post' | 'delete' | 'patch';
+export type RequestType = 'get' | 'post' | 'delete' | 'patch' | 'put';
 
 export type DataParams = Record<string, any>;
 

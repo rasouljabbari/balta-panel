@@ -22,7 +22,9 @@ export default function SharedModal({
   iconBgClass = 'bg-warning-100',
   confirmButtonWidth = 'w-11xl',
   isPending = false,
-  footerLeft
+  footerLeft,
+  showFooter = true,
+  bodyClassName = '',
 }: SharedModalProps) {
   const { visible, showPortal, handleTransitionEnd } = useAnimatedModal(isOpen);
 
@@ -60,42 +62,41 @@ export default function SharedModal({
         </div>
 
         {/* BODY */}
-        <div className="p-3xl">{children}</div>
-
+        <div className={cn('p-3xl', bodyClassName)}>{children}</div>
         {/* FOOTER */}
-        <div className="p-3xl border-t border-gray-light-200">
-          <div className="flex justify-between">
-            {footerLeft}
-            <div className="flex gap-xl mr-auto">
-              <Button
-                type="button"
-                className="bg-base-white text-gray-light-700 border border-gray-light-300 hover:bg-base-white p-[10px] px-xl"
-                onClick={onClose}
-                aria-label="cancel-button"
-              >
-                {cancelText}
-              </Button>
-
-              {showConfirmButton && (
+        {showFooter && (
+          <div className="p-3xl border-t border-gray-light-200">
+            <div className="flex justify-between">
+              {footerLeft}
+              <div className="flex gap-xl mr-auto">
                 <Button
-                  loading={isPending}
-                  type={confirmButtonType}
-                  className={cn(
-                    'p-2.5 px-xl bg-utility-brand-600 hover:bg-utility-brand-700 text-base-white',
-                    confirmButtonWidth,
-                  )}
-                  onClick={
-                    confirmButtonType === 'button' ? onConfirm : undefined
-                  }
-                  disabled={confirmDisabled || isPending}
-                  aria-label="confirm-button"
+                  type="button"
+                  className="bg-base-white text-gray-light-700 border border-gray-light-300 hover:bg-base-white p-[10px] px-xl"
+                  onClick={onClose}
                 >
-                  {confirmText}
+                  {cancelText}
                 </Button>
-              )}
+
+                {showConfirmButton && (
+                  <Button
+                    loading={isPending}
+                    type={confirmButtonType}
+                    className={cn(
+                      'p-2.5 px-xl bg-utility-brand-600 hover:bg-utility-brand-700 text-base-white',
+                      confirmButtonWidth,
+                    )}
+                    onClick={
+                      confirmButtonType === 'button' ? onConfirm : undefined
+                    }
+                    disabled={confirmDisabled || isPending}
+                  >
+                    {confirmText}
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>,
     document.body,

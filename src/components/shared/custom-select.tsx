@@ -15,7 +15,7 @@ export default function CustomSelect({
   label,
   value,
   onChange,
-  required = false, 
+  required = false,
 }: CustomSelectProps & { required?: boolean }) {
   // حالت با RHF
   if (control && name) {
@@ -26,17 +26,17 @@ export default function CustomSelect({
         render={({ field }) => {
           const selectedValue = isMulti
             ? options.filter((o) =>
-                (field.value as (string | number)[] | undefined)?.includes(
-                  o.value as string | number,
-                ),
-              )
+              (field.value as (string | number)[] | undefined)?.includes(
+                o.value as string | number,
+              ),
+            )
             : options.find((o) => o.value === field.value) || null;
 
           return (
             <div className="flex flex-col gap-1">
               {label && (
                 <label className="text-gray-light-700 text-sm flex items-center gap-1">
-                  {label}{' '}
+                  <span className="text-sm font-medium text-rtext-secondary-700">{label}</span>
                   {required && (
                     <span className="text-rtext-brand-tertiary-600">*</span>
                   )}
@@ -65,7 +65,7 @@ export default function CustomSelect({
                 />
               </div>
               {error && (
-                <p className="text-sm text-rtext-error-primary-600 mt-1">
+                <p className="text-sm text-rtext-brand-tertiary-600 mt-1">
                   {error}
                 </p>
               )}
@@ -84,28 +84,33 @@ export default function CustomSelect({
   return (
     <div className="flex flex-col gap-1">
       {label && (
-        <label className="text-gray-light-900 text-sm flex items-center gap-1">
-          {label} {required && <span className="text-red-500">*</span>}
+        <label className="text-gray-light-700 text-sm flex items-center gap-1">
+          <span className="text-sm font-medium text-rtext-secondary-700">{label}</span>
+          {required && (
+            <span className="text-rtext-brand-tertiary-600">*</span>
+          )}
         </label>
       )}
-      <Select
-        isMulti={isMulti}
-        isDisabled={isDisabled}
-        options={options}
-        placeholder={placeholder}
-        value={selectedValue}
-        onChange={(selected) => {
-          if (isMulti) {
-            onChange?.(selected as MultiValue<Option>);
-          } else {
-            onChange?.(selected as SingleValue<Option>);
-          }
-        }}
-        classNamePrefix="my-select"
-      />
-      {error && (
-        <p className="text-sm text-rtext-error-primary-600 mt-1">{error}</p>
-      )}
+      <div className={cn(error && 'dv-select-error')}>
+        <Select
+          isMulti={isMulti}
+          isDisabled={isDisabled}
+          options={options}
+          placeholder={placeholder}
+          value={selectedValue}
+          onChange={(selected) => {
+            if (isMulti) {
+              onChange?.(selected as MultiValue<Option>);
+            } else {
+              onChange?.(selected as SingleValue<Option>);
+            }
+          }}
+          classNamePrefix="my-select"
+        />
+        {error && (
+          <p className="text-sm text-rtext-error-primary-600 mt-1">{error}</p>
+        )}
+      </div>
     </div>
   );
 }

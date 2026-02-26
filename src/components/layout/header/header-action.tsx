@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button, Switch } from 'rg-dst';
 import type { HeaderActionProps } from './type';
 
@@ -11,7 +10,7 @@ export default function HeaderAction({
   initialStatus = false,
   onStatusToggle,
 }: HeaderActionProps) {
-  const [status, setStatus] = useState(initialStatus);
+  const status = initialStatus;
 
   if (isDriverEdit) return null;
 
@@ -24,13 +23,11 @@ export default function HeaderAction({
           aria-label="status-change"
           checked={status}
           onToggle={() => {
-            const newStatus = !status;
-            setStatus(newStatus);
-            if (onStatusToggle) onStatusToggle(newStatus);
-            console.log('Status changed:', newStatus);
+            const newStatus = !status; 
+            onStatusToggle?.(newStatus); 
+            console.log('Toggle clicked, status request sent', newStatus);
           }}
           className="data-[state=checked]:bg-utility-brand-600"
-        
         />
         <span className="text-sm font-semibold text-gray-light-700">
           وضعیت فعالیت
