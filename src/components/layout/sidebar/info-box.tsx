@@ -2,9 +2,18 @@ import LogoutModal from '@/components/layout/sidebar/logout-modal';
 import { getCookie } from '@/utils/cookies';
 import { getNameAbbreviation } from '@/utils/get-name-abbreviation';
 
-export default function SidebarInfoBox() {
+function parseUserInfoCookie(): { first_name?: string; last_name?: string } | null {
+  const raw = getCookie('user_info');
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as { first_name?: string; last_name?: string };
+  } catch {
+    return null;
+  }
+}
 
-  const userInfo = getCookie('user_info') ? JSON.parse(`${getCookie('user_info')}`) : null
+export default function SidebarInfoBox() {
+  const userInfo = parseUserInfoCookie();
 
   const fullName = userInfo?.first_name + " " + userInfo?.last_name
 

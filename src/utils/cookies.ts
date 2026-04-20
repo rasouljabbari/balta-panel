@@ -1,5 +1,6 @@
 export const setCookie = (name: string, value: string, seconds?: number) => {
-  let cookieString = `${name}=${value}; path=/;`;
+  const encodedValue = encodeURIComponent(value);
+  let cookieString = `${name}=${encodedValue}; path=/;`;
 
   if (typeof seconds === 'number') {
     const date = new Date();
@@ -17,7 +18,12 @@ export const getCookie = (name: string): string | undefined => {
   for (let cookie of cookiesArray) {
     while (cookie.charAt(0) === ' ') cookie = cookie.substring(1);
     if (cookie.indexOf(nameEQ) === 0) {
-      return cookie.substring(nameEQ.length, cookie.length);
+      const raw = cookie.substring(nameEQ.length, cookie.length);
+      try {
+        return decodeURIComponent(raw);
+      } catch {
+        return raw;
+      }
     }
   }
   return undefined;
