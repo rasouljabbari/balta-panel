@@ -5,7 +5,8 @@ import type { FoodItem } from '@/features/food/type';
 import { useState } from 'react';
 
 export default function TableFood() {
-  const { data: foodData, isLoading } = useListFood();
+  const [page, setPage] = useState(1);
+  const { data: foodData, isLoading } = useListFood({page, per_page:10});
 
 
   const onSearch = (val: string) => {
@@ -33,9 +34,20 @@ export default function TableFood() {
     setEditingId(null);
   };
 
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
   return ( 
     <>
-      <FoodTable isLoading={isLoading} onSearch={onSearch} data={foodData ?? []} onAdd={handleAdd} onEdit={handleEdit} />
+      <FoodTable 
+        isLoading={isLoading} 
+        onSearch={onSearch} 
+        data={foodData?.foods ?? []}
+        meta={foodData?.meta}
+        onPageChange={handlePageChange}
+        onAdd={handleAdd} 
+        onEdit={handleEdit} />
       <FoodSheet
         open={isOpen}
         onClose={handleClose}

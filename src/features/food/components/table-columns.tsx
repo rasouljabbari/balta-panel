@@ -12,6 +12,7 @@ export const foodTableColumns = (
     id: 'id',
     label: 'شماره آیتم',
     render: (_value, _row, index) => `#${index + 1}`,
+    width: '80px',
   },
   {
     id: 'image',
@@ -21,7 +22,7 @@ export const foodTableColumns = (
         <Image
           src={value || '/assets/images/food-fallback-img.webp'}
           alt={row.name}
-          className="w-16 h-16 object-cover rounded-md m-auto"
+          className="w-20 h-20 object-cover rounded-md m-auto"
         />
     ),
   },
@@ -43,6 +44,7 @@ export const foodTableColumns = (
         ))}
       </div>
     ),
+    width: '200px',
   },
   {
     id: 'price',

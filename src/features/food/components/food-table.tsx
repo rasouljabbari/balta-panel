@@ -8,7 +8,7 @@ import FoodTableHeader from './table-header';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 
 
-export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch }: FoodTableProps) {
+export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch, meta, onPageChange }: FoodTableProps) {
   
   if (!data || data.length === 0 || isLoading) {
     return (
@@ -51,11 +51,11 @@ export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch }: 
       data={data}
       rowKey={(row) => row.id}
       header={<FoodTableHeader onSearch={onSearch} onAdd={onAdd} />}
-      pagination={{
-        currentPage: 1,
-        totalPages: 1,
-        onPageChange: () => { },
-      }}
+      pagination={meta ? {
+        currentPage: meta.current_page,
+        totalPages: meta.last_page,
+        onPageChange,
+      } : undefined}
     />
   );
 }

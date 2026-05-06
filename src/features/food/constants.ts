@@ -1,3 +1,5 @@
+import type { FoodFormValues } from "./type";
+
 export const meal = [
     {
       id: 1,
@@ -44,3 +46,17 @@ export const weekDays = [
         day: 'friday'
     },
 ];
+
+
+export const DEFAULT_VALUES: FoodFormValues = {
+    name: '',
+    meal_types: [],
+    menu_ids: [],
+    category_id: null,
+    price: '',
+    description: '',
+    is_daily: false,
+    days: [],
+    image: null,
+    is_active: true,
+  };

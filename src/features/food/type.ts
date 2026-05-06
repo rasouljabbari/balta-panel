@@ -45,9 +45,22 @@ export interface SingleFoodResponse extends BaseResponse {
   data: FoodItem;
 }
 
+export interface FoodListParams {
+  page?: number;
+  per_page?: number;
+}
+
+export interface Meta {
+  total: number;
+  per_page: number;
+  current_page: number;
+  last_page: number;
+}
+
 export interface FoodListResponse extends BaseResponse {
   data: {
     foods: FoodItem[];
+    meta: Meta
   };
 }
 
@@ -69,6 +82,13 @@ export interface FoodTableProps {
   onAdd: () => void;
   onEdit: (row: FoodItem) => void;
   onSearch: (search: string) => void;
+  meta?: {
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+  };
+  onPageChange: (page: number) => void;
 }
 
 export interface ImageUploadPreviewProps {

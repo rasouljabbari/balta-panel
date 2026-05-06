@@ -8,7 +8,7 @@ import { Controller, useForm, useWatch } from 'react-hook-form';
 import { Button, Checkbox, Input, Switch, TextArea } from 'rg-dst';
 import type { FoodFormValues, SheetFormProps } from '../type';
 import CategoriesSelect from './category-select';
-import { meal, weekDays } from '@/features/food/constants';
+import { meal, weekDays, DEFAULT_VALUES } from '@/features/food/constants';
 import ImageUploadPreview from './image-upload-file';
 import MenusSelect from './menu-select';
 import { foodSheetSchema } from './validation';
@@ -16,25 +16,6 @@ import { useCreateFood } from '@/features/food/hooks/use-create-food';
 import { useUpdateFood } from '@/features/food/hooks/use-update-food';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { useShowFood } from '@/features/food/hooks/use-show-food'
-
-const DEFAULT_VALUES: FoodFormValues = {
-  name: '',
-  meal_types: [],
-  menu_ids: [],
-  category_id: null,
-  price: '',
-  description: '',
-  is_daily: false,
-  days: [],
-  image: null,
-  is_active: true,
-};
-
-const mealOptions = meal.map((m) => ({
-  value: m.id,  label: m.name,
-}));
-
-
 
 export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProps) {
   const { mutate: createFood , isPending: isCreatingFood } = useCreateFood(onClose);
@@ -52,20 +33,17 @@ export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProp
     resolver: yupResolver(foodSheetSchema),
   });
 
+  const mealOptions = meal.map((m) => ({
+    value: m.id,  label: m.name,
+  }));
 
   const mapFoodToForm = (food: any): any => ({
     name: food.name ?? '',
-    meal_types: food.meal_types.map((m: any) => m.id),
-
+    meal_types: food.meal_types?.map((m: any) => m.id) ?? [],
     menu_ids: Array.isArray(food.menus)
     ? food.menus.map((item: any) => Number(item.id))
     : [],
-    // Backend may return category as `category` (object) or `categories` (array).
-    category_id:
-      food.category?.id ??
-      food.category_id ??
-      food.categories?.[0]?.id ??
-      null,
+    category_id: food.category?.id,
     price: String(food.price ?? ''),
     description: food.description ?? '',
     is_daily: food.is_daily ?? false,
@@ -78,11 +56,9 @@ export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProp
 
   useEffect(() => {
     if (!open) return;
-
     if (mode === 'edit' && food) {
       reset(mapFoodToForm(food));
     }
-  
     if (mode === 'create') {
       reset(DEFAULT_VALUES);
     }
@@ -103,8 +79,6 @@ export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProp
   });
 
   const onSubmit = (data: FoodFormValues) => {
-    console.log("SUBMIT DATA:", data);
-    console.log("meal_types in submit:", data.meal_types);
     if (mode === 'create') {
       createFood(data);
     } else {
@@ -168,42 +142,36 @@ export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProp
 
           {/* Meals */}
           <Controller
-  control={control}
-  name="meal_types"
-  render={({ field }) => {
-    const selectedIds: number[] = Array.isArray(field.value)
-      ? field.value
-      : [];
+            control={control}
+            name="meal_types"
+            render={({ field }) => {
+              const selectedIds: number[] = Array.isArray(field.value)
+                ? field.value
+                : [];
 
-    return (
-      <CustomSelect
-        options={mealOptions}
-        isMulti
-        label="وعده"
-        placeholder="وعده را انتخاب نمایید"
-        required
-        error={errors.meal_types?.message}
+              return (
+                <CustomSelect
+                  options={mealOptions}
+                  isMulti
+                  label="وعده"
+                  placeholder="وعده را انتخاب نمایید"
+                  required
+                  error={errors.meal_types?.message}
 
-        value={mealOptions.filter((m) =>
-          selectedIds.includes(Number(m.value))
-        )}
+                  value={mealOptions.filter((m) =>
+                    selectedIds.includes(Number(m.value))
+                  )}
 
-        onChange={(options) => {
-          console.log('CustomSelect onChange raw options:', options);
-          const ids = Array.isArray(options)
-            ? options.map((o) => Number(o.value))
-           : [];
-
-           console.log('Mapped ids:', ids);
-
-          field.onChange(ids);
-        }}
-      />
-    );
-  }}
-/>
-
-
+                  onChange={(options) => {
+                    const ids = Array.isArray(options)
+                      ? options.map((o) => Number(o.value))
+                    : [];
+                    field.onChange(ids);
+                  }}
+                />
+              );
+            }}
+          />
 
           {/* Menus */}
           <MenusSelect control={control} error={errors.menu_ids?.message} />
