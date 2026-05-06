@@ -7,6 +7,7 @@ import { getCookie } from '@/utils/cookies';
 import { createBrowserRouter, redirect } from 'react-router-dom';
 import ContractsPage from './pages/contracts';
 import DefinitionPage from './pages/definition';
+import ExceptionsPage from './pages/exceptions';
 import DriverDetail from './pages/drivers/driver-detail';
 import DeriversPage from './pages/drivers/drivers';
 import DriverEditForm from './pages/drivers/update-driver';
@@ -48,6 +49,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Dashboard },
       { path: 'dashboard', Component: Dashboard },
       { path: '/definition', Component: DefinitionPage },
+      { path: '/exceptions', Component: ExceptionsPage },
       { path: '/foods', Component: TableFood },
       { path: '/contracts', Component: ContractsPage },
       { path: '/contracts/edit/:id', Component: EditContract },
