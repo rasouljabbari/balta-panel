@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+---
+
+{weekDays.map((day) => (
+                  <div key={day.value} className="flex items-center gap-md">
+                    <Controller
+                      control={control}
+                      name="days"
+                      render={({ field }) => {
+                        const selectedDays = field.value ?? [];
+                        const isChecked = selectedDays.includes(day.value);
+
+                        const toggleDay = (checked: boolean) => {
+                          if (checked) {
+                            if (!selectedDays.includes(day.value)) {
+                              field.onChange([...selectedDays, day.value]);
+                            }
+                            return;
+                          }
+
+                          field.onChange(
+                            selectedDays.filter((selectedDay: string) => selectedDay !== day.value),
+                          );
+                        };
+
+                        return (
+                          <Checkbox
+                            id={`week-day-${day.value}`}
+                            name={day.value}
+                            label={day.name}
+                            checked={isChecked}
+                            onChange={(event: any) => {
+                              toggleDay(Boolean(event?.target?.checked));
+                            }}
+                            onClick={() => toggleDay(!isChecked)}
+                          />
+                        );
+                      }}
+                    />
+                  </div>
+                ))}

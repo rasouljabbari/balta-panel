@@ -34,7 +34,8 @@ export function MealLimitsCard() {
                   className="w-full placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                 />
               </div>
 
@@ -47,7 +48,8 @@ export function MealLimitsCard() {
                   className="w-full placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                 />
               </div>
             </div>
@@ -68,7 +70,8 @@ export function MealLimitsCard() {
                   className="w-[344px] placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
                 />
               </div>
             </div>

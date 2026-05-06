@@ -4,39 +4,46 @@ import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CirclePlus, X } from 'lucide-react';
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 import { Button, Checkbox, Input, Switch, TextArea } from 'rg-dst';
 import type { FoodFormValues, SheetFormProps } from '../type';
 import CategoriesSelect from './category-select';
-import { meal, weekDays } from './data';
+import { meal, weekDays } from '@/features/food/constants';
 import ImageUploadPreview from './image-upload-file';
 import MenusSelect from './menu-select';
 import { foodSheetSchema } from './validation';
-
+import { useCreateFood } from '@/features/food/hooks/use-create-food';
+import { useUpdateFood } from '@/features/food/hooks/use-update-food';
+import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
+import { useShowFood } from '@/features/food/hooks/use-show-food'
 
 const DEFAULT_VALUES: FoodFormValues = {
   name: '',
-  meals: [],
-  menus: [],
-  categories: [],
+  meal_types: [],
+  menu_ids: [],
+  category_id: null,
   price: '',
   description: '',
-  isDailyFood: false,
-  weekDays: [],
+  is_daily: false,
+  days: [],
   image: null,
-  isVisible: true,
+  is_active: true,
 };
 
-export default function FoodSheet({
-  open,
-  onClose,
-  mode,
-  selectedFood,
-}: SheetFormProps) {
+const mealOptions = meal.map((m) => ({
+  value: m.id,  label: m.name,
+}));
+
+
+
+export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProps) {
+  const { mutate: createFood , isPending: isCreatingFood } = useCreateFood(onClose);
+  const { mutate: updateFood , isPending: isUpdatingFood } = useUpdateFood(onClose);
+  const isLoading = isCreatingFood || isUpdatingFood;
+  const { data: food } = useShowFood(foodId);
   const {
     handleSubmit,
     control,
-    watch,
     setValue,
     reset,
     formState: { errors },
@@ -45,44 +52,67 @@ export default function FoodSheet({
     resolver: yupResolver(foodSheetSchema),
   });
 
+
   const mapFoodToForm = (food: any): any => ({
     name: food.name ?? '',
-    meals: food.meals ?? [],
-    menus: food.menus ?? [],
-    categories: food.categories ?? [],
+    meal_types: food.meal_types.map((m: any) => m.id),
+
+    menu_ids: Array.isArray(food.menus)
+    ? food.menus.map((item: any) => Number(item.id))
+    : [],
+    // Backend may return category as `category` (object) or `categories` (array).
+    category_id:
+      food.category?.id ??
+      food.category_id ??
+      food.categories?.[0]?.id ??
+      null,
     price: String(food.price ?? ''),
     description: food.description ?? '',
-    isDailyFood: food.isDailyFood ?? false,
-    weekDays: food.weekDays ?? [],
+    is_daily: food.is_daily ?? false,
+    days: Array.isArray(food.days)
+    ? food.days.map((d: any) => d.day)
+    : [],
     image: null,
-    isVisible: food.isVisible ?? true,
+    is_active: food.is_active ?? true,
   });
 
   useEffect(() => {
     if (!open) return;
 
-    if (mode === 'edit' && selectedFood) {
-      reset(mapFoodToForm(selectedFood));
-    } else {
+    if (mode === 'edit' && food) {
+      reset(mapFoodToForm(food));
+    }
+  
+    if (mode === 'create') {
       reset(DEFAULT_VALUES);
     }
-  }, [open, mode, selectedFood, reset]);
+  }, [open, mode, food, reset]);
 
   const handleClose = useResetOnClose<FoodFormValues>({
     reset,
     onClose,
     resetValues:
-      mode === 'edit' && selectedFood
-        ? mapFoodToForm(selectedFood)
+      mode === 'edit' && food
+        ? mapFoodToForm(food)
         : DEFAULT_VALUES,
   });
 
-  const isDailyFood = watch('isDailyFood');
-  const imageFile = watch('image');
+  const [isDailyFood, imageFile] = useWatch({
+    control,
+    name: ['is_daily', 'image'],
+  });
 
   const onSubmit = (data: FoodFormValues) => {
-    console.log('FORM DATA:', data);
-    handleClose();
+    console.log("SUBMIT DATA:", data);
+    console.log("meal_types in submit:", data.meal_types);
+    if (mode === 'create') {
+      createFood(data);
+    } else {
+      updateFood({
+        ...data,
+        id: String(foodId),
+      });
+    }
   };
 
   return (
@@ -113,8 +143,11 @@ export default function FoodSheet({
           <ImageUploadPreview
             file={imageFile}
             onChange={(file) => setValue('image', file)}
-            previewUrl={mode === 'edit' ? selectedFood?.image : undefined}
+            previewUrl={mode === 'edit' ? food?.image : undefined}
           />
+          {errors.image?.message && (
+            <p className="text-rtext-error-primary-600 text-sm">{errors.image?.message as string}</p>
+          )}
 
           {/* Name */}
           <Controller
@@ -135,28 +168,50 @@ export default function FoodSheet({
 
           {/* Meals */}
           <Controller
-            control={control}
-            name="meals"
-            render={({ field }) => (
-              <CustomSelect
-                {...field}
-                label="وعده"
-                options={meal}
-                isMulti
-                required
-                placeholder="وعده را انتخاب نمایید"
-                error={errors.meals?.message}
-              />
-            )}
-          />
+  control={control}
+  name="meal_types"
+  render={({ field }) => {
+    const selectedIds: number[] = Array.isArray(field.value)
+      ? field.value
+      : [];
+
+    return (
+      <CustomSelect
+        options={mealOptions}
+        isMulti
+        label="وعده"
+        placeholder="وعده را انتخاب نمایید"
+        required
+        error={errors.meal_types?.message}
+
+        value={mealOptions.filter((m) =>
+          selectedIds.includes(Number(m.value))
+        )}
+
+        onChange={(options) => {
+          console.log('CustomSelect onChange raw options:', options);
+          const ids = Array.isArray(options)
+            ? options.map((o) => Number(o.value))
+           : [];
+
+           console.log('Mapped ids:', ids);
+
+          field.onChange(ids);
+        }}
+      />
+    );
+  }}
+/>
+
+
 
           {/* Menus */}
-          <MenusSelect control={control} error={errors.menus?.message} />
+          <MenusSelect control={control} error={errors.menu_ids?.message} />
 
           {/* Categories */}
           <CategoriesSelect
             control={control}
-            error={errors.categories?.message}
+            error={errors.category_id?.message}
           />
 
           {/* Price */}
@@ -167,16 +222,20 @@ export default function FoodSheet({
               <div dir="ltr" className="dv-price-input">
                 <Input
                   {...field}
-                  label="قیمت بسته‌بندی"
+                  label="قیمت "
                   leadingTextValue="تومان"
                   inputType="leadingText"
                   labelClass="dv-price-label"
                   className="w-full placeholder:text-sm placeholder:text-gray-light-600"
                   placeholder="قیمت را وارد کنید"
-                  type="number"
+                  {...numericInputProps}
                   required
                   destructive={!!errors.price}
                   destructiveText={errors.price?.message}
+                  onChange={(e: any) => {
+                    const next = normalizeNumericInput(e?.target?.value);
+                    field.onChange(next);
+                  }}
                 />
               </div>
             )}
@@ -191,7 +250,6 @@ export default function FoodSheet({
                 {...field}
                 label="توضیحات"
                 placeholder="توضیحات را وارد نمایید"
-                required
                 destructive={!!errors.description}
                 destructiveText={errors.description?.message}
               />
@@ -203,7 +261,7 @@ export default function FoodSheet({
             <div className="flex items-center gap-md">
               <Switch
                 checked={isDailyFood}
-                onToggle={() => setValue('isDailyFood', !isDailyFood)}
+                onToggle={() => setValue('is_daily', !isDailyFood)}
                 className="data-[state=checked]:bg-utility-brand-600 cursor-pointer"
               />
               <p className="text-gray-light-700 text-sm">غذای روز</p>
@@ -211,11 +269,40 @@ export default function FoodSheet({
             {isDailyFood && (
               <div className="grid grid-cols-2 gap-xl">
                 {weekDays.map((day) => (
-                  <div key={day} className="flex items-center gap-md">
+                  <div key={day.day} className="flex items-center gap-md">
                     <Controller
                       control={control}
-                      name="weekDays"
-                      render={() => <Checkbox name={day} label={day} />}
+                      name="days"
+                      render={({ field }) => {
+                        const selectedDays = field.value ?? [];
+                        const isChecked = selectedDays.includes(day.day);
+
+                        const toggleDay = (checked: boolean) => {
+                          if (checked) {
+                            if (!selectedDays.includes(day.day)) {
+                              field.onChange([...selectedDays, day.day]);
+                            }
+                            return;
+                          }
+
+                          field.onChange(
+                            selectedDays.filter((selectedDay: string) => selectedDay !== day.day),
+                          );
+                        };
+
+                        return (
+                          <Checkbox
+                            id={`week-day-${day.day}`}
+                            name={day.day}
+                            label={day.day_translated}
+                            checked={isChecked}
+                            onChange={(event: any) => {
+                              toggleDay(Boolean(event?.target?.checked));
+                            }}
+                            onClick={() => toggleDay(!isChecked)}
+                          />
+                        );
+                      }}
                     />
                   </div>
                 ))}
@@ -223,16 +310,25 @@ export default function FoodSheet({
             )}
           </div>
 
+          {errors.days?.message && (
+            <p className="text-rtext-error-primary-600 text-sm">
+              {errors.days.message as string}
+            </p>
+          )}
+
           {/* Visibility */}
-          {selectedFood && (
+          {mode === 'edit' && (
             <div className="flex items-center gap-md border border-gray-light-200 p-xl bg-gray-light-50 rounded-xl">
               <Controller
                 control={control}
-                name="isVisible"
+                name="is_active"
                 render={({ field }) => (
                   <Switch
-                    checked={field.value}
-                    onToggle={field.onChange}
+                    checked={!!field.value}
+                    onToggle={() => {
+                      const checked = !field.value;
+                      field.onChange(checked);
+                    }}
                     className="data-[state=checked]:bg-utility-brand-600 cursor-pointer"
                   />
                 )}
@@ -249,10 +345,11 @@ export default function FoodSheet({
             onClick={handleClose}
             variant="secondaryGray"
             className="h-[44px] w-[150px]"
+            disabled={isLoading}
           >
             لغو
           </Button>
-          <Button type="submit" className="w-[266px] bg-utility-brand-600">
+          <Button type="submit" className="w-[266px] bg-utility-brand-600" disabled={isLoading}>
             {mode === 'create' ? 'افزودن آیتم' : 'ویرایش آیتم'}
           </Button>
         </div>
