@@ -132,6 +132,7 @@ export interface CustomSelectProps {
   label?: string;
   value?: Option | readonly Option[] | null;
   onChange?: (val: any) => void;
+  onInputChange?: (value: string) => void;
 }
 
 export interface SheetProps {

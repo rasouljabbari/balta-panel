@@ -73,10 +73,21 @@ export const useEditDriverPage = (
   });
 };
 
-export const useDrivers = (page: number) => {
+type UseDriversParams = {
+  page?: number;
+  name?: string;
+  last_name?: string;
+};
+
+export const useDrivers = ({ page = 1, name, last_name }: UseDriversParams) => {
   return useQuery({
-    queryKey: [...DRIVERS_QUERY_KEY, page],
-    queryFn: getDriversService,
+    queryKey: [...DRIVERS_QUERY_KEY, page, name, last_name],
+    queryFn: () =>
+      getDriversService({
+        page,
+        name,
+        last_name,
+      }),
     select: (res) => res.data,
   });
 };

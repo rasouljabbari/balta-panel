@@ -22,8 +22,9 @@ export interface TabsWithBadgesProps {
   tabs: TabItem[];
   activeTab: string;
   setActiveTab: (value: string) => void;
-}
 
+  contractSettings?: ContractSetting[];
+}
 export type SidebarInfoPanelProps = {
   openStates: Record<string, boolean>;
   toggle: (key: string) => void;
@@ -49,7 +50,7 @@ export type ContractsTableCardProps = {
     totalPages: number;
     onPageChange: (page: number) => void;
   };
-  isLoading:boolean
+  isLoading: boolean;
 };
 
 export type ContractMenu = {
@@ -70,13 +71,13 @@ export type Contract = {
     name: string;
   } | null;
 
-  province?: string | null; 
+  province?: string | null;
   address?: string | null;
 
   landline_number?: string | null;
 
   economic_code?: string | null;
-  identification_code?: string | null; 
+  identification_code?: string | null;
 
   meals: string[];
   is_active: boolean;
@@ -84,7 +85,28 @@ export type Contract = {
   type: 'personal' | 'organization';
   type_translation: 'personal' | 'organization';
 
-  parent?: Contract | null; 
+  parent?: Contract | null;
+};
+export type ContractSetting = {
+  meal_translation: any;
+  id: number;
+  meal: string;
+  delivery_time: string;
+  count: number;
+  variety: number;
+
+  default_driver: number | null;
+
+  kitchen_description: string;
+
+  initial_order_min_tolerance: number;
+  initial_order_max_tolerance: number;
+
+  daily_order_tolerance: number;
+
+  is_active: boolean;
+
+  menus: ContractMenu[];
 };
 export type ContractSettingsMeta = {
   total: number;
@@ -99,7 +121,23 @@ export type GetContractSettingsResponse = {
   data: {
     customer: Contract;
     is_branch: boolean;
-    contracts: Contract[];
+    contract_settings: ContractSetting[];
     meta: ContractSettingsMeta;
   };
 };
+export type MealTypePayload = 'breakfast' | 'lunch' | 'dinner';
+
+export interface ContractSettingPayload {
+  meal: string;
+  delivery_time: string;
+  count: number;
+  variety: number;
+  kitchen_description: string;
+  default_driver: number;
+  is_active: boolean;
+  initial_order_max_tolerance: number;
+  initial_order_min_tolerance: number;
+  daily_order_tolerance: number;
+  customer_id: string;
+  menus: number[];
+}
