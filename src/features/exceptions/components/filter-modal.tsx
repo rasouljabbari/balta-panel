@@ -13,7 +13,7 @@ import { useMemo } from 'react'
 export default function FilterModal({
   isOpen,
   onClose,
-  selectedMeals,
+  selectedMenus,
   setSelectedMenus,
   selectedCategories,
   setSelectedCategories,
@@ -45,11 +45,11 @@ export default function FilterModal({
   const handleReset = () => {
     setSelectedMenus([]);
     setSelectedCategories([]);
-    setSelectedStatus(null);
+    setSelectedStatus([]);
   };
 
   // تعداد فیلتر فعال
-  const activeFiltersCount = selectedMeals?.length ?? 0;
+  const activeFiltersCount = selectedMenus?.length ?? 0;
 
   return (
     <SharedModal
@@ -72,8 +72,8 @@ export default function FilterModal({
           placeholder="انتخاب کنید"
           options={menuList}
           isMulti
-          value={selectedMeals}
-          onChange={(val) => setSelectedMeals(val as Option[])}
+          value={selectedMenus}
+          onChange={(val) => setSelectedMenus(val as Option[])}
         />
 
         <CustomSelect

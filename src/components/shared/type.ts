@@ -156,14 +156,16 @@ export interface SearchInputProps extends Omit<
 }
 
 export interface DatePickerFieldProps {
-  label: string;
+  label?: string;
   value?: any;
   onChange?: (date: any) => void;
+  defaultToToday: boolean;
   placeholder?: string;
   className?: string;
   required?: boolean;
   error?: boolean;
   errorText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+  iconOnRight?: boolean;
 }
 
 export type DetailItem = {

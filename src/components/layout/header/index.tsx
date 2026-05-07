@@ -7,6 +7,8 @@ import SharedModal from '@/components/shared/custom-modal';
 import HeaderAction from './header-action';
 import HeaderUserInformationBox from './header-info';
 import { useHeaderInfo } from './hook/use-header-info';
+import DatePickerField from '@/components/shared/date-picker-filed';
+import DateObject from "react-date-object";
 
 
 export default function Header({
@@ -15,10 +17,11 @@ export default function Header({
   extra,
   driverId,
   contractId,
+  hasDatePicker,
 }: HeaderProps & { driverId?: number }) {
   const { data: apiDriver } = useDriverById(driverId);
   const { data: contractData } = useContractSettingsCustomer(contractId);
-
+  const [date, setDate] = useState<DateObject | null>(null);
 
   const { title, description, showBackButton, isDriverEdit, isDriverDetail } =
     useHeaderInfo();
@@ -53,9 +56,6 @@ export default function Header({
       },
     });
   };
-
-  
-
   // ========================
   // FINAL TITLE
   // ========================
@@ -116,6 +116,16 @@ if (contractData?.data?.customer) {
             initialStatus={apiDriver?.is_active || false}
             onStatusToggle={handleToggleClick}
           />
+
+        {hasDatePicker &&
+          <DatePickerField
+            label=""
+            defaultToToday
+            onChange={setDate}
+            value={date}
+            iconOnRight={true}
+          />
+        }
 
           <HeaderNotificationBox />
         </div>
