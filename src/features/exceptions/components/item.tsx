@@ -8,7 +8,9 @@ import type { ItemProps } from '../type';
 import ExceptionItemList from './item-list';
 import { Button } from 'rg-dst';
 import { useState } from 'react';
-import FilterModal from '@/features/exceptions/components/filter-modal'
+import FilterModal from '@/features/exceptions/components/filter-modal';
+import type { Option } from '@/components/shared/type';
+
 
 
 export default function ExceptionItem({
@@ -22,6 +24,9 @@ export default function ExceptionItem({
 }: ItemProps & { setServerValidationError?: (err: any) => void }) {
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const [selectedMenus, setSelectedMenus] = useState<Option[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<Option[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<Option[]>([]);
 
   const hasItems = items.length > 0;
 
@@ -31,6 +36,12 @@ export default function ExceptionItem({
       <FilterModal 
       isOpen={openFilterModal}
       onClose={() => setOpenFilterModal(false)}
+      selectedMenus={selectedMenus}
+      setSelectedMenus={setSelectedMenus}
+      selectedCategories={selectedCategories}
+      setSelectedCategories={setSelectedCategories}
+      selectedStatus={selectedStatus}
+      setSelectedStatus={setSelectedStatus}
        />
       <Card className={cn(hasItems && 'h-full')}>
         <CardHeader>

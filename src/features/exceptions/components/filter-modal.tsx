@@ -18,34 +18,36 @@ export default function FilterModal({
   selectedCategories,
   setSelectedCategories,
   setSelectedStatus,
+  selectedStatus
 }: FilterModalProps) {
 
   const { data: menusData } = useMenus();
 
-  const menuList = useMemo(() => {
-    if (!menusData) return [];
-
-    return menusData.map((menu) => ({
-      label: menu.name,
-      value: menu.id,
-    }));
+  const activeMenuOptions = useMemo(() => {
+    return menusData
+      ?.filter(menu => menu.is_active)
+      ?.map(menu => ({
+        label: menu.name,
+        value: menu.id.toString(),
+      })) ?? [];
   }, [menusData]);
-
   const { data: categoriesData } = useCategories();
 
-  const categoryList = useMemo(() => {
+  const activeCategoryList = useMemo(() => {
     if (!categoriesData) return [];
 
-    return categoriesData.map((category) => ({
+    return categoriesData
+    ?.filter(category => category?.is_active)
+    ?.map((category) => ({
       label: category.name,
       value: category.id,
     }));
   }, [categoriesData]);
 
   const handleReset = () => {
-    setSelectedMenus([]);
-    setSelectedCategories([]);
-    setSelectedStatus([]);
+    setSelectedMenus?.([]);
+    setSelectedCategories?.([]);
+    setSelectedStatus?.([]);
   };
 
   // تعداد فیلتر فعال
@@ -70,22 +72,27 @@ export default function FilterModal({
         <CustomSelect
           label="منو"
           placeholder="انتخاب کنید"
-          options={menuList}
+          options={activeMenuOptions}
           isMulti
-          value={selectedMenus}
-          onChange={(val) => setSelectedMenus(val as Option[])}
+          value={selectedMenus ?? []}
+          onChange={(val) => setSelectedMenus?.(val as Option[])}
         />
 
         <CustomSelect
           label="دسته بندی"
           placeholder="انتخاب کنید"
-          options={categoryList}
+          options={activeCategoryList}
           isMulti
-          value={selectedCategories}
-          onChange={(val) => setSelectedCategories(val as Option[])}
+          value={selectedCategories ?? []}
+          onChange={(val) => setSelectedCategories?.(val as Option[])}
         />
 
-        <CustomSelect label="وضعیت نمایش در منو" placeholder="انتخاب کنید" options={STATUS_OPTIONS} />
+        <CustomSelect 
+            label="وضعیت نمایش در منو" 
+            placeholder="انتخاب کنید" 
+            options={STATUS_OPTIONS}
+            value={selectedStatus ?? []}
+            onChange={(val) => setSelectedStatus?.(val as Option[])}/>
       </div>
     </SharedModal>
   );

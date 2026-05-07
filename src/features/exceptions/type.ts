@@ -70,9 +70,13 @@ export interface Menu {
 export interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedMenus: Option[];
-  setSelectedMenus: (val: Option[]) => void;
-  selectedCategories: Option[];
-  setSelectedCategories: (val: Option[]) => void;
-  setSelectedStatus: (val: Option[]) => void;
-};
+
+  selectedMenus?: Option[];
+  setSelectedMenus?: (val: Option[]) => void;
+
+  selectedCategories?: Option[];
+  setSelectedCategories?: (val: Option[]) => void;
+
+  selectedStatus?: Option[];
+  setSelectedStatus?: (val: Option[]) => void;
+}

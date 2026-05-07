@@ -119,7 +119,6 @@ if (contractData?.data?.customer) {
 
         {hasDatePicker &&
           <DatePickerField
-            label=""
             defaultToToday
             onChange={setDate}
             value={date}
