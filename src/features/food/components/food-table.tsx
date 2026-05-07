@@ -47,7 +47,7 @@ export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch, me
   }
   return (
     <Table<FoodItem>
-      columns={foodTableColumns(onEdit)}
+      columns={foodTableColumns(onEdit, meta?.current_page, meta?.per_page)}
       data={data}
       rowKey={(row) => row.id}
       header={<FoodTableHeader onSearch={onSearch} onAdd={onAdd} />}

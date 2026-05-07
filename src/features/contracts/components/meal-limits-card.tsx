@@ -1,9 +1,15 @@
 import { Input } from 'rg-dst';
+import { useState } from 'react';
 import { InterfaceIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
+import { numericInputProps, normalizeNumericInput } from '@/utils/numeric-input';
 
 
 export function MealLimitsCard() {
+  const [minOrder, setMinOrder] = useState('');
+  const [maxOrder, setMaxOrder] = useState('');
+  const [editTolerance, setEditTolerance] = useState('');
+
   return (
     <div className="col-span-6">
       <Card>
@@ -34,8 +40,9 @@ export function MealLimitsCard() {
                   className="w-full placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
-                  type="text"
-                  inputMode="numeric"
+                  {...numericInputProps}
+                  value={minOrder}
+                  onChange={(e : any) => setMinOrder(normalizeNumericInput(e.target.value))}
                 />
               </div>
 
@@ -48,8 +55,9 @@ export function MealLimitsCard() {
                   className="w-full placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
-                  type="text"
-                  inputMode="numeric"
+                  {...numericInputProps}
+                  value={maxOrder}
+                  onChange={(e : any) => setMaxOrder(normalizeNumericInput(e.target.value))}
                 />
               </div>
             </div>
@@ -70,8 +78,9 @@ export function MealLimitsCard() {
                   className="w-[344px] placeholder:text-sm placeholder:text-gray-light-500"
                   leadingTextValue="پرس"
                   placeholder="تعداد را وارد کنید"
-                  type="text"
-                  inputMode="numeric"
+                  {...numericInputProps}
+                  value={editTolerance}
+                  onChange={(e : any) => setEditTolerance(normalizeNumericInput(e.target.value))}
                 />
               </div>
             </div>

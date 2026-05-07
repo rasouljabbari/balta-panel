@@ -3,15 +3,18 @@ import { Badge } from 'rg-dst';
 import Image from '@/components/shared/image';
 import type { TableColumn } from '@/components/shared/table';
 import type { FoodItem, MealType, Menu, Category } from '../type';
+import { formatPrice } from '@/utils/formatPrice' 
 
 
 export const foodTableColumns = (
   onEdit: (row: FoodItem) => void,
+  currentPage: number = 1,
+  perPage: number = 10,
 ): TableColumn<FoodItem>[] => [
   {
     id: 'id',
     label: 'شماره آیتم',
-    render: (_value, _row, index) => `#${index + 1}`,
+    render: (_value, _row, index) => `#${(currentPage - 1) * perPage + index + 1}`,
     width: '80px',
   },
   {
@@ -50,8 +53,7 @@ export const foodTableColumns = (
     id: 'price',
     label: 'قیمت',
     accessor: (row) => row.price,
-    render: (value: number) => `${value.toLocaleString()} تومان`,
-  },
+    render: (value: number) => `${formatPrice(value)} تومان`,  },
   {
     id: 'menuType',
     label: 'نوع منو',
