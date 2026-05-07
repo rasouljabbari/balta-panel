@@ -1,19 +1,24 @@
 import { FileText, Funnel } from 'lucide-react';
 import { Button } from 'rg-dst';
+import { DownloadButton } from '@/components/shared/download-button';
 import Table from '@/components/shared/table';
 import type { ContractsTableCardProps } from '../type';
 import { contractTableColumns } from './table-columns';
-import { DownloadButton } from '@/components/shared/download-button';
+
 
 export default function ContractsTableCard({
   data,
   onEdit,
   onOpenFilter,
+  pagination,
+  isLoading
 }: ContractsTableCardProps) {
   return (
     <Table
+      pagination={pagination}
       columns={contractTableColumns(onEdit)}
       data={data}
+      loading={isLoading}
       rowKey={(row) => row.id}
       header={
         <div className="flex items-center justify-between">

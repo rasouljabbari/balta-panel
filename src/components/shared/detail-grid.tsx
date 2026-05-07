@@ -8,7 +8,7 @@ export default function DetailGrid({ items, className = '' }: DetailGridProps) {
         {items.map((item, index) => (
           <div key={index} className="contents">
             <span className="text-sm text-gray-light-500">{item.label}</span>
-            <span className="text-sm text-gray-light-700">
+            <span className="text-sm text-gray-light-700 max-w-[150px] truncate block">
               {item.value ?? '-'}
             </span>
           </div>

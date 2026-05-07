@@ -1,18 +1,17 @@
-import type { Option } from "@/components/shared/type";
+import type { Option } from '@/components/shared/type';
 
 
 export type MealType = 'صبحانه' | 'ناهار' | 'شام' | 'ثبت نشده';
 
 export type ContractItem = {
-  id: number;
+  id: string;
   name: string;
   branches: string;
   representative: string;
   representative_number: string;
-  meals: MealType[];
+  meals: string[];
   status: 'فعال' | 'غیرفعال';
 };
-
 
 export interface TabItem {
   label: string;
@@ -25,12 +24,12 @@ export interface TabsWithBadgesProps {
   setActiveTab: (value: string) => void;
 }
 
-
 export type SidebarInfoPanelProps = {
   openStates: Record<string, boolean>;
   toggle: (key: string) => void;
   userData: { label: string; value: string }[];
   branchData: { label: string; value: string }[];
+  customerType?: 'personal' | 'organization';
 };
 
 export type ContractsFilterModalProps = {
@@ -41,9 +40,66 @@ export type ContractsFilterModalProps = {
   mealOptions: Option[];
 };
 
-
 export type ContractsTableCardProps = {
   data: ContractItem[];
   onEdit: (row: ContractItem) => void;
   onOpenFilter: () => void;
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+  };
+  isLoading:boolean
+};
+
+export type ContractMenu = {
+  id: number;
+  name: string;
+  description: string;
+  default_packaging_id: number;
+  is_active: boolean;
+};
+export type Contract = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+
+  city: {
+    id: number;
+    name: string;
+  } | null;
+
+  province?: string | null; 
+  address?: string | null;
+
+  landline_number?: string | null;
+
+  economic_code?: string | null;
+  identification_code?: string | null; 
+
+  meals: string[];
+  is_active: boolean;
+
+  type: 'personal' | 'organization';
+  type_translation: 'personal' | 'organization';
+
+  parent?: Contract | null; 
+};
+export type ContractSettingsMeta = {
+  total: number;
+  per_page: number;
+  current_page: number;
+  last_page: number;
+};
+
+export type GetContractSettingsResponse = {
+  status: string;
+  message: string;
+  data: {
+    customer: Contract;
+    is_branch: boolean;
+    contracts: Contract[];
+    meta: ContractSettingsMeta;
+  };
 };

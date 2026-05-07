@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
 import { Pagination } from 'rg-dst';
 import type { TableColumn, TableProps } from './type';
-
+import { Skeleton } from './skeleton-loader';
 
 interface ExtendedTableProps<T> extends TableProps<T> {
   header?: ReactNode;
+  loading?: boolean;
 }
 
 export default function Table<T = any>({
@@ -14,6 +15,7 @@ export default function Table<T = any>({
   rowKey = (_, index) => index,
   summaryRow,
   header,
+  loading = false,
 }: ExtendedTableProps<T>) {
   const getCellValue = (column: TableColumn<T>, row: T, index: number) => {
     if (column.render) {
@@ -68,28 +70,53 @@ export default function Table<T = any>({
           </thead>
 
           <tbody>
-            {summaryRow && summaryRow}
+            {loading ? (
+              Array.from({ length: 5 }).map((_, rowIndex) => (
+                <tr
+                  key={rowIndex}
+                  className="border-b border-gray-light-200 last:border-b-0"
+                >
+                  {columns.map((column) => (
+                    <td
+                      key={column.id}
+                      className="px-3xl py-xl"
+                      style={
+                        column.width
+                          ? { width: column.width, minWidth: column.width }
+                          : undefined
+                      }
+                    >
+                      <Skeleton className="h-4 w-full" />
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <>
+                {summaryRow && summaryRow}
 
-            {data.map((row, index) => (
-              <tr
-                key={rowKey(row, index)}
-                className="border-b border-gray-light-200 last:border-b-0"
-              >
-                {columns.map((column) => (
-                  <td
-                    key={column.id}
-                    className="px-3xl py-xl text-sm text-rtext-primary-900 whitespace-nowrap"
-                    style={
-                      column.width
-                        ? { width: column.width, minWidth: column.width }
-                        : undefined
-                    }
+                {data.map((row, index) => (
+                  <tr
+                    key={rowKey(row, index)}
+                    className="border-b border-gray-light-200 last:border-b-0"
                   >
-                    {getCellValue(column, row, index)}
-                  </td>
+                    {columns.map((column) => (
+                      <td
+                        key={column.id}
+                        className="px-3xl py-xl text-sm text-rtext-primary-900 whitespace-nowrap"
+                        style={
+                          column.width
+                            ? { width: column.width, minWidth: column.width }
+                            : undefined
+                        }
+                      >
+                        {getCellValue(column, row, index)}
+                      </td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>
