@@ -13,6 +13,7 @@ export default function DriversPage() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
+  const [, setSearchValue] = useState('');
 
 const { data, isLoading } = useDrivers({ page });
   const drivers: DriverItem[] =
@@ -20,20 +21,24 @@ const { data, isLoading } = useDrivers({ page });
       id: driver.id,
       fullName: `${driver.first_name} ${driver.last_name}`,
       phone: driver.phone,
-      vehicleType: driver.car_type,
+      car_type: driver.car_type,
       status: driver.is_active ? 'active' : 'inactive',
-      plate: driver.car_plate
-        ? `${driver.car_plate.first}${driver.car_plate.letter}${driver.car_plate.second}${driver.car_plate.state}`
-        : '',
+      car_plate: driver.car_plate ? driver.car_plate : undefined,
     })) ?? [];
 
   const meta = data?.meta;
+
+  const handleSearchDriver = (search: string) => {
+    setSearchValue(search)
+  }
 
   if (isLoading) {
     return (
       <Card>
         <CardHeader>
-          <DriverTableHeader count={0} />
+          <DriverTableHeader
+            onSearch={handleSearchDriver}
+            count={0} />
         </CardHeader>
 
         <div className="space-y-4 p-4xl">
@@ -56,7 +61,9 @@ const { data, isLoading } = useDrivers({ page });
     return (
       <Card>
         <CardHeader>
-          <DriverTableHeader count={0} />
+          <DriverTableHeader
+            onSearch={handleSearchDriver}
+            count={0} />
         </CardHeader>
 
         <div className="py-4xl">
@@ -77,6 +84,7 @@ const { data, isLoading } = useDrivers({ page });
       onAllocatedOrders={(driver) => {
         navigate(`/drivers/${driver.id}`);
       }}
+      onSearch={handleSearchDriver}
     />
   );
 }

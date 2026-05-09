@@ -13,10 +13,10 @@ import persian_fa from 'react-date-object/locales/persian_fa';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Button, Input } from 'rg-dst';
-import { PERSIAN_LETTERS } from '../data';
-import { useDriverById, useEditDriverPage } from '../hook/drivers';
-import { addDriverDefaultValues, addDriverSchema, type FormValues } from '../validation';
-import PlateInput from './plate-input';
+import PlateInput from '../../features/drivers/components/plate-input';
+import { PERSIAN_LETTERS } from '../../features/drivers/data';
+import { useDriverById, useEditDriverPage } from '../../features/drivers/hook/drivers';
+import { addDriverDefaultValues, addDriverSchema, type FormValues } from '../../features/drivers/validation';
 
 
 export default function DriverEditForm() {
@@ -142,7 +142,9 @@ export default function DriverEditForm() {
                 <Input
                   label="نام"
                   {...field}
-                  error={errors.first_name?.message}
+                  required
+                  destructive={!!errors.first_name}
+                  destructiveText={errors.first_name?.message}
                   className="w-full"
                   aria-label="نام"
                 />
@@ -155,7 +157,9 @@ export default function DriverEditForm() {
                 <Input
                   label="نام خانوادگی"
                   {...field}
-                  error={errors.last_name?.message}
+                  required
+                  destructive={!!errors.last_name}
+                  destructiveText={errors.last_name?.message}
                   className="w-full"
                   aria-label="نام خانوادگی"
                 />
@@ -169,7 +173,9 @@ export default function DriverEditForm() {
                   label="شماره موبایل"
                   type="number"
                   {...field}
-                  error={errors.phone?.message}
+                  required
+                  destructive={!!errors.phone}
+                  destructiveText={errors.phone?.message}
                   className="w-full"
                   aria-label="شماره موبایل"
                 />
@@ -183,7 +189,9 @@ export default function DriverEditForm() {
                   label="کد ملی"
                   type="number"
                   {...field}
-                  error={errors.national_id?.message}
+                  required
+                  destructive={!!errors.national_id}
+                  destructiveText={errors.national_id?.message}
                   className="w-full"
                   aria-label="کد ملی"
                 />
@@ -198,30 +206,43 @@ export default function DriverEditForm() {
                   {...field}
                   label="تاریخ تولد"
                   aria-label="تاریخ تولد"
+                  error={!!errors.birth_date}
+                  errorText={errors.birth_date?.message}
+                  required
                 />
               )}
             />
-            <CustomSelect
+            <Controller
               control={control}
               name="gender"
-              label="جنسیت"
-              placeholder="انتخاب کنید"
-              options={[
-                { label: 'مرد', value: 'male' },
-                { label: 'زن', value: 'female' },
-              ]}
-              error={errors.gender?.message}
-              isMulti={false}
-              aria-label="جنسیت"
+              render={({ field }) => {
+                const options = [
+                  { label: 'مرد', value: 'male' },
+                  { label: 'زن', value: 'female' },
+                ];
+
+                return (
+                  <CustomSelect
+                    options={options}
+                    label="جنسیت"
+                    placeholder="انتخاب کنید"
+                    value={options.find((o) => o.value === field.value) ?? null}
+                    onChange={(option) => field.onChange(option?.value)}
+                    error={errors.gender?.message}
+                    required
+                    aria-label="جنسیت"
+                  />
+                );
+              }}
             />
-            <Input
+            {/* <Input
               label="کد کاربر"
               className="w-full"
               disabled
               value={driver?.user_code || '---'}
-            />
+            /> */}
             {/* Join Date */}
-            <Input
+            {/* <Input
               label="تاریخ عضویت"
               className="w-full"
               disabled
@@ -230,7 +251,7 @@ export default function DriverEditForm() {
                   ? new Date(driver.joined_at).toLocaleDateString('fa-IR')
                   : ''
               }
-            />
+            /> */}
             <Controller
               name="car_type"
               control={control}
@@ -238,9 +259,11 @@ export default function DriverEditForm() {
                 <Input
                   label="نوع خودرو"
                   {...field}
-                  error={errors.car_type?.message}
+                  destructive={!!errors.car_type}
+                  destructiveText={errors.car_type?.message}
                   className="w-full"
                   aria-label="نوع خودرو"
+                  required
                 />
               )}
             />
@@ -253,6 +276,7 @@ export default function DriverEditForm() {
                   label="پلاک خودرو"
                   error={!!errors.car_plate}
                   aria-label="پلاک خودرو"
+                  required
                 />
               )}
             />

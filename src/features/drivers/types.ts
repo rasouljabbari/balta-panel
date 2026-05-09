@@ -4,6 +4,7 @@ export interface DriverTableProps {
   onAllocatedOrders: (driver: DriverItem) => void;
   meta?: DriversMeta;
   onPageChange: (page: number) => void;
+  onSearch: (search: string) => void;
 }
 
 export interface AddDriverModalProps {
@@ -65,8 +66,13 @@ export interface DriverItem {
   id: number;
   fullName: string;
   phone: string;
-  vehicleType: string;
-  plate: string;
+  car_type: string;
+  car_plate?: {
+    first: string;
+    letter: string;
+    second: string;
+    state: string;
+  };
   status: 'active' | 'inactive';
 }
 
@@ -153,10 +159,10 @@ export interface PlateInputProps {
 }
 
 export interface PlateParts {
-  part1: number;
-  part2: number;
+  first: number;
   letter: string;
-  part3: number;
+  second: number;
+  state: number;
 }
 
 export interface SearchOption {

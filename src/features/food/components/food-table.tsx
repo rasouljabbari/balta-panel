@@ -7,7 +7,7 @@ import { foodTableColumns } from './table-columns';
 import FoodTableHeader from './table-header';
 
 
-export default function FoodTable({ data, onAdd, onEdit }: FoodTableProps) {
+export default function FoodTable({ data, onAdd, onEdit, onSearch }: FoodTableProps) {
   if (!data || data.length === 0) {
     return (
       <Card>
@@ -38,11 +38,11 @@ export default function FoodTable({ data, onAdd, onEdit }: FoodTableProps) {
       columns={foodTableColumns(onEdit)}
       data={data}
       rowKey={(row) => row.id}
-      header={<FoodTableHeader onAdd={onAdd} />}
+      header={<FoodTableHeader onSearch={onSearch} onAdd={onAdd} />}
       pagination={{
         currentPage: 1,
         totalPages: 1,
-        onPageChange: () => {},
+        onPageChange: () => { },
       }}
     />
   );

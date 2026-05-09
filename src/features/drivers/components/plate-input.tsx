@@ -14,20 +14,20 @@ export default function PlateInput({
   showFlag = true,
 }: PlateInputProps & { showFlag?: boolean }) {
   const [plate, setPlate] = useState<PlateParts>({
-    part1: value?.first,
-    part2: value?.second,
+    first: value?.first,
+    second: value?.second,
     letter: value?.letter,
-    part3: value?.state,
+    state: value?.state,
   });
 
   useEffect(() => {
     if (!value) return;
 
     setPlate({
-      part1: value.first ?? 0,
-      part2: value.second ?? 0,
+      first: value.first ?? 0,
+      second: value.second ?? 0,
       letter: value.letter ?? '',
-      part3: value.state ?? 0,
+      state: value.state ?? 0,
     });
   }, [value]);
 
@@ -37,6 +37,7 @@ export default function PlateInput({
   console.log("value", value, plate)
 
   const handleChange = (key: keyof PlateParts, val: string) => {
+    console.log("key", key, "val", val)
     setPlate((prev) => {
       const newPlate =
         key === 'letter'
@@ -45,16 +46,16 @@ export default function PlateInput({
 
       if (
         onChange &&
-        (newPlate.part1 !== prev.part1 ||
-          newPlate.part2 !== prev.part2 ||
-          newPlate.part3 !== prev.part3 ||
+        (newPlate.first !== prev.first ||
+          newPlate.second !== prev.second ||
+          newPlate.state !== prev.state ||
           newPlate.letter !== prev.letter)
       ) {
         onChange({
-          first: newPlate.part1,
+          first: newPlate.first,
           letter: newPlate.letter,
-          second: newPlate.part2,
-          state: newPlate.part3,
+          second: newPlate.second,
+          state: newPlate.state,
         });
       }
 
@@ -85,15 +86,16 @@ export default function PlateInput({
 
       <div className="flex justify-between items-center w-fit gap-2">
         <div className="flex items-center gap-md">
+
           <input
-            aria-label="part1"
+            aria-label="state"
             type="number"
             max={99}
-            value={plate.part1 === 0 ? '' : plate.part1}
+            value={plate.state === 0 ? '' : plate.state}
             onChange={(e) => {
               let val = e.target.value;
               if (val.length > 2) val = val.slice(0, 2);
-              handleChange('part1', val);
+              handleChange('state', val);
             }}
             className={cn("w-10 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
           />
@@ -101,14 +103,14 @@ export default function PlateInput({
           <div className="w-px h-10 border border-dashed border-gray-modern-300" />
 
           <input
-            aria-label="part2"
+            aria-label="second"
             type="number"
             max={999}
-            value={plate.part2 === 0 ? '' : plate.part2}
+            value={plate.second === 0 ? '' : plate.second}
             onChange={(e) => {
               let val = e.target.value;
               if (val.length > 3) val = val.slice(0, 3);
-              handleChange('part2', val);
+              handleChange('second', val);
             }}
             className={cn("w-14 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
           />
@@ -143,14 +145,14 @@ export default function PlateInput({
           </div>
 
           <input
-            aria-label="part3"
+            aria-label="first"
             type="number"
             max={99}
-            value={plate.part3 === 0 ? '' : plate.part3}
+            value={plate.first === 0 ? '' : plate.first}
             onChange={(e) => {
               let val = e.target.value;
               if (val.length > 2) val = val.slice(0, 2);
-              handleChange('part3', val);
+              handleChange('first', val);
             }}
             className={cn("w-10 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
           />

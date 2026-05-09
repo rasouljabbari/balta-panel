@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { CirclePlus, Funnel, Trash2 } from 'lucide-react';
-import { Button } from 'rg-dst';
 import { FoodIcons } from '@/components/icons/food-icons';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
-import type { FoodTableHeaderProps } from '../type';
 import SearchInput from '@/components/shared/search-input';
+import { CirclePlus, Funnel, Trash2 } from 'lucide-react';
+import { useState } from 'react';
+import { Button } from 'rg-dst';
+import type { FoodTableHeaderProps } from '../type';
 
 
-export default function FoodTableHeader({ onAdd }: FoodTableHeaderProps) {
+export default function FoodTableHeader({ onAdd, onSearch }: FoodTableHeaderProps) {
   const [openFilter, setOpenFilter] = useState(false);
   return (
     <>
@@ -23,7 +23,7 @@ export default function FoodTableHeader({ onAdd }: FoodTableHeaderProps) {
         </div>
 
         <div className="flex items-center gap-lg">
-          <SearchInput placeholder="جستجو در آیتم‌ها" />
+          <SearchInput onSearch={onSearch} placeholder="جستجو در آیتم‌ها" />
 
           <Button
             variant="secondaryColor"

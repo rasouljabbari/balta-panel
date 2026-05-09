@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import HeaderNotificationBox from '@/components/layout/header/header-notification-box';
+import type { HeaderProps } from '@/components/layout/header/type';
+import SharedModal from '@/components/shared/custom-modal';
 import {
   useDriverById,
   useToggleDriverStatus,
 } from '@/features/drivers/hook/drivers';
-import HeaderNotificationBox from '@/components/layout/header/header-notification-box';
-import type { HeaderProps } from '@/components/layout/header/type';
-import SharedModal from '@/components/shared/custom-modal';
+import { useState } from 'react';
 import HeaderAction from './header-action';
 import HeaderUserInformationBox from './header-info';
 import { useHeaderInfo } from './hook/use-header-info';
@@ -68,7 +68,7 @@ export default function Header({
       finalTitle = fullName;
     }
 
-    finalDescription = `کد راننده: ${apiDriver.user_code ?? '-'}`;
+    finalDescription = `شناسه راننده: ${apiDriver.user_code ?? '-'}`;
   }
 
   return (

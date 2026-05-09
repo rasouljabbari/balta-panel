@@ -4,6 +4,7 @@ import DetailGrid from '@/components/shared/detail-grid';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 import { useDriverById } from '@/features/drivers/hook/drivers';
 import { useToggleCards } from '@/hooks/use-toggle-card';
+import { plateText } from '@/utils/plate-text';
 import { Pencil } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'rg-dst';
@@ -45,10 +46,6 @@ export default function DriverDetail() {
     return <div className="p-4">اطلاعات راننده یافت نشد</div>;
   }
 
-  const plate = driver.car_plate
-    ? `${driver.car_plate.first} ${driver.car_plate.letter} ${driver.car_plate.second} - ${driver.car_plate.state}`
-    : '-';
-
   const driverData = [
     { label: 'نام راننده', value: `${driver.first_name} ${driver.last_name}` },
     { label: 'جنسیت', value: driver.gender_translation },
@@ -59,10 +56,10 @@ export default function DriverDetail() {
         : '-',
     },
     { label: 'شماره موبایل', value: driver.phone },
-    { label: 'کد کاربر', value: driver.user_code ?? '-' },
+    { label: 'شناسه', value: driver.user_code ?? '-' },
     { label: 'کدملی', value: driver.national_id },
     { label: 'نوع خودرو', value: driver.car_type },
-    { label: 'پلاک خودرو', value: plate },
+    { label: 'پلاک خودرو', value: driver.car_plate ? plateText(driver.car_plate) : '-' },
     {
       label: 'تاریخ عضویت',
       value: driver.joined_at

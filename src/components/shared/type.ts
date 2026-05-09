@@ -150,6 +150,8 @@ export interface SearchInputProps extends Omit<
   inputClassName?: string;
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
+  onSearch: (value: string) => void;
+  delay?: number;
 }
 
 export interface DatePickerFieldProps {
