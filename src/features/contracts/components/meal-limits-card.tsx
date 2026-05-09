@@ -32,7 +32,7 @@ export function MealLimitsCard() {
               <Controller
                 name="minOrder"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <div dir="ltr" className="dv-price-input">
                     <Input
                       inputType="leadingText"
@@ -43,10 +43,12 @@ export function MealLimitsCard() {
                       leadingTextValue="پرس"
                       placeholder="تعداد را وارد کنید"
                       type="number"
-                      value={field.value ?? ''}
+                      value={field.value ?? 0}
                       onChange={(e: any) =>
                         field.onChange(Number(e.target.value))
                       }
+                      destructive={!!fieldState.error}
+                      destructiveText={fieldState.error?.message}
                     />
                   </div>
                 )}
@@ -56,7 +58,7 @@ export function MealLimitsCard() {
               <Controller
                 name="maxOrder"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <div dir="ltr" className="dv-price-input">
                     <Input
                       inputType="leadingText"
@@ -69,8 +71,14 @@ export function MealLimitsCard() {
                       type="number"
                       value={field.value ?? ''}
                       onChange={(e: any) =>
-                        field.onChange(Number(e.target.value))
+                        field.onChange(
+                          e.target.value === ''
+                            ? undefined
+                            : Number(e.target.value),
+                        )
                       }
+                      destructive={!!fieldState.error}
+                      destructiveText={fieldState.error?.message}
                     />
                   </div>
                 )}
@@ -84,10 +92,11 @@ export function MealLimitsCard() {
                 محدودیت ویرایش تعداد غذای روز
               </h3>
 
+              {/* editTolerance (FIXED) */}
               <Controller
                 name="editTolerance"
                 control={control}
-                render={({ field }) => (
+                render={({ field, fieldState }) => (
                   <div dir="ltr" className="dv-price-input">
                     <Input
                       inputType="leadingText"
@@ -98,10 +107,12 @@ export function MealLimitsCard() {
                       leadingTextValue="پرس"
                       placeholder="تعداد را وارد کنید"
                       type="number"
-                      value={field.value ?? ''}
+                      value={field.value ?? 0}
                       onChange={(e: any) =>
                         field.onChange(Number(e.target.value))
                       }
+                      destructive={!!fieldState.error}
+                      destructiveText={fieldState.error?.message}
                     />
                   </div>
                 )}

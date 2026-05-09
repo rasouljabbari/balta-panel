@@ -5,6 +5,8 @@ import { Input, Switch } from 'rg-dst';
 import { ContactFoodIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
+import TimePickerField from '@/components/shared/timr-picker-field';
+
 
 export function MealCard() {
   const { control } = useFormContext();
@@ -59,22 +61,23 @@ export function MealCard() {
           <Controller
             name="mealTime"
             control={control}
-            render={({ field }) => (
-              <Input
+            defaultValue=""
+            render={({ field, fieldState }) => (
+              <TimePickerField
                 label="ساعت تحویل"
+                value={field.value}
+                onChange={field.onChange}
                 required
-                className="w-full"
-                value={field.value ?? ''}
-                onChange={(e: { target: { value: any; }; }) => field.onChange(e.target.value)}
+                error={!!fieldState.error}
+                errorText={fieldState.error?.message}
               />
             )}
           />
-
           {/* orderCount */}
           <Controller
             name="orderCount"
             control={control}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <div dir="ltr" className="dv-price-input">
                 <Input
                   inputType="leadingText"
@@ -86,7 +89,11 @@ export function MealCard() {
                   placeholder="تعداد را وارد کنید"
                   type="number"
                   value={field.value ?? 0}
-                  onChange={(e: { target: { value: any; }; }) => field.onChange(Number(e.target.value))}
+                  onChange={(e: { target: { value: any } }) =>
+                    field.onChange(Number(e.target.value))
+                  }
+                  destructive={!!fieldState.error}
+                  destructiveText={fieldState.error?.message}
                 />
               </div>
             )}
@@ -96,14 +103,18 @@ export function MealCard() {
           <Controller
             name="variety"
             control={control}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <Input
                 label="تنوع غذایی"
                 required
                 className="w-full"
                 type="number"
                 value={field.value ?? 0}
-                onChange={(e: { target: { value: any; }; }) => field.onChange(Number(e.target.value))}
+                onChange={(e: { target: { value: any } }) =>
+                  field.onChange(Number(e.target.value))
+                }
+                destructive={!!fieldState.error}
+                destructiveText={fieldState.error?.message}
               />
             )}
           />
@@ -112,7 +123,7 @@ export function MealCard() {
           <Controller
             name="driverId"
             control={control}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <CustomSelect
                 options={driverOptions}
                 value={
@@ -126,6 +137,7 @@ export function MealCard() {
                     ? 'در حال دریافت راننده‌ها...'
                     : 'راننده را انتخاب کنید'
                 }
+                error={fieldState.error?.message}
               />
             )}
           />
@@ -134,13 +146,17 @@ export function MealCard() {
           <Controller
             name="kitchenNote"
             control={control}
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <div className="col-span-2">
                 <Input
                   label="توضیحات برای آشپزخانه"
                   className="w-full"
                   value={field.value ?? ''}
-                  onChange={(e: { target: { value: any; }; }) => field.onChange(e.target.value)}
+                  onChange={(e: { target: { value: any } }) =>
+                    field.onChange(e.target.value)
+                  }
+                  destructive={!!fieldState.error}
+                  destructiveText={fieldState.error?.message}
                 />
               </div>
             )}

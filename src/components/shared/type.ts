@@ -1,7 +1,6 @@
 import type { ImgHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 import type { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 
-
 export interface ImageProps extends Omit<
   ImgHTMLAttributes<HTMLImageElement>,
   'src' | 'alt'
@@ -182,7 +181,6 @@ export interface InfoHeaderProps {
   className?: string;
 }
 
-
 export type AccordionCardProps = {
   title: ReactNode;
   icon: ReactNode;
@@ -220,3 +218,14 @@ export interface OTPInputProps extends Omit<
   error?: string;
   className?: string;
 }
+
+export type TimePickerFieldProps = {
+  label?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  placeholder?: string;
+  className?: string;
+  required?: boolean;
+  error?: boolean;
+  errorText?: string;
+};

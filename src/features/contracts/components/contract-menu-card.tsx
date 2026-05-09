@@ -6,6 +6,7 @@ import { EssentialIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 
+
 export default function ContractMenusCard() {
   const { control } = useFormContext();
 
@@ -38,7 +39,7 @@ export default function ContractMenusCard() {
         <Controller
           name="menus"
           control={control}
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <div className="p-3xl flex flex-col gap-lg">
               {isLoading ? (
                 Array.from({ length: 5 }).map((_, index) => (
@@ -57,24 +58,35 @@ export default function ContractMenusCard() {
                       id={`menu-${menu.value}`}
                       label={menu.label}
                       checked={checked}
+                      disabled={!checked && (field.value?.length || 0) >= 2}
                       onChange={(e: any) => {
                         const isChecked = e?.target?.checked;
 
                         if (isChecked) {
+                          if ((field.value?.length || 0) >= 2) return;
+
                           field.onChange([...(field.value || []), menu.value]);
                         } else {
                           field.onChange(
                             (field.value || []).filter(
-                              (id: number) => id !== menu.value
-                            )
+                              (id: number) => id !== menu.value,
+                            ),
                           );
                         }
-                      } } name={''}/>
+                      }}
+                      name=""
+                    />
                   );
                 })
               ) : (
                 <span className="text-sm text-gray-light-400">
                   منویی ثبت نشده است
+                </span>
+              )}
+
+              {fieldState.error && (
+                <span className="text-sm text-rtext-error-primary-600 mt-2">
+                  {fieldState.error.message}
                 </span>
               )}
             </div>

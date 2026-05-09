@@ -1,6 +1,5 @@
 import type { Option } from '@/components/shared/type';
 
-
 export type MealType = 'صبحانه' | 'ناهار' | 'شام' | 'ثبت نشده';
 
 export type ContractItem = {
@@ -141,3 +140,22 @@ export interface ContractSettingPayload {
   customer_id: string;
   menus: number[];
 }
+
+export type FormValues = {
+  mealTime: string;
+  orderCount: number;
+  variety: number;
+
+  driverId: number | null;
+
+  kitchenNote: string;
+
+  minOrder: number;
+  maxOrder: number;
+
+  editTolerance: number;
+
+  isActive: boolean;
+
+  menus: number[];
+};

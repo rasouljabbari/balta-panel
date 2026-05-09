@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useMemo, useState } from 'react';
 import ChangeSaveModal from '@/features/contracts/components/change-save-modal';
 import ContractMenusCard from '@/features/contracts/components/contract-menu-card';
@@ -8,11 +6,14 @@ import { MealLimitsCard } from '@/features/contracts/components/meal-limits-card
 import SidebarInfoPanel from '@/features/contracts/components/sidebar-info-panel';
 import { TabsWithBadges } from '@/features/contracts/components/tab-with-badge';
 import { useContractSettingsCustomer, useCreateContractSetting, useUpdateContractSetting } from '@/features/contracts/hook/use-contracts';
-import type { TabItem } from '@/features/contracts/type';
+import type { FormValues, TabItem } from '@/features/contracts/type';
+import { editContractsSchema } from '@/features/contracts/validation';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { Button } from 'rg-dst';
 import { useToggleCards } from '@/hooks/use-toggle-card';
+import ContractLoader from '@/features/contracts/components/contract-loader';
 
 
 const tabs: TabItem[] = [
@@ -21,24 +22,7 @@ const tabs: TabItem[] = [
   { label: 'شام', value: 'dinner' },
 ];
 
-type FormValues = {
-  mealTime: string;
-  orderCount: number;
-  variety: number;
 
-  driverId: number | null;
-
-  kitchenNote: string;
-
-  minOrder: number;
-  maxOrder: number;
-
-  editTolerance: number;
-
-  isActive: boolean;
-
-  menus: number[];
-};
 
 const emptyForm: FormValues = {
   mealTime: '',
@@ -76,10 +60,12 @@ export default function EditContract() {
 
   const [nextTab, setNextTab] = useState<string | null>(null);
 
+
   const methods = useForm<FormValues>({
     defaultValues: emptyForm,
+    resolver: yupResolver(editContractsSchema),
+    mode: 'onChange',
   });
-
   const {
     handleSubmit,
     reset,
@@ -293,9 +279,9 @@ const onSubmit = (formData: FormValues) => {
     ];
   }, [customer, isBranch]);
 
-  if (!data || !customer) {
-    return <div className="p-6">در حال بارگذاری...</div>;
-  }
+if (!data || !customer) {
+  return <ContractLoader />;
+}
 
   return (
     <>
