@@ -28,6 +28,11 @@ export const foodSheetSchema = yup.object({
 
   is_daily: yup.boolean().required(),
 
+  description: yup
+  .string()
+  .max(80, 'توضیحات نباید بیشتر از ۸۰ کاراکتر باشد')
+  .notRequired(),
+
   days: yup.array(yup.string().required())
     .default([])
     .when('is_daily', {
