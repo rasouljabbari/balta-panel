@@ -1,4 +1,120 @@
 import type { OrderItemProps } from "@/features/order/types";
+import type { ProductGroup } from "@/features/order/types";
+    
+export const productGroups: ProductGroup[] = [
+  {
+    id: 'kebab',
+    label: 'چلوکوبیده',
+    isLimitedByContract: true,
+    meals: [
+      {
+        id: 1,
+        img: "/assets/images/meal1.png",
+        price: 180000,
+        title: "چلو کباب کوبیده",
+        description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+      },
+      {
+        id: 3,
+        img: "/assets/images/meal3.png",
+        price: 170000,
+        title: "چلو کباب کوبیده مخصوص",
+        description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+      },
+      {
+        id: 4,
+        img: "/assets/images/meal4.png",
+        price: 170000,
+        title: "چلو کباب کوبیده ویژه",
+        description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، ادویه کباب کوبیده، زعفران • نان لواش تازه."
+      }
+    ]
+  },
+  {
+    id: 'rice',
+    label: 'پلو',
+    isLimitedByContract: true,
+    meals: [
+      {
+        id: 2,
+        img: "/assets/images/meal2.png",
+        price: 170000,
+        title: "زرشک پلو با مرغ",
+        description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+      },
+      {
+        id: 5,
+        img: "/assets/images/meal5.png",
+        price: 140000,
+        title: "لوبیا پلو",
+        description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+      },
+      {
+        id: 6,
+        price: 270000,
+        title: "عدس پلو",
+        description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+      }
+    ]
+  },
+  {
+    id: 'stews',
+    label: 'خورشت',
+    isLimitedByContract: true,
+    meals: [
+        {
+            id: 9,
+            img: "/assets/images/meal2.png",
+            price: 170000,
+            title: "قرمه سبزی",
+            description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+          },
+    ]
+  },
+  {
+    id: 'wraps',
+    label: 'دلمه و کوکو',
+    isLimitedByContract: true,
+    meals: [
+        {
+            id: 10,
+            img: "/assets/images/meal2.png",
+            price: 170000,
+            title: "زرشک پلو با مرغ",
+            description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+          },
+    ]
+  },
+  {
+    id: 'drinks',
+    label: 'نوشیدنی',
+    isLimitedByContract: false,
+    meals: [
+        {
+            id: 11,
+            img: "/assets/images/meal2.png",
+            price: 170000,
+            title: "نوشابه",
+            description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+          },
+    ]
+  },
+  {
+    id: 'extras',
+    label: 'افزودنی‌ها',
+    isLimitedByContract: false,
+    meals: [
+        {
+            id: 12,
+            img: "/assets/images/meal2.png",
+            price: 170000,
+            title: "سالاد شیرازی",
+            description: "• گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه."
+          },
+    ]
+  }
+
+];
 
 export const TABS = [
 { label: "هفته جاری", value: "current week" },
