@@ -21,6 +21,11 @@ export const routeInfos: Record<string, RouteInfo> = {
     title: 'سفارش‌ها',
     description: 'در این قسمت، می‌توانید سفارش‌ها را مشاهده و مدیریت کنید.',
   },
+  '/orders/:slug': {
+    title: 'سفارش‌ها',
+    description: 'در این قسمت، می‌توانید سفارش‌ها را مشاهده و مدیریت کنید.',
+  },
+
   '/reports': {
     title: 'گزارش‌ها',
     description: 'در این قسمت، می‌توانید گزارش‌های عملکرد را مشاهده کنید.',

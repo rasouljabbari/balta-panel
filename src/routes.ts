@@ -12,6 +12,7 @@ import DeriversPage from './pages/drivers/drivers';
 import DriverEditForm from './pages/drivers/update-driver';
 import EditContract from './pages/edit-contracts';
 import TableFood from './pages/food';
+import DayOverview from './features/order/components/day-overview';
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -57,6 +58,7 @@ export const router = createBrowserRouter([
       { path: 'drivers/:id', Component: DriverDetail },
       { path: 'drivers/edit/:id', Component: DriverEditForm },
       { path: 'orders', Component: OrderPage },
+      { path: 'orders/:slug', Component: DayOverview },
     ],
   },
   {
@@ -65,8 +67,8 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    Component: NotFound
-  }
+    Component: NotFound,
+  },
 
   // {
   //   path: '/auth/forgot-password',

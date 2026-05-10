@@ -14,6 +14,7 @@ export interface DayItem {
   isToday: boolean;
   date: Date;
   orders: OrderItemProps[];
+  
 }
 
 export interface OrderHeaderProps {
