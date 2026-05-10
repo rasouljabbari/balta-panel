@@ -80,3 +80,9 @@ export interface FilterModalProps {
   selectedStatus?: Option[];
   setSelectedStatus?: (val: Option[]) => void;
 }
+
+export interface ExceptionsCategory {
+  id:number
+  name: string;
+  is_active?: boolean;
+}

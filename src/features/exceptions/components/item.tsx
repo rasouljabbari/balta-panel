@@ -7,9 +7,10 @@ import { cn } from '@/utils/cn';
 import type { ItemProps } from '../type';
 import ExceptionItemList from './item-list';
 import { Button } from 'rg-dst';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterModal from '@/features/exceptions/components/filter-modal';
 import type { Option } from '@/components/shared/type';
+import type { Item } from '../type';
 
 
 
@@ -27,8 +28,25 @@ export default function ExceptionItem({
   const [selectedMenus, setSelectedMenus] = useState<Option[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Option[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<Option[]>([]);
+  const [localItems, setLocalItems] = useState(items);
 
   const hasItems = items.length > 0;
+
+  useEffect(() => {
+    setLocalItems(items);
+  }, [items]);
+
+  const handleStatusChange = async (id: number) => {
+    setLocalItems((prev : any) =>
+      prev.map((item: Item) =>
+        item.id === id
+          ? { ...item, is_active: !item.is_active }
+          : item
+      )
+    );
+  
+    await changeStatusDirectly(id);
+  };
 
 
   return (
@@ -72,13 +90,13 @@ export default function ExceptionItem({
             <ErrorBox title={`بارگزاری لیست ${title} با خطا مواجه شده است!`} />
           ) : hasItems ? (
             <ExceptionItemList
-              items={items}
+              items={localItems}
               onToggle={onToggle}
               title={title}
               isPending={isPending}
               statusModalOpen={false}
               setStatusModalOpen={()=> console.log('')}
-              changeStatusDirectly={changeStatusDirectly}
+              changeStatusDirectly={handleStatusChange}
             />
           ) : (
             <EmptyBox

@@ -3,7 +3,7 @@ import { ClearFiltersButton } from '@/components/shared/clear-filter-button';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import type { Option } from '@/components/shared/type';
-import type { FilterModalProps } from '../type';
+import type { FilterModalProps, ExceptionsCategory } from '../type';
 import { useMenus } from '@/features/definition/hooks/menu';
 import { useCategories } from '@/features/definition/hooks/category';
 import { STATUS_OPTIONS } from '@/constants';
@@ -37,7 +37,7 @@ export default function FilterModal({
     if (!categoriesData) return [];
 
     return categoriesData
-    ?.filter(category => category?.is_active)
+    ?.filter((category: ExceptionsCategory) => category?.is_active)
     ?.map((category) => ({
       label: category.name,
       value: category.id,
