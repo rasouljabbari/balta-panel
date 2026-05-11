@@ -5,7 +5,6 @@ import { Input, Switch } from 'rg-dst';
 import { ContactFoodIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
-import TimePickerField from '@/components/shared/timr-picker-field';
 
 
 export function MealCard() {
