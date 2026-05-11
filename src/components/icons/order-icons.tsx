@@ -351,3 +351,106 @@ export const TruckIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
+
+export const ForkIcon: React.FC<IconProps> = ({
+  width = 20,
+  height = 20,
+  className,
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 20 20"
+    fill="none"
+    className={className}
+  >
+    <path
+      d="M2.5 2.56982V6.28816V6.36316V6.28816C2.5 7.34982 2.9375 8.28982 3.61583 8.89816C3.9475 9.19566 4.16667 9.59732 4.16667 10.0432V16.2498C4.16667 16.9398 4.72667 17.4998 5.41667 17.4998C6.10667 17.4998 6.66667 16.9398 6.66667 16.2498V10.0432C6.66667 9.59732 6.88583 9.19566 7.2175 8.89816C7.89583 8.28982 8.33333 7.34982 8.33333 6.28816V2.56982V6.28816"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5.41667 6.66667V2.5"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M16.6667 3.37679C16.6667 2.91679 16.2933 2.54346 15.8333 2.54346H15C13.6192 2.54346 12.5 3.66262 12.5 5.04346V10.0435C12.5 11.1301 13.1975 12.046 14.1667 12.3901V16.2501C14.1667 16.9401 14.7267 17.5001 15.4167 17.5001C16.1067 17.5001 16.6667 16.9401 16.6667 16.2501V12.5435V3.37679Z"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const LogIcon: React.FC<IconProps> = ({
+  width = 20,
+  height = 20,
+  className,
+}) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={width}
+    height={height}
+    viewBox="0 0 20 20"
+    fill="none"
+    className={className}
+  >
+    <path
+      d="M10 4.16667H16.6667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle
+      cx="5.00004"
+      cy="4.16667"
+      r="1.66667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M10 10.0002H16.6667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M10 15.8332H16.6667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle
+      cx="5.00004"
+      cy="10.0002"
+      r="1.66667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <circle
+      cx="5.00004"
+      cy="15.8332"
+      r="1.66667"
+      stroke="#667085"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);

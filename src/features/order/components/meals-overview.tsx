@@ -1,22 +1,125 @@
 import { useState } from 'react';
-import { ArrowRight, Clock9 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { FoodIcon, IdIcon, PackageIcon } from '@/components/icons/order-icons';
 import Dropdown from '@/components/shared/drop-down';
-import Image from '@/components/shared/image';
-import OrderCard from '@/components/shared/order-card';
 import SearchInput from '@/components/shared/search-input';
-import OrderDetailsHeader from './order-detail-header';
+import type { MealItem, OrderItem } from '../types';
+import { mealsTableColumns } from './meal-table-columns';
+import OrderDetailsPanel from './order-detail-panel';
+import OrderEmptyState from './order-empty-state';
+import OrderList from './order-list';
 
 
 export default function MealsOverview() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('all');
-  const [selectedOrder, setSelectedOrder] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<number | false>(false);
+  
+
+
+const orders: OrderItem[] = [
+  {
+    id: 2448,
+    title: 'آذرآبادگان نوین صنعت برادران',
+    branch: 'شعبه ۱ آبرسان',
+    status: 'تحویل به راننده',
+    time: '۱۴:۰۰',
+    foodCount: '۴۰ پرس',
+    packaging: 'آلومینیوم',
+  },
+  {
+    id: 2449,
+    title: 'شرکت توسعه فناوری پارس',
+    branch: 'شعبه مرکزی',
+    status: 'در حال آماده‌سازی',
+    time: '۱۳:۳۰',
+    foodCount: '۲۵ پرس',
+    packaging: 'پلاستیکی',
+  },
+  {
+    id: 2450,
+    title: 'صنایع غذایی بهاران',
+    branch: 'شعبه غرب',
+    status: 'ثبت شده',
+    time: '۱۵:۰۰',
+    foodCount: '۶۰ پرس',
+    packaging: 'آلومینیوم',
+  },
+  {
+    id: 2451,
+    title: 'کترینگ سبز',
+    branch: 'شعبه شرق',
+    status: 'تحویل شده',
+    time: '۱۱:۴۵',
+    foodCount: '۳۰ پرس',
+    packaging: 'کاغذی',
+  },
+  {
+    id: 2452,
+    title: 'کترینگ سبز',
+    branch: 'شعبه شرق',
+    status: 'لغو شده',
+    time: '۱۲:۳۰',
+    foodCount: '۳۰ پرس',
+    packaging: 'کاغذی',
+  },
+];
+  const meals: MealItem[] = [
+    {
+      id: 1,
+      name: 'چلو کباب',
+      menuType: 'اقتصادی',
+      count: 40,
+      price: 250000,
+    },
+    {
+      id: 2,
+      name: 'زرشک پلو با مرغ',
+      menuType: 'ویژه',
+      count: 25,
+      price: 180000,
+    },
+  ];
+
+  const totalCount = meals.reduce((sum, item) => sum + item.count, 0);
+
+  const totalPrice = meals.reduce((sum, item) => sum + item.price, 0);
+
+  const data: MealItem[] = [
+    ...meals,
+    {
+      id: 'total',
+      name: '',
+      menuType: '',
+      count: totalCount,
+      price: totalPrice,
+      isTotal: true,
+    },
+  ];
+
+  const logs = [
+    {
+      id: 1,
+      title: 'تغییر در سفارش',
+      description:
+        'سفارش در تاریخ ۱۴۰۴/۰۳/۲۴ و ساعت ۱۲:۳۲ توسط نماینده ویرایش گردید.',
+    },
+    {
+      id: 2,
+      title: 'تایید سفارش',
+      description:
+        'سفارش در تاریخ ۱۴۰۴/۰۳/۲۳ و ساعت ۱۰:۱۵ توسط سیستم تایید شد.',
+    },
+    {
+      id: 3,
+      title: 'ثبت سفارش',
+      description: 'سفارش در تاریخ ۱۴۰۴/۰۳/۲۳ و ساعت ۰۹:۴۰ توسط کاربر ثبت شد.',
+    },
+  ];
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-4 bg-white border-l border-rborder-primary h-screen">
+      <div className="col-span-4 bg-white border-l border-rborder-primary min-h-[982px]">
         <div className="flex items-center gap-xl p-3xl">
           <div className="flex items-center rounded-md border border-gray-light-200 p-[10px]">
             <ArrowRight
@@ -51,122 +154,21 @@ export default function MealsOverview() {
             />
           </div>
         </div>
-        <div className="p-3xl">
-          <OrderCard
-            selected={selectedOrder}
-            onClick={() => setSelectedOrder(true)}
-            title="آذرآبادگان نوین صنعت برادران"
-            badges={[
-              {
-                label: 'شعبه ۱ آبرسان',
-                color: 'gray',
-              },
-              {
-                label: 'تحویل به راننده',
-                color: 'blue',
-              },
-            ]}
-          >
-            <div className="flex items-center gap-3xl">
-              <div className="flex w-full justify-between">
-                <div className="flex items-center gap-md">
-                  <IdIcon />
-
-                  <p className="text-sm text-gray-light-600">شماره سفارش</p>
-                </div>
-
-                <p className="text-sm font-semibold text-gray-light-700">
-                  #۲۴۴۸
-                </p>
-              </div>
-
-              <div className="h-5 w-px bg-gray-light-300" />
-
-              <div className="flex w-full justify-between">
-                <div className="flex items-center gap-md">
-                  <Clock9 size={20} color="#667085" />
-
-                  <p className="text-sm text-gray-light-600">ساعت تحویل</p>
-                </div>
-
-                <p className="text-sm font-semibold text-gray-light-700">
-                  ۱۴:۰۰
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3xl">
-              <div className="flex w-full justify-between">
-                <div className="flex items-center gap-md">
-                  <FoodIcon />
-
-                  <p className="text-sm text-gray-light-600">تعداد غذا</p>
-                </div>
-
-                <p className="text-sm font-semibold text-gray-light-700">
-                  ۴۰ پرس
-                </p>
-              </div>
-
-              <div className="h-5 w-px bg-gray-light-300" />
-
-              <div className="flex w-full justify-between">
-                <div className="flex items-center gap-md">
-                  <PackageIcon />
-
-                  <p className="text-sm text-gray-light-600">بسته‌بندی</p>
-                </div>
-
-                <p className="text-sm font-semibold text-gray-light-700">
-                  آلومینیوم
-                </p>
-              </div>
-            </div>
-          </OrderCard>
-        </div>
+        <OrderList
+          orders={orders}
+          selectedOrder={selectedOrder}
+          onSelect={(id: number) => setSelectedOrder(id)}
+        />
       </div>
-      <div className="col-span-8 ">
+      <div className="col-span-8">
         {selectedOrder ? (
-          <>
-            <OrderDetailsHeader
-              title="راهکارگستران"
-              branch="آبرسان"
-              infos={[
-                {
-                  label: 'بسته‌بندی',
-                  value: 'آلومینیومی',
-                },
-                {
-                  label: 'ساعت تحویل',
-                  value: '۱۴:۰۰',
-                },
-              ]}
-            />
-
-            <div>test</div>
-          </>
+          <OrderDetailsPanel
+            data={data}
+            mealsTableColumns={mealsTableColumns}
+            logs={logs}
+          />
         ) : (
-          <div className="h-screen flex items-center justify-center">
-            <div className="flex flex-col items-center gap-3xl">
-              <Image
-                src="/assets/images/Empty-meal.webp"
-                alt="Empty-meal"
-                width={110}
-                height={110}
-              />
-
-              <div className="flex flex-col gap-md text-center">
-                <p className="text-xl font-medium text-gray-light-700">
-                  برای نمایش اطلاعات سفارش یک سفارش را انتخاب کنید
-                </p>
-
-                <p className="text-md text-gray-light-500">
-                  میتوانید از طریق سایدبار سمت راست یکی از سفارش‌ها را انتخاب
-                  کنید
-                </p>
-              </div>
-            </div>
-          </div>
+          <OrderEmptyState />
         )}
       </div>
     </div>
