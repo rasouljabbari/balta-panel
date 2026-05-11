@@ -11,7 +11,6 @@ export default function DayColumn({
   }) {
     const navigate = useNavigate();
 
-  console.log(day);
 
   return (
     <div

@@ -1,7 +1,7 @@
 import { cn } from '@/utils/cn';
 import { ArrowRight, CalendarDays } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Card, CardHeader } from '@/components/shared/card';
-import { useNavigate } from 'react-router-dom';
 
 
 const meals = [
@@ -50,7 +50,9 @@ const meals = [
 ];
 
 export default function DayOverview() {
-      const navigate = useNavigate();
+    const navigate = useNavigate();
+      const { day } = useParams();
+
 
   return (
     <Card>
@@ -83,6 +85,7 @@ export default function DayOverview() {
       <div className="grid grid-cols-3">
         {meals.map((meal) => (
           <div
+            onClick={() => navigate(`/orders/${meal.title}/${day}`)}
             key={meal.title}
             className="min-h-[700px] border-r border-gray-light-200 first:border-r-0 hover:bg-gray-light-50"
           >

@@ -5,6 +5,8 @@ import NotFound from '@/pages/not-found';
 import OrderPage from '@/pages/order';
 import { getCookie } from '@/utils/cookies';
 import { createBrowserRouter, redirect } from 'react-router-dom';
+import DayOverview from './features/order/components/day-overview';
+import MealsOverview from './features/order/components/meals-overview';
 import ContractsPage from './pages/contracts';
 import DefinitionPage from './pages/definition';
 import DriverDetail from './pages/drivers/driver-detail';
@@ -12,7 +14,6 @@ import DeriversPage from './pages/drivers/drivers';
 import DriverEditForm from './pages/drivers/update-driver';
 import EditContract from './pages/edit-contracts';
 import TableFood from './pages/food';
-import DayOverview from './features/order/components/day-overview';
 
 
 // import Dashboard from '@/pages/dashboard';
@@ -58,7 +59,8 @@ export const router = createBrowserRouter([
       { path: 'drivers/:id', Component: DriverDetail },
       { path: 'drivers/edit/:id', Component: DriverEditForm },
       { path: 'orders', Component: OrderPage },
-      { path: 'orders/:slug', Component: DayOverview },
+      { path: 'orders/:day', Component: DayOverview },
+      { path: '/orders/:day/:meal', Component: MealsOverview },
     ],
   },
   {

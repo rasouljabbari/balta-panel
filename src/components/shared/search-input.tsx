@@ -44,7 +44,7 @@ export default function SearchInput({
         value={value}
         onChange={(e: any) => setValue(e.target.value)}
         className={cn(
-          'h-10 placeholder:text-sm placeholder:text-gray-light-500',
+          'h-10 placeholder:text-sm placeholder:text-gray-light-500 ',
           isRight ? 'pr-10' : 'pl-10',
           inputClassName,
         )}

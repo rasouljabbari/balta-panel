@@ -221,3 +221,16 @@ export interface OTPInputProps extends Omit<
   error?: string;
   className?: string;
 }
+
+
+export type DropdownOption = {
+  label: string;
+  value: string;
+};
+
+export type DropDownProps = {
+  options: DropdownOption[];
+  value?: string;
+  onChange: (value: string) => void;
+  className?: string;
+};
