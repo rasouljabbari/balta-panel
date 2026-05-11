@@ -148,10 +148,10 @@ export interface GetDriverByIdResponse {
 export interface PlateInputProps {
   value?: any;
   onChange?: (value: {
-    first: number;
+    first: string;
     letter: string;
-    second: number;
-    state: number;
+    second: string;
+    state: string;
   }) => void;
   error?: boolean;
   required?: boolean;
@@ -159,10 +159,10 @@ export interface PlateInputProps {
 }
 
 export interface PlateParts {
-  first: number;
+  first: string;
   letter: string;
-  second: number;
-  state: number;
+  second: string;
+  state: string;
 }
 
 export interface SearchOption {

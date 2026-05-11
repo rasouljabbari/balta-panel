@@ -1,35 +1,7 @@
 import Image from '@/components/shared/image';
 import type { TableColumn } from '@/components/shared/type';
 import { Badge, SquarePen } from 'lucide-react';
-import type { FoodItem, MealType } from '../type';
-
-
-export const fakeFoods: FoodItem[] = [
-  {
-    id: 1,
-    name: 'لوبیاپلو',
-    price: 180000,
-    category: 'فست فود',
-    image: '/assets/images/fake-image/food.png',
-    mealTypes: ['صبحانه'],
-    menuType: 'سازمانی',
-    description:
-      'گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه.',
-    status: 'فعال',
-  },
-  {
-    id: 2,
-    name: 'برگر کلاسیک',
-    price: 150000,
-    category: 'فست فود',
-    image: '/assets/images/fake-image/food.png',
-    mealTypes: ['ناهار', 'شام'],
-    menuType: 'اقتصادی',
-    description:
-      'گوشت چرخ کرده گوساله و گوسفندی • پیاز رنده شده، جعفری خرد شده • ادویه کباب کوبیده، زعفران • نان لواش تازه.',
-    status: 'غیرفعال',
-  },
-];
+import type { FoodItem, MealType, Menu, Category } from '../type';
 
 export const columns: TableColumn<FoodItem>[] = [
   {
@@ -59,12 +31,12 @@ export const columns: TableColumn<FoodItem>[] = [
   {
     id: 'mealTypes',
     label: 'وعده‌ها',
-    accessor: (row) => row.mealTypes,
+    accessor: (row) => row.meal_types,
     render: (value: MealType[]) => (
       <div className="flex items-center gap-xs flex-wrap">
-        {value.map((meal) => (
-          <Badge key={meal} color="gray">
-            {meal}
+        {value.map((meal: MealType) => (
+          <Badge key={meal.id} color="gray">
+            {meal.name}
           </Badge>
         ))}
       </div>
@@ -74,17 +46,29 @@ export const columns: TableColumn<FoodItem>[] = [
     id: 'price',
     label: 'قیمت',
     accessor: (row) => row.price,
-    render: (value) => `${value.toLocaleString()} تومان`,
+    render: (value) => `${Number(value).toLocaleString()} تومان`,
   },
   {
     id: 'menuType',
     label: 'نوع منو',
-    accessor: (row) => row.menuType,
+    accessor: (row) => row.menus,
+    render: (value: Menu[]) => (
+      <div className="flex items-center gap-xs flex-wrap">
+        {value?.map((menu: Menu) => (
+          <span key={menu.id}>{menu.name}</span>
+        ))}
+      </div>
+    ),
   },
   {
     id: 'category',
     label: 'دسته بندی',
     accessor: (row) => row.category,
+    render: (value: Category) => (
+      <div className="flex items-center gap-xs flex-wrap">
+        <span>{value?.name}</span>
+      </div>
+    ),
   },
   {
     id: 'description',
@@ -103,9 +87,9 @@ export const columns: TableColumn<FoodItem>[] = [
   {
     id: 'status',
     label: 'وضعیت نمایش',
-    accessor: (row) => row.status,
-    render: (value: FoodItem['status']) => (
-      <Badge color={value === 'فعال' ? 'success' : 'error'}>{value}</Badge>
+    accessor: (row) => row.is_active,
+    render: (value: boolean) => (
+      <Badge color={value ? 'success' : 'error'}>{value ? 'فعال' : 'غیرفعال'}</Badge>
     ),
   },
   {
@@ -115,36 +99,3 @@ export const columns: TableColumn<FoodItem>[] = [
   },
 ];
 
-export const meal = [
-  {
-    value: 1,
-    label: 'صبحانه'
-  },
-  {
-    value: 2,
-    label: 'ناهار'
-  },
-  {
-    value: 3,
-    label: 'شام'
-  },
-  {
-    value: 4,
-    label: 'عصرانه'
-  },
-  {
-    value: 5,
-    label: 'سحری'
-  }
-]
-
-
-export const weekDays = [
-  'شنبه',
-  'یک‌شنبه',
-  'دوشنبه',
-  'سه‌شنبه',
-  'چهارشنبه',
-  'پنج‌شنبه',
-  'جمعه',
-];

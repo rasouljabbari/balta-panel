@@ -1,9 +1,12 @@
+import { Controller, useFormContext } from 'react-hook-form';
 import { Input } from 'rg-dst';
 import { InterfaceIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 
 
 export function MealLimitsCard() {
+  const { control } = useFormContext();
+
   return (
     <div className="col-span-6">
       <Card>
@@ -25,31 +28,61 @@ export function MealLimitsCard() {
 
           <div className="flex flex-col gap-3xl">
             <div className="grid grid-cols-2 gap-3xl">
-              <div dir="ltr" className="dv-price-input">
-                <Input
-                  inputType="leadingText"
-                  labelClass="dv-price-label"
-                  label="حداقل سفارش"
-                  required
-                  className="w-full placeholder:text-sm placeholder:text-gray-light-500"
-                  leadingTextValue="پرس"
-                  placeholder="تعداد را وارد کنید"
-                  type="number"
-                />
-              </div>
+              {/* minOrder */}
+              <Controller
+                name="minOrder"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div dir="ltr" className="dv-price-input">
+                    <Input
+                      inputType="leadingText"
+                      labelClass="dv-price-label"
+                      label="حداقل سفارش"
+                      required
+                      className="w-full placeholder:text-sm placeholder:text-gray-light-500"
+                      leadingTextValue="پرس"
+                      placeholder="تعداد را وارد کنید"
+                      type="number"
+                      value={field.value ?? 0}
+                      onChange={(e: any) =>
+                        field.onChange(Number(e.target.value))
+                      }
+                      destructive={!!fieldState.error}
+                      destructiveText={fieldState.error?.message}
+                    />
+                  </div>
+                )}
+              />
 
-              <div dir="ltr" className="dv-price-input">
-                <Input
-                  inputType="leadingText"
-                  labelClass="dv-price-label"
-                  label="حداکثر سفارش"
-                  required
-                  className="w-full placeholder:text-sm placeholder:text-gray-light-500"
-                  leadingTextValue="پرس"
-                  placeholder="تعداد را وارد کنید"
-                  type="number"
-                />
-              </div>
+              {/* maxOrder */}
+              <Controller
+                name="maxOrder"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div dir="ltr" className="dv-price-input">
+                    <Input
+                      inputType="leadingText"
+                      labelClass="dv-price-label"
+                      label="حداکثر سفارش"
+                      required
+                      className="w-full placeholder:text-sm placeholder:text-gray-light-500"
+                      leadingTextValue="پرس"
+                      placeholder="تعداد را وارد کنید"
+                      type="number"
+                      value={field.value ?? ''}
+                      onChange={(e: any) =>
+                        field.onChange(
+                          e.target.value === ''
+                            ? undefined
+                            : Number(e.target.value),
+                        )
+                      }
+                      destructive={!!fieldState.error}
+                      destructiveText={fieldState.error?.message}
+                    />
+                  </div>
+                )}
+              />
             </div>
 
             <hr className="border-gray-light-200" />
@@ -59,18 +92,31 @@ export function MealLimitsCard() {
                 محدودیت ویرایش تعداد غذای روز
               </h3>
 
-              <div dir="ltr" className="dv-price-input">
-                <Input
-                  inputType="leadingText"
-                  labelClass="dv-price-label"
-                  label="تلرانس ویرایش تعداد غذا"
-                  required
-                  className="w-[344px] placeholder:text-sm placeholder:text-gray-light-500"
-                  leadingTextValue="پرس"
-                  placeholder="تعداد را وارد کنید"
-                  type="number"
-                />
-              </div>
+              {/* editTolerance (FIXED) */}
+              <Controller
+                name="editTolerance"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div dir="ltr" className="dv-price-input">
+                    <Input
+                      inputType="leadingText"
+                      labelClass="dv-price-label"
+                      label="تلرانس ویرایش تعداد غذا"
+                      required
+                      className="w-[344px] placeholder:text-sm placeholder:text-gray-light-500"
+                      leadingTextValue="پرس"
+                      placeholder="تعداد را وارد کنید"
+                      type="number"
+                      value={field.value ?? 0}
+                      onChange={(e: any) =>
+                        field.onChange(Number(e.target.value))
+                      }
+                      destructive={!!fieldState.error}
+                      destructiveText={fieldState.error?.message}
+                    />
+                  </div>
+                )}
+              />
             </div>
           </div>
         </div>

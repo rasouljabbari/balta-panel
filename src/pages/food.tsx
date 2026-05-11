@@ -1,11 +1,13 @@
-import { fakeFoods } from '@/features/food/components/data';
+import { useListFood } from '@/features/food/hooks/use-list-food'
 import FoodSheet from '@/features/food/components/food-sheet';
 import FoodTable from '@/features/food/components/food-table';
 import type { FoodItem } from '@/features/food/type';
 import { useState } from 'react';
 
 export default function TableFood() {
-  const [foods] = useState<FoodItem[]>(fakeFoods);
+  const [page, setPage] = useState(1);
+  const { data: foodData, isLoading } = useListFood({page, per_page:10});
+
 
   const onSearch = (val: string) => {
     console.log(val)
@@ -13,33 +15,44 @@ export default function TableFood() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<'create' | 'edit'>('create');
-  const [selectedFood, setSelectedFood] = useState<FoodItem | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   const handleAdd = () => {
     setMode('create');
-    setSelectedFood(null);
+    setEditingId(null);
     setIsOpen(true);
   };
 
   const handleEdit = (row: FoodItem) => {
     setMode('edit');
-    setSelectedFood(row);
+    setEditingId(row.id);
     setIsOpen(true);
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    setSelectedFood(null);
+    setEditingId(null);
   };
 
-  return (
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
+  return ( 
     <>
-      <FoodTable onSearch={onSearch} data={foods} onAdd={handleAdd} onEdit={handleEdit} />
+      <FoodTable 
+        isLoading={isLoading} 
+        onSearch={onSearch} 
+        data={foodData?.foods ?? []}
+        meta={foodData?.meta}
+        onPageChange={handlePageChange}
+        onAdd={handleAdd} 
+        onEdit={handleEdit} />
       <FoodSheet
         open={isOpen}
         onClose={handleClose}
         mode={mode}
-        selectedFood={selectedFood}
+        foodId={editingId ?? undefined}
       />
     </>
   );

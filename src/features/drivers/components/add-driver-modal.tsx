@@ -4,6 +4,7 @@ import DatePickerField from '@/components/shared/date-picker-filed';
 import PlateInput from '@/features/drivers/components/plate-input';
 import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
+import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CirclePlus } from 'lucide-react';
 import type { SubmitHandler } from 'react-hook-form';
@@ -48,10 +49,10 @@ export default function AddDriverModal({
       car_type: data.car_type?.trim() || undefined,
       car_plate: data.car_plate
         ? {
-          first: String(data.car_plate.first),
+          first: data.car_plate.first,
           letter: data.car_plate.letter,
-          second: String(data.car_plate.second),
-          state: String(data.car_plate.state),
+          second: data.car_plate.second,
+          state: data.car_plate.state,
         }
         : undefined,
     };
@@ -116,7 +117,7 @@ export default function AddDriverModal({
             render={({ field }) => (
               <Input
                 {...field}
-                type="number"
+                  {...numericInputProps}
                 label="شماره موبایل"
                 placeholder="شماره موبایل را وارد کنید"
                 required
@@ -124,6 +125,10 @@ export default function AddDriverModal({
                 destructiveText={errors.phone?.message}
                 className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
                 aria-label="شماره موبایل"
+                  onChange={(e: any) => {
+                    const next = normalizeNumericInput(e?.target?.value);
+                    field.onChange(next);
+                  }}
               />
             )}
           />
@@ -135,7 +140,7 @@ export default function AddDriverModal({
             render={({ field }) => (
               <Input
                 {...field}
-                type="number"
+                  {...numericInputProps}
                 label="کدملی"
                 placeholder="کدملی را وارد کنید"
                 required
@@ -143,6 +148,10 @@ export default function AddDriverModal({
                 destructiveText={errors.national_id?.message}
                 className="placeholder:text-sm placeholder:text-gray-light-500 w-full"
                 aria-label="کدملی"
+                  onChange={(e: any) => {
+                    const next = normalizeNumericInput(e?.target?.value);
+                    field.onChange(next);
+                  }}
               />
             )}
           />
