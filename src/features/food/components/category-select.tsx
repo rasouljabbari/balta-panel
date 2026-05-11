@@ -20,16 +20,22 @@ export default function CategoriesSelect({ control , error }: SelectProps) {
   return (
     <Controller
       control={control}
-      name="categories"
+      name="category_id"
       render={({ field }) => (
         <CustomSelect
           label="دسته بندی"
           options={categoryOptions}
           isDisabled={isLoading}
-          {...field}
           placeholder="دسته بندی را انتخاب نمایید"
           required
           error={error}
+          value={
+            categoryOptions.find(opt => opt.value === field.value) || null
+          }
+          
+          onChange={(option) => {
+            field.onChange(option ? option.value : null);
+          }}
         />
       )}
     />

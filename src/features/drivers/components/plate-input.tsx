@@ -1,5 +1,6 @@
 import { FlagIcon } from '@/components/icons/drivers-icon';
 import { cn } from '@/utils/cn';
+import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { PERSIAN_LETTERS } from '../data';
@@ -14,35 +15,35 @@ export default function PlateInput({
   showFlag = true,
 }: PlateInputProps & { showFlag?: boolean }) {
   const [plate, setPlate] = useState<PlateParts>({
-    first: value?.first,
-    second: value?.second,
-    letter: value?.letter,
-    state: value?.state,
+    first: value?.first ?? '',
+    second: value?.second ?? '',
+    letter: value?.letter ?? '',
+    state: value?.state ?? '',
   });
 
   useEffect(() => {
     if (!value) return;
 
     setPlate({
-      first: value.first ?? 0,
-      second: value.second ?? 0,
+      first: String(value.first ?? ''),
       letter: value.letter ?? '',
-      state: value.state ?? 0,
+      second: String(value.second ?? ''),
+      state: String(value.state ?? ''),
     });
   }, [value]);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  console.log("value", value, plate)
-
   const handleChange = (key: keyof PlateParts, val: string) => {
-    console.log("key", key, "val", val)
     setPlate((prev) => {
       const newPlate =
         key === 'letter'
           ? { ...prev, letter: val }
-          : { ...prev, [key]: parseInt(val.replace(/\D/g, ''), 10) || 0 };
+          : {
+            ...prev,
+            [key]: normalizeNumericInput(val),
+          };
 
       if (
         onChange &&
@@ -89,12 +90,11 @@ export default function PlateInput({
 
           <input
             aria-label="state"
-            type="number"
+            {...numericInputProps}
             max={99}
-            value={plate.state === 0 ? '' : plate.state}
+            value={plate.state}
             onChange={(e) => {
-              let val = e.target.value;
-              if (val.length > 2) val = val.slice(0, 2);
+              const val = normalizeNumericInput(e.target.value, 2);
               handleChange('state', val);
             }}
             className={cn("w-10 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
@@ -104,12 +104,11 @@ export default function PlateInput({
 
           <input
             aria-label="second"
-            type="number"
+            {...numericInputProps}
             max={999}
-            value={plate.second === 0 ? '' : plate.second}
+            value={plate.second}
             onChange={(e) => {
-              let val = e.target.value;
-              if (val.length > 3) val = val.slice(0, 3);
+              const val = normalizeNumericInput(e.target.value, 3);
               handleChange('second', val);
             }}
             className={cn("w-14 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}
@@ -146,12 +145,11 @@ export default function PlateInput({
 
           <input
             aria-label="first"
-            type="number"
+            {...numericInputProps}
             max={99}
-            value={plate.first === 0 ? '' : plate.first}
+            value={plate.first}
             onChange={(e) => {
-              let val = e.target.value;
-              if (val.length > 2) val = val.slice(0, 2);
+              const val = normalizeNumericInput(e.target.value, 2);
               handleChange('first', val);
             }}
             className={cn("w-10 h-10 text-center rounded-xl border", error ? 'border-red-500' : 'border-gray-300')}

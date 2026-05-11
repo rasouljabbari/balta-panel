@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ContractItem } from '@/features/contracts/type';
-import { meal } from '@/features/food/components/data';
+import { meal } from '@/features/food/constants';
 import { FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardHeader } from '@/components/shared/card';
