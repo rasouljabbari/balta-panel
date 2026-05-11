@@ -57,46 +57,27 @@ export function MealCard() {
         />
 
         <div className="grid grid-cols-3 gap-6">
-          {/* mealTime */}
-          <Controller
-            name="mealTime"
-            control={control}
-            defaultValue=""
-            render={({ field, fieldState }) => (
-              <TimePickerField
-                label="ساعت تحویل"
-                value={field.value}
-                onChange={field.onChange}
-                required
-                error={!!fieldState.error}
-                errorText={fieldState.error?.message}
-              />
-            )}
-          />
-          {/* orderCount */}
-          <Controller
-            name="orderCount"
-            control={control}
-            render={({ field, fieldState }) => (
-              <div dir="ltr" className="dv-price-input">
-                <Input
-                  inputType="leadingText"
-                  labelClass="dv-price-label"
-                  label="تعداد سفارش"
-                  required
-                  className="w-full"
-                  leadingTextValue="پرس"
-                  placeholder="تعداد را وارد کنید"
-                  type="number"
-                  value={field.value ?? 0}
-                  onChange={(e: { target: { value: any } }) =>
-                    field.onChange(Number(e.target.value))
-                  }
-                  destructive={!!fieldState.error}
-                  destructiveText={fieldState.error?.message}
-                />
-              </div>
-            )}
+          <Input label="ساعت تحویل" required className="w-full" />
+
+          <div dir="ltr" className="dv-price-input">
+            <Input
+              inputType="leadingText"
+              labelClass="dv-price-label"
+              label="تعداد سفارش"
+              required
+              className="w-full placeholder:text-sm placeholder:text-gray-light-500"
+              leadingTextValue="پرس"
+              placeholder="تعداد را وارد کنید"
+              type="text"
+              inputMode="numeric"
+            />
+          </div>
+
+          <Input
+            label="تنوع غذایی"
+            required
+            className="w-full placeholder:text-sm placeholder:text-gray-light-500"
+            placeholder="تعداد را وارد کنید"
           />
 
           {/* variety */}

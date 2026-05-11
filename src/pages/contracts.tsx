@@ -3,7 +3,7 @@ import ContractsFilterModal from '@/features/contracts/components/contract-filte
 import ContractsTableCard from '@/features/contracts/components/contract-table-card';
 import { useContractSettings } from '@/features/contracts/hook/use-contracts';
 import type { ContractItem } from '@/features/contracts/type';
-import { meal } from '@/features/food/components/data';
+import { meal } from '@/features/food/constants';
 import { FileText } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardHeader } from '@/components/shared/card';

@@ -33,6 +33,7 @@ export default function ContractsTableCard({
 
           <div className="flex items-center gap-lg">
             <Button
+              disabled
               onClick={onOpenFilter}
               variant="secondaryGray"
               leftIcon={

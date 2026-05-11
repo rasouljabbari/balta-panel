@@ -20,17 +20,25 @@ export default function MenusSelect({ control , error }: SelectProps) {
   return (
     <Controller
       control={control}
-      name="menus"
+      name="menu_ids"
       render={({ field }) => (
         <CustomSelect
           label="منو"
           options={menuOptions}
-          isMulti
           isDisabled={isLoading}
-          {...field}
           placeholder="منو را انتخاب نمایید"
           required
           error={error}
+          value={
+            menuOptions.find(
+              (opt) => opt.value === field.value?.[0]
+            ) || null
+          }
+          onChange={(option: any) => {
+            field.onChange(
+              option ? [option.value] : []
+            );
+          }}
         />
       )}
     />

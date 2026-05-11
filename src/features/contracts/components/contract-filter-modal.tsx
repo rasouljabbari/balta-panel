@@ -19,6 +19,8 @@ export default function ContractsFilterModal({
 
   const activeFiltersCount = selectedMeals?.length ?? 0;
 
+  const statusOptions = [{value:'active', label:'فعال'}, {value:'inactive', label:'غیرفعال'}]
+
   return (
     <SharedModal
       isOpen={isOpen}
@@ -44,7 +46,7 @@ export default function ContractsFilterModal({
           onChange={(val) => setSelectedMeals(val as Option[])}
         />
 
-        <CustomSelect label="وضعیت" placeholder="انتخاب کنید" options={[]} />
+        <CustomSelect label="وضعیت" placeholder="انتخاب کنید" options={statusOptions}  />
       </div>
     </SharedModal>
   );

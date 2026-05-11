@@ -2,29 +2,31 @@ import { SquarePen } from 'lucide-react';
 import { Badge } from 'rg-dst';
 import Image from '@/components/shared/image';
 import type { TableColumn } from '@/components/shared/table';
-import type { FoodItem, MealType } from '../type';
+import type { FoodItem, MealType, Menu, Category } from '../type';
+import { formatPrice } from '@/utils/formatPrice' 
 
 
 export const foodTableColumns = (
   onEdit: (row: FoodItem) => void,
+  currentPage: number = 1,
+  perPage: number = 10,
 ): TableColumn<FoodItem>[] => [
   {
     id: 'id',
     label: 'شماره آیتم',
-    accessor: (row) => row.id,
+    render: (_value, _row, index) => `#${(currentPage - 1) * perPage + index + 1}`,
+    width: '80px',
   },
   {
     id: 'image',
     label: 'عکس محصول',
     accessor: (row) => row.image,
     render: (value, row) => (
-      <div className="w-16 h-16">
         <Image
-          src={value}
+          src={value || '/assets/images/food-fallback-img.webp'}
           alt={row.name}
-          className="w-full h-full object-cover rounded-md"
+          className="w-20 h-20 object-cover rounded-md m-auto"
         />
-      </div>
     ),
   },
   {
@@ -35,32 +37,44 @@ export const foodTableColumns = (
   {
     id: 'mealTypes',
     label: 'وعده‌ها',
-    accessor: (row) => row.mealTypes,
+    accessor: (row) => row.meal_types,
     render: (value: MealType[]) => (
       <div className="flex items-center gap-xs flex-wrap">
-        {value.map((meal) => (
-          <Badge key={meal} color="gray">
-            {meal}
+        {value?.map((meal: MealType) => (
+          <Badge color="gray">
+            { meal.name }
           </Badge>
         ))}
       </div>
     ),
+    width: '200px',
   },
   {
     id: 'price',
     label: 'قیمت',
     accessor: (row) => row.price,
-    render: (value: number) => `${value.toLocaleString()} تومان`,
-  },
+    render: (value: number) => `${formatPrice(value)} تومان`,  },
   {
     id: 'menuType',
     label: 'نوع منو',
-    accessor: (row) => row.menuType,
+    accessor: (row) => row.menus,
+    render: (value: Menu[]) => (
+      <div className="flex items-center gap-xs flex-wrap">
+        {value?.map((menu: Menu) => (
+            menu.name
+        ))}
+      </div>
+    ),
   },
   {
     id: 'category',
     label: 'دسته بندی',
     accessor: (row) => row.category,
+    render: (value: Category) => (
+      <div className="flex items-center gap-xs flex-wrap">
+            { value?.name }
+      </div>
+    ),
   },
   {
     id: 'description',
@@ -72,16 +86,16 @@ export const foodTableColumns = (
         className="max-w-[113px] overflow-hidden text-ellipsis whitespace-nowrap"
         title={value}
       >
-        {value}
+        {value?.length > 0 ? value : '-'}
       </div>
     ),
   },
   {
     id: 'status',
     label: 'وضعیت نمایش',
-    accessor: (row) => row.status,
-    render: (value: FoodItem['status']) => (
-      <Badge color={value === 'فعال' ? 'success' : 'error'}>{value}</Badge>
+    accessor: (row) => row.is_active,
+    render: (value: boolean) => (
+      <Badge color={value ? 'success' : 'error'}>{value ? 'فعال' : 'غیرفعال'}</Badge>
     ),
   },
   {
