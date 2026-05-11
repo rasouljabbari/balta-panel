@@ -16,12 +16,14 @@ type GetDriversParams = {
   page?: number;
   name?: string;
   last_name?: string;
+  search?: string;
 };
 
 export const getDriversService = async ({
   page,
   name,
   last_name,
+  search
 }: GetDriversParams): Promise<GetDriversResponse> => {
   return getData({
     endPoint: 'admin/v1/drivers',
@@ -31,15 +33,20 @@ export const getDriversService = async ({
 
       ...(name
         ? {
-            'filter[name]': name,
-          }
+          'filter[name]': name,
+        }
         : {}),
 
       ...(last_name
         ? {
-            'filter[last_name]': last_name,
-          }
+          'filter[last_name]': last_name,
+        }
         : {}),
+      ...(
+        search ? {
+          search
+        } : {}
+      )
     },
   });
 };

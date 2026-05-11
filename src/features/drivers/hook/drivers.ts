@@ -63,16 +63,18 @@ type UseDriversParams = {
   page?: number;
   name?: string;
   last_name?: string;
+  search?: string;
 };
 
-export const useDrivers = ({ page = 1, name, last_name }: UseDriversParams) => {
+export const useDrivers = ({ page = 1, name, last_name, search }: UseDriversParams) => {
   return useQuery({
-    queryKey: [...DRIVERS_QUERY_KEY, page, name, last_name],
+    queryKey: [...DRIVERS_QUERY_KEY, page, name, last_name, search],
     queryFn: () =>
       getDriversService({
         page,
         name,
         last_name,
+        search
       }),
     select: (res) => res.data,
   });

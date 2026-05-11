@@ -1,16 +1,18 @@
-import { useListFood } from '@/features/food/hooks/use-list-food'
 import FoodSheet from '@/features/food/components/food-sheet';
 import FoodTable from '@/features/food/components/food-table';
+import { useListFood } from '@/features/food/hooks/use-list-food';
 import type { FoodItem } from '@/features/food/type';
 import { useState } from 'react';
 
 export default function TableFood() {
   const [page, setPage] = useState(1);
-  const { data: foodData, isLoading } = useListFood({page, per_page:10});
+  const [searchValue, setSearchValue] = useState('');
+
+  const { data: foodData, isLoading } = useListFood({ page, per_page: 10, search: searchValue });
 
 
   const onSearch = (val: string) => {
-    console.log(val)
+    setSearchValue(val)
   }
 
   const [isOpen, setIsOpen] = useState(false);
@@ -38,15 +40,16 @@ export default function TableFood() {
     setPage(newPage);
   };
 
-  return ( 
+  return (
     <>
-      <FoodTable 
-        isLoading={isLoading} 
-        onSearch={onSearch} 
+      <FoodTable
+        isLoading={isLoading}
+        searchValue={searchValue}
+        onSearch={onSearch}
         data={foodData?.foods ?? []}
         meta={foodData?.meta}
         onPageChange={handlePageChange}
-        onAdd={handleAdd} 
+        onAdd={handleAdd}
         onEdit={handleEdit} />
       <FoodSheet
         open={isOpen}

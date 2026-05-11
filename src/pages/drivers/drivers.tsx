@@ -1,21 +1,20 @@
-import { useState } from 'react';
+import { Card, CardHeader } from '@/components/shared/card';
+import EmptyBox from '@/components/shared/empty-box';
 import DriverTable from '@/features/drivers/components/table';
 import DriverTableHeader from '@/features/drivers/components/table-headers';
 import { useDrivers } from '@/features/drivers/hook/drivers';
 import type { DriverItem } from '@/features/drivers/types';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardHeader } from '@/components/shared/card';
-import EmptyBox from '@/components/shared/empty-box';
-import { Skeleton } from '@/components/shared/skeleton-loader';
 
 
 export default function DriversPage() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const [, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState('');
 
-const { data, isLoading } = useDrivers({ page });
+  const { data, isLoading } = useDrivers({ page, search: searchValue });
   const drivers: DriverItem[] =
     data?.drivers.map((driver) => ({
       id: driver.id,
@@ -32,37 +31,13 @@ const { data, isLoading } = useDrivers({ page });
     setSearchValue(search)
   }
 
-  if (isLoading) {
-    return (
-      <Card>
-        <CardHeader>
-          <DriverTableHeader
-            onSearch={handleSearchDriver}
-            count={0} />
-        </CardHeader>
-
-        <div className="space-y-4 p-4xl">
-          {Array.from({ length: 5 }).map((_, idx) => (
-            <div key={idx} className="flex gap-4 items-center">
-              <Skeleton className="w-8 h-8" rounded="full" />
-              <Skeleton className="flex-1 h-5" />
-              <Skeleton className="w-32 h-5" />
-              <Skeleton className="w-24 h-5" />
-              <Skeleton className="w-16 h-5" />
-              <Skeleton className="w-24 h-5" />
-            </div>
-          ))}
-        </div>
-      </Card>
-    );
-  }
-
   if (drivers.length === 0) {
     return (
       <Card>
         <CardHeader>
           <DriverTableHeader
             onSearch={handleSearchDriver}
+            searchValue={searchValue}
             count={0} />
         </CardHeader>
 
@@ -84,7 +59,9 @@ const { data, isLoading } = useDrivers({ page });
       onAllocatedOrders={(driver) => {
         navigate(`/drivers/${driver.id}`);
       }}
+      searchValue={searchValue}
       onSearch={handleSearchDriver}
+      isLoading={isLoading}
     />
   );
 }

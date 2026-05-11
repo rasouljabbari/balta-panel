@@ -2,7 +2,8 @@ import InfoHeader from '@/components/shared/info-header';
 import SearchInput from '@/components/shared/search-input';
 import { User } from 'lucide-react';
 
-export default function DriverTableHeader({ count, onSearch }: { count: number, onSearch: (value: string) => void; }) {
+export default function DriverTableHeader({ count = 0, searchValue, onSearch }:
+  { count: number, searchValue: string, onSearch: (value: string) => void; }) {
 
   return (
     <InfoHeader
@@ -10,9 +11,10 @@ export default function DriverTableHeader({ count, onSearch }: { count: number, 
       title="اطلاعات رانندگان"
       description={`${count} راننده`}
     >
-      {count > 0 && <SearchInput
+      <SearchInput
+        searchValue={searchValue}
         onSearch={onSearch}
-        placeholder="جستجو در رانندگان" />}
+        placeholder="جستجو در رانندگان" />
     </InfoHeader>
   );
 }

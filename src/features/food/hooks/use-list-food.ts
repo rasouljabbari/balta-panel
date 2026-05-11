@@ -1,14 +1,15 @@
 import { listFoodService } from "@/features/food/services/list-food";
+import type { FoodItem, FoodListParams } from "@/features/food/type";
 import { useQuery } from "@tanstack/react-query";
-import type { FoodItem, FoodListParams } from "@/features/food/type"
 
 
-export const useListFood = ({ page = 1, per_page = 10 }: FoodListParams = {}) => {
+export const useListFood = ({ page = 1, per_page = 10, search }: FoodListParams = {}) => {
   return useQuery({
-    queryKey: ["food", page, per_page],
-    queryFn: () => listFoodService({ 
-      page, 
+    queryKey: ["food", page, per_page, search],
+    queryFn: () => listFoodService({
+      page,
       per_page,
+      search
     }),
     select: (res) => ({
       foods: res.data.foods as FoodItem[],

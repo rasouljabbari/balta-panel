@@ -48,6 +48,7 @@ export interface SingleFoodResponse extends BaseResponse {
 export interface FoodListParams {
   page?: number;
   per_page?: number;
+  search?: string;
 }
 
 export interface Meta {
@@ -89,6 +90,7 @@ export interface FoodTableProps {
     last_page: number;
   };
   onPageChange: (page: number) => void;
+  searchValue: string
 }
 
 export interface ImageUploadPreviewProps {
@@ -99,6 +101,7 @@ export interface ImageUploadPreviewProps {
 export interface FoodTableHeaderProps {
   onAdd: () => void;
   onSearch: (v: string) => void;
+  searchValue: string
 }
 
 export interface FoodFormValues {

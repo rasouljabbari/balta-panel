@@ -8,19 +8,25 @@ export default function DriverTable({
   meta,
   onAllocatedOrders,
   onPageChange,
-  onSearch
+  onSearch,
+  searchValue,
+  isLoading
 }: DriverTableProps) {
   return (
     <Table<DriverItem>
       columns={driverTableColumns(onAllocatedOrders)}
       data={data}
       rowKey={(row) => row.id}
-      header={<DriverTableHeader onSearch={onSearch} count={meta?.total ?? data.length} />}
+      header={<DriverTableHeader
+        searchValue={searchValue}
+        onSearch={onSearch}
+        count={meta?.total ?? data.length} />}
       pagination={{
         currentPage: meta?.current_page ?? 1,
         totalPages: meta?.last_page ?? 1,
         onPageChange: onPageChange,
       }}
+      loading={isLoading}
     />
   );
 }

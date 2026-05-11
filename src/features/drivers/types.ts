@@ -5,6 +5,8 @@ export interface DriverTableProps {
   meta?: DriversMeta;
   onPageChange: (page: number) => void;
   onSearch: (search: string) => void;
+  searchValue: string
+  isLoading: boolean
 }
 
 export interface AddDriverModalProps {

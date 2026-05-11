@@ -152,6 +152,7 @@ export interface SearchInputProps extends Omit<
   iconPosition?: 'left' | 'right';
   onSearch: (value: string) => void;
   delay?: number;
+  searchValue: string;
 }
 
 export interface DatePickerFieldProps {
