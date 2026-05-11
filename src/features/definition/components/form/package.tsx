@@ -1,4 +1,5 @@
 import { addPackageInitialValues, addPackageResolver, type addPackageValuesTypes } from '@/features/definition/validation';
+import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
@@ -34,6 +35,13 @@ const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
       },
     }));
 
+    const priceRegister = register('price', {
+      setValueAs: (value) => {
+        const digits = normalizeNumericInput(value);
+        return digits === '' ? undefined : Number(digits);
+      },
+    });
+
     return (
       <form id="package-form" className="flex flex-col gap-3xl">
         <Input
@@ -47,14 +55,19 @@ const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
 
         <div dir="ltr" className="dv-price-input">
           <Input
-            type="number"
+            {...numericInputProps}
             label="قیمت بسته‌بندی"
             leadingTextValue="تومان"
             inputType="leadingText"
             labelClass="dv-price-label"
             className="w-full placeholder:text-sm placeholder:text-gray-light-600"
             placeholder="قیمت را وارد کنید"
-            {...register('price')}
+            {...priceRegister}
+            onChange={(e: any) => {
+              const next = normalizeNumericInput(e?.target?.value);
+              e.target.value = next;
+              priceRegister.onChange(e);
+            }}
             destructive={errors?.price}
             destructiveText={errors?.price?.message}
           />

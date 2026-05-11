@@ -142,7 +142,7 @@ div[role='button']:focus-within,
   .dv-price-label,
   .dv-price-input .text-rtext-error-primary-600 {
     width: 100%;
-    direction: rtl;
+    direction: rtl 
   }
 
 .my-select__control {

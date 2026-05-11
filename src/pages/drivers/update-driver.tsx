@@ -4,6 +4,7 @@ import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
+import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { User } from 'lucide-react';
 import { useEffect } from 'react';
@@ -54,16 +55,16 @@ export default function DriverEditForm() {
         car_type: driver.car_type,
         car_plate: driver.car_plate
           ? {
-            first: Number(driver.car_plate?.first) || 0,
+            first: driver.car_plate?.first ?? '',
             letter: PERSIAN_LETTERS.some(
               (l) => l === driver.car_plate?.letter,
             )
               ? driver.car_plate.letter!
               : 'ب',
-            second: Number(driver.car_plate?.second) || 0,
-            state: Number(driver.car_plate?.state) || 0,
+            second: driver.car_plate?.second ?? '',
+            state: driver.car_plate?.state ?? '',
           }
-          : { first: 0, letter: 'ب', second: 0, state: 0 },
+          : { first: '', letter: 'ب', second: '', state: '' },
       });
     }
   }, [driver, reset]);
@@ -85,10 +86,10 @@ export default function DriverEditForm() {
         joined_at: driver.joined_at ?? undefined,
         car_type: data.car_type,
         car_plate: {
-          first: data?.car_plate?.first?.toString(),
+          first: data?.car_plate?.first,
           letter: data?.car_plate?.letter,
-          second: data?.car_plate?.second?.toString(),
-          state: data?.car_plate?.state?.toString(),
+          second: data?.car_plate?.second,
+          state: data?.car_plate?.state,
         },
       },
     });
@@ -171,13 +172,17 @@ export default function DriverEditForm() {
               render={({ field }) => (
                 <Input
                   label="شماره موبایل"
-                  type="number"
+                  {...numericInputProps}
                   {...field}
                   required
                   destructive={!!errors.phone}
                   destructiveText={errors.phone?.message}
                   className="w-full"
                   aria-label="شماره موبایل"
+                  onChange={(e: any) => {
+                    const next = normalizeNumericInput(e?.target?.value);
+                    field.onChange(next);
+                  }}
                 />
               )}
             />
@@ -187,13 +192,17 @@ export default function DriverEditForm() {
               render={({ field }) => (
                 <Input
                   label="کد ملی"
-                  type="number"
+                  {...numericInputProps}
                   {...field}
                   required
                   destructive={!!errors.national_id}
                   destructiveText={errors.national_id?.message}
                   className="w-full"
                   aria-label="کد ملی"
+                  onChange={(e: any) => {
+                    const next = normalizeNumericInput(e?.target?.value);
+                    field.onChange(next);
+                  }}
                 />
               )}
             />

@@ -16,6 +16,7 @@ export default function CustomSelect({
   value,
   onChange,
   required = false,
+  onInputChange,
 }: CustomSelectProps & { required?: boolean }) {
   // حالت با RHF
   if (control && name) {
@@ -26,17 +27,19 @@ export default function CustomSelect({
         render={({ field }) => {
           const selectedValue = isMulti
             ? options.filter((o) =>
-              (field.value as (string | number)[] | undefined)?.includes(
-                o.value as string | number,
-              ),
-            )
+                (field.value as (string | number)[] | undefined)?.includes(
+                  o.value as string | number,
+                ),
+              )
             : options.find((o) => o.value === field.value) || null;
 
           return (
             <div className="flex flex-col gap-1">
               {label && (
                 <label className="text-gray-light-700 text-sm flex items-center gap-1">
-                  <span className="text-sm font-medium text-rtext-secondary-700">{label}</span>
+                  <span className="text-sm font-medium text-rtext-secondary-700">
+                    {label}
+                  </span>
                   {required && (
                     <span className="text-rtext-brand-tertiary-600">*</span>
                   )}
@@ -49,6 +52,7 @@ export default function CustomSelect({
                   options={options}
                   placeholder={placeholder}
                   value={selectedValue}
+                  onInputChange={onInputChange}
                   onChange={(selected) => {
                     if (isMulti) {
                       const vals = (selected as MultiValue<Option>).map(
@@ -85,10 +89,10 @@ export default function CustomSelect({
     <div className="flex flex-col gap-1">
       {label && (
         <label className="text-gray-light-700 text-sm flex items-center gap-1">
-          <span className="text-sm font-medium text-rtext-secondary-700">{label}</span>
-          {required && (
-            <span className="text-rtext-brand-tertiary-600">*</span>
-          )}
+          <span className="text-sm font-medium text-rtext-secondary-700">
+            {label}
+          </span>
+          {required && <span className="text-rtext-brand-tertiary-600">*</span>}
         </label>
       )}
       <div className={cn(error && 'dv-select-error')}>

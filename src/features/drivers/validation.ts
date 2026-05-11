@@ -67,10 +67,10 @@ export type FormValues = Omit<
 > & {
   birth_date: DateObject | null;
   car_plate: {
-    first?: number;
+    first?: string;
     letter: string;
-    second?: number;
-    state?: number;
+    second?: string;
+    state?: string;
   };
 };
 
