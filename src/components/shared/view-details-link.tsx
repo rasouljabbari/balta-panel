@@ -1,6 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { ViewDetailsLinkProps } from "@/types/ui/type";
+import type { ViewDetailsLinkProps } from "@/components/shared/type";
 
 export default function ViewDetailsLink({ 
     to, 

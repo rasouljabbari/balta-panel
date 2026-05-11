@@ -9,7 +9,7 @@ import WeeklyPlanGrid from '@/features/weekly-plan/components/weekly-plan-grid';
 import WeeklyPlanHeader from '@/features/weekly-plan/components/weekly-plan-header';
 import type { MealConfig, TabType } from '@/features/weekly-plan/types';
 import { getWeekDays } from '@/features/weekly-plan/utils';
-import Card from '@/components/ui/card';
+import { Card } from '@/components/shared/card';
 import SharedModal from '@/components/shared/shared-modal';
 
 export default function WeeklyPlan() {

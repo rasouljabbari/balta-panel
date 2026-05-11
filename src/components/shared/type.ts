@@ -221,3 +221,9 @@ export interface OTPInputProps extends Omit<
   error?: string;
   className?: string;
 }
+
+export interface ViewDetailsLinkProps {
+  to: string;
+  text?: string;
+  className?: string;
+}

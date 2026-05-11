@@ -1,5 +1,5 @@
 import type { SelectOption } from '@/components/shared/select-dropdown';
-import type { ReactNode } from 'react';
+import type { ReactNode, RefObject } from 'react';
 
 export type TabType = "current week" | "future week";
 
@@ -159,4 +159,19 @@ export interface CartItemProps {
   onIncrease: (id: number) => void;
   onDecrease: (id: number) => void;
   onQuantityChange: (id: number, value: string) => void;
+}
+
+export interface ProductSectionProps {
+  scrollContainerRef: RefObject<HTMLDivElement | null>;
+  productGroups: ProductGroup[];
+  cart: CartItem[];
+  isLimitReached: () => boolean;
+  onAddToCart: (id: number) => void;
+  onRemoveFromCart: (id: number) => void;
+}
+
+export interface OrderModalHeaderProps {
+  mealType: 'صبحانه' | 'ناهار' | 'شام';
+  formattedDate: string;
+  onClose: () => void;
 }

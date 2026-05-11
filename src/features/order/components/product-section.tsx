@@ -1,6 +1,7 @@
 import OrderBox from "@/features/order/components/order-box";
 import type { ProductSectionProps } from '@/features/order/types';
 
+
 export default function ProductSection({
   scrollContainerRef,
   productGroups,
