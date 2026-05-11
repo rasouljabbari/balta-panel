@@ -1,12 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import ChangeSaveModal from '@/features/contracts/components/change-save-modal';
 import ContractMenusCard from '@/features/contracts/components/contract-menu-card';
 import { MealCard } from '@/features/contracts/components/meal-card';
 import { MealLimitsCard } from '@/features/contracts/components/meal-limits-card';
+import SidebarInfoPanel from '@/features/contracts/components/sidebar-info-panel';
 import { TabsWithBadges } from '@/features/contracts/components/tab-with-badge';
-import type { TabItem } from '@/features/contracts/type';
+import { useContractSettingsCustomer, useCreateContractSetting, useUpdateContractSetting } from '@/features/contracts/hook/use-contracts';
+import type { FormValues, TabItem } from '@/features/contracts/type';
+import { editContractsSchema } from '@/features/contracts/validation';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import { Button } from 'rg-dst';
 import { useToggleCards } from '@/hooks/use-toggle-card';
-import SidebarInfoPanel from '@/features/contracts/components/sidebar-info-panel';
+import ContractLoader from '@/features/contracts/components/contract-loader';
 
 
 const tabs: TabItem[] = [
@@ -15,56 +22,317 @@ const tabs: TabItem[] = [
   { label: 'شام', value: 'dinner' },
 ];
 
+
+
+const emptyForm: FormValues = {
+  mealTime: '',
+  orderCount: 0,
+  variety: 0,
+
+  driverId: null,
+
+  kitchenNote: '',
+
+  minOrder: 0,
+  maxOrder: 0,
+
+  editTolerance: 0,
+
+  isActive: false,
+
+  menus: [],
+};
+
 export default function EditContract() {
-  const [activeTab, setActiveTab] = useState<string>('breakfast');
+  const { id } = useParams<{ id: string }>();
+
+  const { data } = useContractSettingsCustomer(id);
+
+  const { mutate: createMutate, isPending: isCreating } =
+    useCreateContractSetting();
+
+  const { mutate: updateMutate, isPending: isUpdating } =
+    useUpdateContractSetting();
+
+  const [activeTab, setActiveTab] = useState('breakfast');
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [nextTab, setNextTab] = useState<string | null>(null);
+
+
+  const methods = useForm<FormValues>({
+    defaultValues: emptyForm,
+    resolver: yupResolver(editContractsSchema),
+    mode: 'onChange',
+  });
+  const {
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = methods;
+
   const { openStates, toggle } = useToggleCards({
     customer: false,
     branch: false,
   });
 
-  const userFakeData = [
-    { label: 'نام مشتری', value: 'شرکت راهکارگستران' },
-    { label: 'نام کسب و کار', value: 'راهکار گستران' },
-    { label: 'نام کارشناس', value: 'سینا آقایی' },
-    { label: 'شماره تماس', value: '۳۳۳۴۵۴۶۵' },
-    { label: 'شناسه ملی', value: '۹۶۷۷۵۷۶۵۴' },
-    { label: 'کد اقتصادی', value: '۸۳۷۳۰۴۸۴۳' },
-    { label: 'کد مشتری', value: '۱۲۳۴۵' },
-    { label: 'استان', value: 'تبریز' },
-    { label: 'شهر', value: '۱۴۰۰/۰۲/۰۲' },
-    { label: 'آدرس', value: 'خیابان شهیدبهشتی٬ جنب بانک صادرات٬ساختمان..' },
-  ];
+  const customer = data?.data?.customer;
+  const isBranch = data?.data?.is_branch;
 
-  const branchFakeData = [
-    { label: 'نام شعبه', value: 'آبرسان' },
-    { label: 'نام نماینده', value: 'محسن رضایی' },
-    { label: 'شماره موبایل نماینده', value: '۰۹۹۹۶۱۹۲۷۰۱' },
-    { label: 'تلفن ثابت', value: '۰۴۵۳۳۶۳۴۷۴۲' },
-    { label: 'آدرس', value: 'تبریز، چهارراه منصور ، ساختمان پرنیان ورودی ۱' },
-  ];
+  const contract = useMemo(() => {
+    return data?.data?.contract_settings?.find((c) => c.meal === activeTab);
+  }, [data, activeTab]);
+
+  const userSource = useMemo(() => {
+    if (!customer) return null;
+
+    return isBranch ? customer.parent : customer;
+  }, [customer, isBranch]);
+
+  useEffect(() => {
+    if (!contract) {
+      reset(emptyForm);
+      return;
+    }
+
+    reset({
+      mealTime: contract.delivery_time?.slice(0, 5) ?? '',
+      orderCount: contract.count ?? 0,
+      variety: contract.variety ?? 0,
+
+      driverId: contract.default_driver ?? null,
+
+      kitchenNote: contract.kitchen_description ?? '',
+
+      minOrder: contract.initial_order_min_tolerance ?? 0,
+
+      maxOrder: contract.initial_order_max_tolerance ?? 0,
+
+      editTolerance: contract.daily_order_tolerance ?? 0,
+
+      isActive: contract.is_active ?? false,
+
+      menus: contract.menus?.map((m) => m.id) ?? [],
+    });
+  }, [contract, reset]);
+
+ 
+  const handleTabChange = (value: string) => {
+    if (value === activeTab) return;
+    if (isDirty) {
+      setNextTab(value);
+      setIsModalOpen(true);
+      return;
+    }
+
+    setActiveTab(value);
+  };
+
+  const handleConfirmChangeTab = () => {
+    if (!nextTab) return;
+
+    reset(emptyForm);
+
+    setActiveTab(nextTab);
+
+    setIsModalOpen(false);
+
+    setNextTab(null);
+  };
+
+  const handleCancelChangeTab = () => {
+    setIsModalOpen(false);
+    setNextTab(null);
+  };
+
+
+const onSubmit = (formData: FormValues) => {
+  if (!id || !formData.driverId) return;
+
+  const payload = {
+    meal: activeTab,
+    delivery_time: formData.mealTime,
+    count: formData.orderCount,
+    variety: formData.variety,
+    kitchen_description: formData.kitchenNote,
+    default_driver: formData.driverId,
+    is_active: formData.isActive,
+    initial_order_max_tolerance: formData.maxOrder,
+    initial_order_min_tolerance: formData.minOrder,
+    daily_order_tolerance: formData.editTolerance,
+    customer_id: id,
+    menus: formData.menus,
+  };
+
+  const resetValues = {
+    mealTime: formData.mealTime,
+    orderCount: formData.orderCount,
+    variety: formData.variety,
+
+    driverId: formData.driverId,
+
+    kitchenNote: formData.kitchenNote,
+
+    minOrder: formData.minOrder,
+    maxOrder: formData.maxOrder,
+
+    editTolerance: formData.editTolerance,
+
+    isActive: formData.isActive,
+
+    menus: formData.menus,
+  };
+
+  if (contract?.id) {
+    updateMutate(
+      {
+        id: contract.id,
+        payload,
+      },
+      {
+        onSuccess: () => {
+          reset(resetValues);
+        },
+      },
+    );
+  } else {
+    createMutate(payload, {
+      onSuccess: () => {
+        reset(resetValues);
+      },
+    });
+  }
+};
+
+  const userData = useMemo(() => {
+    if (!userSource) return [];
+
+    return [
+      {
+        label: 'نام مشتری',
+        value: `${userSource.first_name ?? '-'} ${userSource.last_name ?? '-'}`,
+      },
+      {
+        label: 'شماره موبایل',
+        value: userSource.phone ?? '-',
+      },
+      {
+        label: 'تلفن ثابت',
+        value: userSource.landline_number ?? '-',
+      },
+      {
+        label: 'شناسه ملی',
+        value: userSource.identification_code ?? '-',
+      },
+      {
+        label: 'کد اقتصادی',
+        value: userSource.economic_code ?? '-',
+      },
+      {
+        label: 'شناسه مشتری',
+        value: userSource.id ?? '-',
+      },
+      {
+        label: 'شهر',
+        value: userSource.city?.name ?? '-',
+      },
+      {
+        label: 'استان',
+        value: userSource.province ?? '-',
+      },
+      {
+        label: 'آدرس',
+        value: userSource.address ?? '-',
+      },
+    ];
+  }, [userSource]);
+
+  const branchData = useMemo(() => {
+    if (!isBranch || !customer) return [];
+
+    return [
+      {
+        label: 'نام نماینده',
+        value: `${customer.first_name ?? '-'} ${customer.last_name ?? '-'}`,
+      },
+      {
+        label: 'شماره تماس',
+        value: customer.phone ?? '-',
+      },
+      {
+        label: 'تلفن ثابت',
+        value: customer.landline_number ?? '-',
+      },
+      {
+        label: 'شهر',
+        value: customer.city?.name ?? '-',
+      },
+      {
+        label: 'استان',
+        value: customer.province ?? '-',
+      },
+      {
+        label: 'آدرس',
+        value: customer.address ?? '-',
+      },
+    ];
+  }, [customer, isBranch]);
+
+if (!data || !customer) {
+  return <ContractLoader />;
+}
 
   return (
-    <div className="grid grid-cols-12 gap-3xl">
-      <div className="col-span-9 flex flex-col gap-3xl p-7">
-        <TabsWithBadges
-          tabs={tabs}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
+    <>
+      <div className="grid grid-cols-12 gap-3xl">
+        <FormProvider {...methods}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="col-span-9 flex flex-col gap-3xl p-7"
+          >
+            <TabsWithBadges
+              tabs={tabs}
+              activeTab={activeTab}
+              setActiveTab={handleTabChange}
+              contractSettings={data?.data?.contract_settings}
+            />
+
+            <MealCard />
+
+            <div className="grid grid-cols-9 gap-3xl">
+              <MealLimitsCard />
+              <ContractMenusCard />
+            </div>
+
+            <Button
+              type="submit"
+              className="mr-auto bg-utility-brand-600"
+              loading={isCreating || isUpdating}
+            >
+              ثبت تنظیمات
+            </Button>
+          </form>
+        </FormProvider>
+
+        <SidebarInfoPanel
+          openStates={openStates}
+          toggle={toggle}
+          userData={userData}
+          branchData={branchData}
+          customerType={customer?.type}
         />
-        <MealCard />
-        <div className="grid grid-cols-9 gap-3xl">
-          <MealLimitsCard />
-          <ContractMenusCard />
-        </div>
-        <Button className="mr-auto bg-utility-brand-600">ثبت تنظیمات</Button>
       </div>
 
-      <SidebarInfoPanel
-        openStates={openStates}
-        toggle={toggle}
-        userData={userFakeData}
-        branchData={branchFakeData}
+      <ChangeSaveModal
+        isOpen={isModalOpen}
+        onClose={handleCancelChangeTab}
+        onConfirm={handleConfirmChangeTab}
+        mealLabel={
+          tabs.find((t) => t.value === activeTab)?.label ??
+          ''
+        }
       />
-    </div>
+    </>
   );
 }

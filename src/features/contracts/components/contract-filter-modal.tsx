@@ -17,7 +17,6 @@ export default function ContractsFilterModal({
     setSelectedMeals([]);
   };
 
-  // تعداد فیلتر فعال
   const activeFiltersCount = selectedMeals?.length ?? 0;
 
   const statusOptions = [{value:'active', label:'فعال'}, {value:'inactive', label:'غیرفعال'}]

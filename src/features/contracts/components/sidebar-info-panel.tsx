@@ -10,16 +10,27 @@ const SidebarInfoPanel: FC<SidebarInfoPanelProps> = ({
   toggle,
   userData,
   branchData,
+  customerType,
 }) => {
+  const isOrganization = customerType === 'organization';
+
   return (
     <div className="col-span-3 bg-gray-light-50 h-full w-[375px] border-r mr-auto border-gray-light-200 p-3xl flex flex-col gap-2xl">
       <AccordionCard
-        title="اطلاعات مشتری(حقوقی)"
+        title={
+          isOrganization ? 'اطلاعات مشتری (حقوقی)' : 'اطلاعات مشتری (حقیقی)'
+        }
         icon={<User size={20} color="var(--color-gray-light-500)" />}
         isOpen={openStates.customer}
         onToggle={() => toggle('customer')}
       >
-        <DetailGrid items={userData} />
+        {userData?.length > 0 ? (
+          <DetailGrid items={userData} />
+        ) : (
+          <p className="text-sm text-center text-gray-light-500 py-xl">
+            اطلاعاتی ثبت نشده
+          </p>
+        )}
       </AccordionCard>
 
       <AccordionCard
@@ -28,7 +39,13 @@ const SidebarInfoPanel: FC<SidebarInfoPanelProps> = ({
         isOpen={openStates.branch}
         onToggle={() => toggle('branch')}
       >
-        <DetailGrid items={branchData} />
+        {branchData?.length > 0 ? (
+          <DetailGrid items={branchData} />
+        ) : (
+          <p className="text-sm text-center text-gray-light-500 py-xl">
+            اطلاعاتی ثبت نشده
+          </p>
+        )}
       </AccordionCard>
     </div>
   );

@@ -1,21 +1,21 @@
-import { Card, CardHeader } from '@/components/shared/card';
-import EmptyBox from '@/components/shared/empty-box';
-import { Skeleton } from '@/components/shared/skeleton-loader';
+import { useState } from 'react';
 import DriverTable from '@/features/drivers/components/table';
 import DriverTableHeader from '@/features/drivers/components/table-headers';
 import { useDrivers } from '@/features/drivers/hook/drivers';
 import type { DriverItem } from '@/features/drivers/types';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardHeader } from '@/components/shared/card';
+import EmptyBox from '@/components/shared/empty-box';
+import { Skeleton } from '@/components/shared/skeleton-loader';
+
 
 export default function DriversPage() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const [searchValue, setSearchValue] = useState('');
+  const [, setSearchValue] = useState('');
 
-  const { data, isLoading } = useDrivers(page, searchValue);
-
+const { data, isLoading } = useDrivers({ page });
   const drivers: DriverItem[] =
     data?.drivers.map((driver) => ({
       id: driver.id,
