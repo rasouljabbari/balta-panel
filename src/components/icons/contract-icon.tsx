@@ -22,8 +22,8 @@ export const ContactCalenderIcon: React.FC<IconProps> = ({
       strokeLinejoin="round"
     />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M3.33417 15H12.7608C13.3183 15 13.8383 14.7217 14.1475 14.2575L14.7592 13.3392C15.1242 12.7917 15.3192 12.1483 15.3192 11.49V5.00001C15.3192 4.07918 14.5733 3.33334 13.6525 3.33334H5.31917C4.39833 3.33334 3.6525 4.07918 3.6525 5.00001V10.88C3.6525 11.3975 3.53167 11.9075 3.30083 12.3708L2.58917 13.7942C2.31167 14.3483 2.715 15 3.33417 15Z"
       stroke="#344054"
       strokeWidth="1.5"
@@ -274,3 +274,74 @@ export const BuildingIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
+
+export const CustomerIcon: React.FC<IconProps> = ({
+  width = 24,
+  height = 24,
+  className,
+}) => (
+<svg width={width} height={height} className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M14.4749 4.52513C15.8417 5.89197 15.8417 8.10804 14.4749 9.47488C13.108 10.8417 10.892 10.8417 9.52513 9.47488C8.15829 8.10804 8.15829 5.89197 9.52513 4.52513C10.892 3.15829 13.108 3.15829 14.4749 4.52513" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path fillRule="evenodd" clipRule="evenodd" d="M4 18.4998V19.4998C4 20.0518 4.448 20.4998 5 20.4998H19C19.552 20.4998 20 20.0518 20 19.4998V18.4998C20 15.4738 16.048 13.5078 12 13.5078C7.952 13.5078 4 15.4738 4 18.4998Z" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
+
+export const BranchIcon: React.FC<IconProps> = ({
+  width = 24,
+  height = 24,
+  className,
+}) => (
+<svg width={width} height={height} className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2 21H22" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M21 21V4C21 3.44772 20.5523 3 20 3H10C9.44772 3 9 3.44772 9 4V21" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M12 7H18" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M12 10H18" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M12 13H18" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M3 21V8C3 7.44772 3.44772 7 4 7H9" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M17 21V17" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M13 17V21" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M18 17H12" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
+
+export const MenuIcon: React.FC<IconProps> = ({
+  width = 24,
+  height = 24,
+  className,
+}) => (
+<svg width={width} height={height} className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M6 13H12" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M6 17H12" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M18.999 5.775C18.875 5.775 18.774 5.876 18.775 6C18.775 6.124 18.876 6.225 19 6.225C19.124 6.225 19.225 6.124 19.225 6C19.225 5.876 19.124 5.775 18.999 5.775" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path fillRule="evenodd" clipRule="evenodd" d="M2 19C2 20.105 2.895 21 4 21H14C15.105 21 16 20.105 16 19V3H4C2.895 3 2 3.895 2 5V19Z" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M16 3H20C21.105 3 22 3.895 22 5V7C22 8.105 21.105 9 20 9H2" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
+
+export const HashtagIcon: React.FC<IconProps> = ({
+  width = 24,
+  height = 24,
+  className,
+}) => (
+<svg width={width} height={height} className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M9.42816 16L10.7144 8" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M13.2856 16L14.5719 8" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M16.25 10.0376H8.42126" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M15.5787 13.9736H7.75" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <rect x="3" y="3" width="18" height="18" rx="5" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
+
+export const ClockIcon: React.FC<IconProps> = ({
+  width = 24,
+  height = 24,
+  className,
+}) => (
+<svg width={width} height={height} className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M12.5 7V12.5H8" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+</svg>
+);
+
+
+

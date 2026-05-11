@@ -175,3 +175,9 @@ export interface OrderModalHeaderProps {
   formattedDate: string;
   onClose: () => void;
 }
+
+export interface WeeklyPlanHeaderProps {
+  tab: TabType;
+  onTabChange: (tab: TabType) => void;
+  children: React.ReactNode;
+}
