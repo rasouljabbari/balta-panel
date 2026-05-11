@@ -80,7 +80,7 @@ export default function WeeklyPlan() {
     <>
       {/* Main Content */}
       <div className="relative pb-20">
-        <Card>
+        <Card className="p-3xl">
           <WeeklyPlanHeader tab={tab} onTabChange={setTab}>
             <WeeklyPlanActions
               disabled={isCurrentWeek}

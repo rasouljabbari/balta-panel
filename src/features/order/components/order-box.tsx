@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 
 export default function OrderBox({id, isSelected, isDisabled = false, img="/assets/images/placeholder.webp", price, title, description, onAddToCart, onRemoveFromCart} : OrderBoxProps) {
     return(
-        <Card>
+        <Card className="p-xl">
             <img src={img} className="block mx-auto" />
             <Badge color="gray" className="my-3 whitespace-nowrap">{price.toLocaleString()} تومان</Badge>
             <h3 className="text-brand-600 font-semibold text-xl pb-3"> {title} </h3>

@@ -144,3 +144,19 @@ export interface WeeklyPlanHeaderProps {
   onTabChange: (tab: TabType) => void;
   children: React.ReactNode;
 }
+
+export interface CartItem {
+  id: number;
+  title: string;
+  price: number;
+  quantity: number;
+}
+
+export interface CartItemProps {
+  item: CartItem;
+  selectedFoodCategory: SelectOption;
+  onRemove: (id: number) => void;
+  onIncrease: (id: number) => void;
+  onDecrease: (id: number) => void;
+  onQuantityChange: (id: number, value: string) => void;
+}
