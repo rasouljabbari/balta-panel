@@ -83,7 +83,7 @@ export default function OrderModal({ onClose, date, mealType, cart, setCart, mea
     
     // Close modal and navigate to weekly plan
     onClose();
-    navigate('/weekly-plan');
+    navigate('/orders/weekly-plan');
   };
 
   return (

@@ -3,7 +3,7 @@
 
   export const TABS = [
   { label: "هفته جاری", value: "current week" },
-  { label: "هفته آینده", value: "feature week" },
+  { label: "هفته آینده", value: "future week" },
   ] as const;
 
   export const WEEKLY_PLAN_TABS = [

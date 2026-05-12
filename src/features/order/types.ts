@@ -139,12 +139,6 @@ export interface OrderBoxProps extends Meal {
   onRemoveFromCart: (id: number) => void;
 }
 
-export interface WeeklyPlanHeaderProps {
-  tab: TabType;
-  onTabChange: (tab: TabType) => void;
-  children: React.ReactNode;
-}
-
 export interface CartItem {
   id: number;
   title: string;
@@ -174,10 +168,4 @@ export interface OrderModalHeaderProps {
   mealType: 'صبحانه' | 'ناهار' | 'شام';
   formattedDate: string;
   onClose: () => void;
-}
-
-export interface WeeklyPlanHeaderProps {
-  tab: TabType;
-  onTabChange: (tab: TabType) => void;
-  children: React.ReactNode;
 }

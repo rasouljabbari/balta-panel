@@ -1,4 +1,4 @@
-export type TabType = "current week" | "feature week";
+export type TabType = "current week" | "future week";
 
 export type SuggestType = "Default programs" | "Expert suggestion";
 
