@@ -1,4 +1,4 @@
-import type { SectionHeaderProps } from '@/components/shared/section-header/type';
+import type { SectionHeaderProps } from '@/components/shared/type';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

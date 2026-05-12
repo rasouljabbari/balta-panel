@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import SelectDropdown from '@/components/shared/select-dropdown';
 import SearchInput from '@/components/shared/search-input';
 import type { CategoryNavigationProps } from '@/features/order/types';
@@ -10,6 +11,8 @@ export default function CategoryNavigation({
   activeSection,
   onScrollToSection,
 }: CategoryNavigationProps) {
+  const [searchValue, setSearchValue] = useState('');
+
   return (
     <div className="flex justify-between items-center h-16 px-5 border-y border-gray-light-300 flex items-center gap-2 bg-white sticky top-0 z-10">
         <div className="flex items-center">
@@ -37,7 +40,11 @@ export default function CategoryNavigation({
           </div>
         </div>
       
-      <SearchInput placeholder="جستجو" onSearch={() => {}} />
+      <SearchInput
+        placeholder="جستجو"
+        searchValue={searchValue}
+        onSearch={setSearchValue}
+      />
     </div>
   );
 }

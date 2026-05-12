@@ -2,7 +2,7 @@ import { createPortal } from 'react-dom';
 import { Button } from 'rg-dst';
 import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { InfoCircleIcon } from '@/components/icons/order-icons';
-import type { SharedModalProps } from '@/components/shared/shared-modal/type';
+import type { SharedModalProps } from '@/components/shared/type';
 
 export default function SharedModal({
   isOpen,
