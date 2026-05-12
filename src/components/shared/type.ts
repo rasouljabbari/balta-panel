@@ -222,6 +222,11 @@ export interface OTPInputProps extends Omit<
   className?: string;
 }
 
+export interface ViewDetailsLinkProps {
+  to: string;
+  text?: string;
+  className?: string;
+}
 export type TimePickerFieldProps = {
   label?: string;
   value?: string;
@@ -232,3 +237,12 @@ export type TimePickerFieldProps = {
   error?: boolean;
   errorText?: string;
 };
+
+export interface SectionHeaderProps {
+  title: string;
+  description?: string;
+  children?: ReactNode;
+  showBack?: boolean;
+  backLink?: string;
+  extra?: React.ReactNode;
+}
