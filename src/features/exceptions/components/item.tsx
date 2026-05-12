@@ -1,9 +1,5 @@
 import { Funnel } from 'lucide-react';
-import { Card, CardBody, CardHeader } from '@/components/shared/card';
-import EmptyBox from '@/components/shared/empty-box';
-import ErrorBox from '@/components/shared/error-box';
-import { Skeleton } from '@/components/shared/skeleton-loader';
-import { cn } from '@/utils/cn';
+import ItemPanel from '@/components/shared/item-panel';
 import type { ItemProps } from '../type';
 import ExceptionItemList from './item-list';
 import { Button } from 'rg-dst';
@@ -61,51 +57,31 @@ export default function ExceptionItem({
       selectedStatus={selectedStatus}
       setSelectedStatus={setSelectedStatus}
        />
-      <Card className={cn(hasItems && 'h-full')}>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex-center gap-xl">
-              <h2 className="text-lg font-semibold text-gray-light-900">
-                {title}
-              </h2>
-            </div>
-            <Button
-              onClick={()=> setOpenFilterModal(true)}
-              variant="secondaryGray"
-              leftIcon={
-                <Funnel size={20} color="var(--color-gray-light-700)" />
-              }
-            >
-              فیلترها
-            </Button>
-          </div>
-        </CardHeader>
-
-        <CardBody>
-          {isLoading ? (
-            Array.from({ length: 7 }).map((_, index) => (
-              <Skeleton key={index} className="w-full h-18.5 bg-gray-50 mb-4" />
-            ))
-          ) : isError ? (
-            <ErrorBox title={`بارگزاری لیست ${title} با خطا مواجه شده است!`} />
-          ) : hasItems ? (
-            <ExceptionItemList
-              items={localItems}
-              onToggle={onToggle}
-              title={title}
-              isPending={isPending}
-              statusModalOpen={false}
-              setStatusModalOpen={()=> console.log('')}
-              changeStatusDirectly={handleStatusChange}
-            />
-          ) : (
-            <EmptyBox
-              title={`لیست ${title} خالی است`}
-              image="/assets/images/empty-order.webp"
-            />
-          )}
-        </CardBody>
-      </Card>
+      <ItemPanel
+        title={title}
+        hasItems={hasItems}
+        isLoading={isLoading}
+        isError={isError}
+        headerRight={(
+          <Button
+            onClick={() => setOpenFilterModal(true)}
+            variant="secondaryGray"
+            leftIcon={<Funnel size={20} color="var(--color-gray-light-700)" />}
+          >
+            فیلترها
+          </Button>
+        )}
+      >
+        <ExceptionItemList
+          items={localItems}
+          onToggle={onToggle}
+          title={title}
+          isPending={isPending}
+          statusModalOpen={false}
+          setStatusModalOpen={() => console.log('')}
+          changeStatusDirectly={handleStatusChange}
+        />
+      </ItemPanel>
     </>
   );
 }
