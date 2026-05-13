@@ -29,9 +29,9 @@ function App() {
   const driversMatch = useMatch('/drivers/*');
 
   const driverDetailMatch = useMatch('/drivers/:id');
-  const driverEditMatch = useMatch('/drivers/edit/:id'); 
-
+  const driverEditMatch = useMatch('/drivers/edit/:id');
   const contractEditMatch = useMatch('/contracts/edit/:id');
+  const orderMealMatch = useMatch('/orders/:day/:meal');
 
   const isWeeklyPlanPage = useMatch('/orders/weekly-plan');
 
@@ -41,8 +41,8 @@ function App() {
   const isDriversPage = !!driversMatch;
   const isDriverDetailPage = !!driverDetailMatch;
   const isDriverEditPage = !!driverEditMatch;
-
   const isContractEdit = !!contractEditMatch;
+  const isOrderMealPage = !!orderMealMatch;
 
   // ------------------------
   // Driver ID (detail + edit)
@@ -53,7 +53,7 @@ function App() {
   // Dynamic padding
   // ------------------------
   const contentPadding =
-    isDriverDetailPage || isDriverEditPage || isContractEdit
+    isDriverDetailPage || isDriverEditPage || isContractEdit || isOrderMealPage
       ? ''
       : 'p-4 lg:p-7';
 
@@ -76,30 +76,24 @@ function App() {
 
       <main className="flex-1 flex flex-col h-screen overflow-hidden bg-gray-modern-50">
         {/* Header */}
-        <header className="sticky top-0 z-10 bg-white">
-          <Header
-            driverId={driverId ? Number(driverId) : undefined}
-            onMenuClick={toggleMobileSidebar}
-            actionButton={
-              isDriversPage
-                ? {
-                    label: 'راننده جدید',
-                    onClick: () => setIsAddDriverOpen(true),
-                    className: 'bg-utility-brand-600',
-                    leftIcon: <CirclePlus size={20} />,
-                  }
-                : isWeeklyPlanPage 
+        {!isOrderMealPage && (
+          <header className="sticky top-0 z-10 bg-white">
+            <Header
+              driverId={driverId ? Number(driverId) : undefined}
+              onMenuClick={toggleMobileSidebar}
+              actionButton={
+                isDriversPage
                   ? {
-                    label: 'اطلاعات قرارداد',
-                    onClick: () => setIsContractsDetailsOpen(true),
-                    className: 'bg-white text-gray-light-700 h-12 hover:bg-gray-light-50 focus:bg-gray-light-50',
-                    leftIcon: <Info size={20} />,
-
-                  }
+                      label: 'راننده جدید',
+                      onClick: () => setIsAddDriverOpen(true),
+                      className: 'bg-utility-brand-600',
+                      leftIcon: <CirclePlus size={20} />,
+                    }
                   : undefined
-            }
-          />
-        </header>
+              }
+            />
+          </header>
+        )}
 
         {/* Main Content */}
         <div className={`flex-1 overflow-y-auto ${contentPadding}`}>

@@ -5,6 +5,8 @@ import NotFound from '@/pages/not-found';
 import OrderPage from '@/pages/order';
 import { getCookie } from '@/utils/cookies';
 import { createBrowserRouter, redirect } from 'react-router-dom';
+import DayOverview from './features/order/components/day-overview';
+import MealsOverview from './features/order/components/meals-overview';
 import ContractsPage from './pages/contracts';
 import DefinitionPage from './pages/definition';
 import DriverDetail from './pages/drivers/driver-detail';
@@ -58,6 +60,8 @@ export const router = createBrowserRouter([
       { path: 'drivers/:id', Component: DriverDetail },
       { path: 'drivers/edit/:id', Component: DriverEditForm },
       { path: 'orders', Component: OrderPage },
+      { path: 'orders/:day', Component: DayOverview },
+      { path: '/orders/:day/:meal', Component: MealsOverview },
       { path: 'orders/weekly-plan', Component: WeeklyPlan },
     ],
   },
@@ -67,8 +71,8 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    Component: NotFound
-  }
+    Component: NotFound,
+  },
 
   // {
   //   path: '/auth/forgot-password',

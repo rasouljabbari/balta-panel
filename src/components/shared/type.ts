@@ -222,9 +222,16 @@ export interface OTPInputProps extends Omit<
   className?: string;
 }
 
-export interface ViewDetailsLinkProps {
-  to: string;
-  text?: string;
+
+export type DropdownOption = {
+  label: string;
+  value: string;
+};
+
+export type DropDownProps = {
+  options: DropdownOption[];
+  value?: string;
+  onChange: (value: string) => void;
   className?: string;
 }
 export type TimePickerFieldProps = {

@@ -2,6 +2,7 @@ import { useLocation, useMatch } from 'react-router-dom';
 import { routeInfos } from '@/components/layout/header/data';
 import type { HeaderInfoResult } from '../type';
 
+
 export function useHeaderInfo(): HeaderInfoResult {
   const location = useLocation();
 
@@ -40,17 +41,17 @@ export function useHeaderInfo(): HeaderInfoResult {
       title = routeInfos[path].title;
       description = routeInfos[path].description;
     } else {
-      for (const [pattern, info] of Object.entries(routeInfos)) {
-        const regex = new RegExp(
-          '^' + pattern.replace(/:[^\s/]+/g, '([\\w-]+)') + '$',
-        );
+    for (const [pattern, info] of Object.entries(routeInfos)) {
+      const regex = new RegExp(
+        '^' + pattern.replace(/:[^/]+/g, '([^/]+)') + '$',
+      );
 
-        if (regex.test(path)) {
-          title = info.title;
-          description = info.description;
-          break;
-        }
+      if (regex.test(path)) {
+        title = info.title;
+        description = info.description;
+        break;
       }
+    }
     }
   }
 
