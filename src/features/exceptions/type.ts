@@ -15,6 +15,8 @@ export interface Item {
   is_active: boolean;
   is_daily: boolean;
   category: string;
+  exclusion?: ExceptionsApiFoodExclusion | null;
+  foodId?: string | number;
 }
 
 export interface ExceptionItemProps {
@@ -25,19 +27,14 @@ export interface ExceptionItemProps {
 
 export interface ExceptionItemListProps {
   items: Item[];
-  onToggle: (item: Item) => void;
-  statusModalOpen: boolean;
-  setStatusModalOpen: (open: boolean) => void;
   isPending: boolean;
-  changeStatusDirectly: (id: Item['id']) => void;
+  onToggleClick: (item: Item) => void;
 }
 export interface ItemProps extends ExceptionItemProps {
+  mealId: number;
+  date: string;
   isPending: boolean;
   name: string;
-  onToggle: (item: any) => void;
-  setStatusModalOpen: (open: boolean) => void;
-  changeStatusDirectly: (id: Item['id']) => void;
-  serverValidationError: any;
   isLoading: boolean;
   isError: boolean;
 }
@@ -68,7 +65,6 @@ export interface ExceptionsApiFoodCategory {
 
 export interface ExceptionsApiFoodExclusion {
   id: number;
-  is_excluded: boolean;
 }
 
 export interface ExceptionsApiFood {
@@ -76,7 +72,7 @@ export interface ExceptionsApiFood {
   name: string;
   menus: ExceptionsApiFoodMenu[];
   category: ExceptionsApiFoodCategory;
-  exclusion: ExceptionsApiFoodExclusion;
+  exclusion: ExceptionsApiFoodExclusion | null;
   is_daily: boolean;
 }
 
@@ -102,4 +98,10 @@ export interface ExceptionsMeal {
 
 export interface ListExceptionsResult {
   meals: ExceptionsMeal[];
+}
+
+export interface CreateExceptionPayload {
+  food_id: string | number;
+  date: string;
+  meal_id: number;
 }

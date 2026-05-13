@@ -59,6 +59,7 @@ export type SharedModalProps = {
   footerLeft?: React.ReactNode;
   showFooter?: boolean;
   bodyClassName?: string;
+  confirmButtonClassName?: string;
 };
 
 export interface CardProps {

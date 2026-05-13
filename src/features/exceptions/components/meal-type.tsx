@@ -30,8 +30,7 @@ export default function MealType() {
     [MealId.DINNER]: 'شام',
   };
 
-  const handleToggleNoop = () => {};
-  const handleChangeStatusNoop = () => {};
+  const dateParam = date ?? '';
 
   return (
     <>
@@ -41,17 +40,14 @@ export default function MealType() {
         return (
           <ExceptionItem
             key={mealId}
+            mealId={mealId}
+            date={dateParam}
             isLoading={isPending}
             isError={isError}
             title={meal?.name ?? mealTitles[mealId]}
             items={meal?.items ?? []}
-            onToggle={handleToggleNoop}
-            name={''}
+            name=""
             isPending={isPending}
-            changeStatusDirectly={handleChangeStatusNoop}
-            setStatusModalOpen={handleToggleNoop}
-            serverValidationError={null}
-            setServerValidationError={handleToggleNoop}
           />
         );
       })}

@@ -14,11 +14,13 @@ const mapApiMealToUiMeal = (
     name: apiMeal.name,
     items: apiMeal.foods.map((food): Item => ({
       id: food.id,
+      foodId: food.id,
       name: food.name,
-      is_active: !food.exclusion?.is_excluded,
+      is_active: !food.exclusion,
       is_daily: food.is_daily,
       category: food.category.name,
       code: undefined,
+      exclusion: food.exclusion ?? null,
     })),
   };
 };
