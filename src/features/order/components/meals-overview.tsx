@@ -121,7 +121,7 @@ const orders: OrderItem[] = [
     <div className="grid grid-cols-12">
       <div className="col-span-4 bg-white border-l border-rborder-primary min-h-[982px]">
         <div className="flex items-center gap-xl p-3xl">
-          <div className="flex items-center rounded-md border border-gray-light-200 p-[10px]">
+          <div className="flex items-center rounded-md border border-gray-light-200 p-[10px] cursor-pointer">
             <ArrowRight
               size={20}
               color="#323232"
@@ -140,8 +140,7 @@ const orders: OrderItem[] = [
             className="w-[300px] px-10"
             onSearch={function (): void {
               throw new Error('Function not implemented.');
-            }}
-          />
+            } } searchValue={''}          />
           <div className="mt-1 w-full">
             <Dropdown
               value={filter}

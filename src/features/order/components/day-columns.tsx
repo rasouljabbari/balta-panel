@@ -17,7 +17,7 @@ export default function DayColumn({
       onClick={() => navigate(`/orders/${day.dayName}`)}
       role="gridcell"
       aria-label={`سفارش‌های ${day.dayName} ${day.fullDate}`}
-      className="py-lg px-md 2xl:px-xl flex flex-col gap-lg border-r border-gray-light-200 hover:bg-gray-light-50"
+      className="py-lg px-md 2xl:px-xl flex flex-col gap-lg border-r border-gray-light-200 hover:bg-gray-light-50 cursor-pointer"
     >
       <div className="flex items-center justify-between">
         <span

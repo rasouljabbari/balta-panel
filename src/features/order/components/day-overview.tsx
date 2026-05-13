@@ -59,7 +59,7 @@ export default function DayOverview() {
       <CardHeader className="border-b border-gray-light-200">
         <div className="flex justify-between">
           <div className="flex items-center gap-xl">
-            <div className="flex items-center rounded-md border border-gray-light-200 p-[10px]">
+            <div className="flex items-center rounded-md border border-gray-light-200 p-[10px] cursor-pointer">
               <ArrowRight
                 size={20}
                 color="#323232"
@@ -87,7 +87,7 @@ export default function DayOverview() {
           <div
             onClick={() => navigate(`/orders/${meal.title}/${day}`)}
             key={meal.title}
-            className="min-h-[700px] border-r border-gray-light-200 first:border-r-0 hover:bg-gray-light-50"
+            className="min-h-[700px] border-r border-gray-light-200 first:border-r-0 hover:bg-gray-light-50 cursor-pointer"
           >
             <div className="border-b border-gray-light-200 p-lg">
               <h3 className="text-center text-md font-semibold text-gray-light-700">
