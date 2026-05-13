@@ -1,4 +1,3 @@
-import type { serverValidationErrorProps } from '@/types/api';
 import type { Option } from "@/components/shared/type";
 
 export const MealId = {
@@ -32,17 +31,6 @@ export interface ExceptionItemListProps {
   isPending: boolean;
   changeStatusDirectly: (id: Item['id']) => void;
 }
-
-export type MetaType = 'Limited by contract' | 'No restrictions';
-
-export interface MenuFormProps {
-  mode: 'add' | 'edit';
-  defaultValues: Item | null;
-  onSubmit: (data: Partial<Item>) => void;
-  formId: string;
-  serverValidationError: serverValidationErrorProps | null;
-}
-
 export interface ItemProps extends ExceptionItemProps {
   isPending: boolean;
   name: string;
@@ -53,31 +41,15 @@ export interface ItemProps extends ExceptionItemProps {
   isLoading: boolean;
   isError: boolean;
 }
-
-export interface Menu {
-  id: number;
-  name: string;
-  is_active?: boolean;
-  default_packaging_id: number;
-}
 export interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
-
   selectedMenus?: Option[];
   setSelectedMenus?: (val: Option[]) => void;
-
   selectedCategories?: Option[];
   setSelectedCategories?: (val: Option[]) => void;
-
   selectedStatus?: Option[];
   setSelectedStatus?: (val: Option[]) => void;
-}
-
-export interface ExceptionsCategory {
-  id:number
-  name: string;
-  is_active?: boolean;
 }
 
 export interface ExceptionsApiFoodMenu {
@@ -89,9 +61,9 @@ export interface ExceptionsApiFoodMenu {
 export interface ExceptionsApiFoodCategory {
   id: number;
   name: string;
-  is_active: boolean;
-  order_limit: string;
-  order_limit_translation: string;
+  is_active?: boolean;
+  order_limit?: string;
+  order_limit_translation?: string;
 }
 
 export interface ExceptionsApiFoodExclusion {
