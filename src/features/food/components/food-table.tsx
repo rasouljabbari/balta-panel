@@ -1,15 +1,15 @@
 import { FoodIcons } from '@/components/icons/food-icons';
 import { Card, CardBody, CardHeader } from '@/components/shared/card';
 import EmptyBox from '@/components/shared/empty-box';
+import { Skeleton } from '@/components/shared/skeleton-loader';
 import Table from '@/components/shared/table';
 import type { FoodItem, FoodTableProps } from '../type';
 import { foodTableColumns } from './table-columns';
 import FoodTableHeader from './table-header';
-import { Skeleton } from '@/components/shared/skeleton-loader';
 
 
-export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch, meta, onPageChange }: FoodTableProps) {
-  
+export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch, meta, onPageChange, searchValue }: FoodTableProps) {
+
   if (!data || data.length === 0 || isLoading) {
     return (
       <Card>
@@ -50,7 +50,7 @@ export default function FoodTable({ isLoading, data, onAdd, onEdit, onSearch, me
       columns={foodTableColumns(onEdit, meta?.current_page, meta?.per_page)}
       data={data}
       rowKey={(row) => row.id}
-      header={<FoodTableHeader onSearch={onSearch} onAdd={onAdd} />}
+      header={<FoodTableHeader searchValue={searchValue} onSearch={onSearch} onAdd={onAdd} />}
       pagination={meta ? {
         currentPage: meta.current_page,
         totalPages: meta.last_page,

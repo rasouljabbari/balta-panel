@@ -8,7 +8,7 @@ import { Button } from 'rg-dst';
 import type { FoodTableHeaderProps } from '../type';
 
 
-export default function FoodTableHeader({ onAdd, onSearch }: FoodTableHeaderProps) {
+export default function FoodTableHeader({ onAdd, onSearch, searchValue }: FoodTableHeaderProps) {
   const [openFilter, setOpenFilter] = useState(false);
   return (
     <>
@@ -23,7 +23,7 @@ export default function FoodTableHeader({ onAdd, onSearch }: FoodTableHeaderProp
         </div>
 
         <div className="flex items-center gap-lg">
-          <SearchInput onSearch={onSearch} placeholder="جستجو در آیتم‌ها" />
+          <SearchInput searchValue={searchValue} onSearch={onSearch} placeholder="جستجو در آیتم‌ها" />
 
           <Button
             variant="secondaryColor"

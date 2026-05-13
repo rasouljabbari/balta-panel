@@ -152,6 +152,7 @@ export interface SearchInputProps extends Omit<
   iconPosition?: 'left' | 'right';
   onSearch: (value: string) => void;
   delay?: number;
+  searchValue: string;
 }
 
 export interface DatePickerFieldProps {
@@ -243,3 +244,12 @@ export type TimePickerFieldProps = {
   error?: boolean;
   errorText?: string;
 };
+
+export interface SectionHeaderProps {
+  title: string;
+  description?: string;
+  children?: ReactNode;
+  showBack?: boolean;
+  backLink?: string;
+  extra?: React.ReactNode;
+}

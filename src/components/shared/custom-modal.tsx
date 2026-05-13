@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { Button } from 'rg-dst';
 import { InfoCircleIcon } from '../icons/modal-icons';
 import type { SharedModalProps } from './type';
+import { X } from 'lucide-react';
 
 
 export default function SharedModal({
@@ -50,15 +51,27 @@ export default function SharedModal({
         ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
       >
         {/* HEADER */}
-        <div className="flex items-center p-3xl gap-xl border-b border-gray-light-200">
-          {icon && (
-            <div
-              className={`flex items-center justify-center w-12 h-12 rounded-full ${iconBgClass}`}
-            >
-              {icon}
-            </div>
-          )}
-          <h3 className="text-lg font-semibold text-gray-light-900">{title}</h3>
+        <div className="flex justify-between items-center p-3xl border-b border-gray-light-200">
+          <div className="flex items-center gap-xl">
+            {icon && (
+              <div
+                className={`flex items-center justify-center w-12 h-12 rounded-full ${iconBgClass}`}
+              >
+                {icon}
+              </div>
+            )}
+            <h3 className="text-lg font-semibold text-gray-light-900">{title}</h3>
+          </div>
+          
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-light-500 hover:bg-gray-light-100 transition-colors"
+            aria-label="close modal"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         {/* BODY */}

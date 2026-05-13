@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, Info } from 'lucide-react';
 import { Outlet, useMatch } from 'react-router-dom';
 import Header from './components/layout/header';
 import Sidebar from './components/layout/sidebar';
 import AddDriverModal from './features/drivers/components/add-driver-modal';
+import ContractDetailsModal from './features/weekly-plan/components/modal/contract-details-modal';
 import { useDisableScroll } from './hooks/use-disable-scroll';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   // ------------------------
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const [isAddDriverOpen, setIsAddDriverOpen] = useState(false);
+  const [isContractsDetailsOpen, setIsContractsDetailsOpen] = useState(false);
 
   // ------------------------
   // Sidebar handlers
@@ -30,6 +32,8 @@ function App() {
   const driverEditMatch = useMatch('/drivers/edit/:id');
   const contractEditMatch = useMatch('/contracts/edit/:id');
   const orderMealMatch = useMatch('/orders/:day/:meal');
+
+  const isWeeklyPlanPage = useMatch('/orders/weekly-plan');
 
   // ------------------------
   // Derived flags
@@ -101,6 +105,11 @@ function App() {
       <AddDriverModal
         isOpen={isAddDriverOpen}
         onClose={() => setIsAddDriverOpen(false)}
+      />
+
+      <ContractDetailsModal 
+        isOpen={isContractsDetailsOpen}
+        onClose={()=> setIsContractsDetailsOpen(false)}
       />
     </div>
   );

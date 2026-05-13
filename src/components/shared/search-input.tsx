@@ -13,11 +13,12 @@ export default function SearchInput({
   iconPosition = 'right',
   onSearch,
   delay = 500,
+  searchValue,
   ...props
 }: SearchInputProps) {
   const isRight = iconPosition === 'right';
 
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(searchValue ?? "");
   const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -62,3 +63,5 @@ export default function SearchInput({
     </div>
   );
 }
+
+
