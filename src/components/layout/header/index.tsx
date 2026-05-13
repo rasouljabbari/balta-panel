@@ -8,7 +8,14 @@ import HeaderAction from './header-action';
 import HeaderUserInformationBox from './header-info';
 import { useHeaderInfo } from './hook/use-header-info';
 import DatePickerField from '@/components/shared/date-picker-filed';
-import DateObject from "react-date-object";
+import { useSearchParams } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
+import DateObject from 'react-date-object';
+import gregorian from 'react-date-object/calendars/gregorian';
+import persian from 'react-date-object/calendars/persian';
+import gregorian_en from 'react-date-object/locales/gregorian_en';
+import persian_fa from 'react-date-object/locales/persian_fa';
+import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 
 
 export default function Header({
@@ -21,7 +28,7 @@ export default function Header({
 }: HeaderProps & { driverId?: number }) {
   const { data: apiDriver } = useDriverById(driverId);
   const { data: contractData } = useContractSettingsCustomer(contractId);
-  const [date, setDate] = useState<DateObject | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { title, description, showBackButton, isDriverEdit, isDriverDetail } =
     useHeaderInfo();
@@ -31,6 +38,53 @@ export default function Header({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingDriverId, setPendingDriverId] = useState<number | null>(null);
   const [isPending, setIsPending] = useState(false);
+
+  const todayGregorian = useMemo(() => {
+    return new DateObject({
+      calendar: persian,
+      locale: persian_fa,
+    })
+      .convert(gregorian)
+      .setLocale(gregorian_en)
+      .format('YYYY-MM-DD');
+  }, []);
+
+  const urlDate = searchParams.get('date') || '';
+
+  // Ensure date param exists on exceptions page (so list loads immediately)
+  useEffect(() => {
+    if (!hasDatePicker) return;
+    if (urlDate) return;
+
+    const next = new URLSearchParams(searchParams);
+    next.set('date', todayGregorian);
+    setSearchParams(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasDatePicker, urlDate, todayGregorian]);
+
+  const dateValue = useMemo(() => {
+    if (!hasDatePicker) return null;
+    const dateStr = urlDate || todayGregorian;
+
+    // URL is stored as Gregorian YYYY-MM-DD; UI shows Persian calendar.
+    return new DateObject({
+      date: dateStr,
+      calendar: gregorian,
+      locale: gregorian_en,
+    })
+      .convert(persian)
+      .setLocale(persian_fa);
+  }, [hasDatePicker, urlDate, todayGregorian]);
+
+  const handleDateChange = (val: DateObject | null) => {
+    if (!val) return;
+    const greg = convertPersianToGregorian(val as any);
+    if (!greg) return;
+
+    const next = new URLSearchParams(searchParams);
+    next.set('date', greg);
+    setSearchParams(next, { replace: true });
+  };
 
   // Toggle Status
   const handleToggleClick = () => {
@@ -120,9 +174,10 @@ if (contractData?.data?.customer) {
         {hasDatePicker &&
           <DatePickerField
             defaultToToday
-            onChange={setDate}
-            value={date}
+            onChange={handleDateChange}
+            value={dateValue}
             iconOnRight={true}
+            allowFuture
           />
         }
 

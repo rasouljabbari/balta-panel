@@ -21,6 +21,7 @@ export default function DatePickerField({
   error = false,
   errorText,
   iconOnRight = false,
+  allowFuture = false,
 }: DatePickerFieldProps) {
   const [showCalendar, setShowCalendar] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
@@ -44,11 +45,16 @@ export default function DatePickerField({
   }, [defaultToToday]);
 
   const handleChange = (date: DateObject) => {
-    if (date.unix > today.unix) {
+    if (allowFuture) {
+      if (date.unix < today.unix) {
+        setLocalError('نمی‌توانید تاریخ گذشته را انتخاب کنید.');
+        return;
+      }
+    } else if (date.unix > today.unix) {
       setLocalError('نمی‌توانید تاریخ آینده را انتخاب کنید.');
       return;
     }
-    
+
     setLocalError(null);
     onChange?.(date);
     setShowCalendar(false);
@@ -118,13 +124,23 @@ export default function DatePickerField({
 
       {showCalendar && (
         <div className="absolute top-full mt-2 z-50">
-          <Calendar
-            calendar={persian}
-            locale={persian_fa}
-            value={value}
-            maxDate={today}
-            onChange={handleChange}
-          />
+          {allowFuture ? (
+            <Calendar
+              calendar={persian}
+              locale={persian_fa}
+              value={value}
+              minDate={today}
+              onChange={handleChange}
+            />
+          ) : (
+            <Calendar
+              calendar={persian}
+              locale={persian_fa}
+              value={value}
+              maxDate={today}
+              onChange={handleChange}
+            />
+          )}
         </div>
       )}
     </div>

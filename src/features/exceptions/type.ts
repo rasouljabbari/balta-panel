@@ -1,10 +1,18 @@
 import type { serverValidationErrorProps } from '@/types/api';
 import type { Option } from "@/components/shared/type";
 
+export const MealId = {
+  BREAKFAST: 1,
+  LUNCH: 2,
+  DINNER: 3,
+} as const;
+
+export type MealId = (typeof MealId)[keyof typeof MealId];
+
 export interface Item {
-  id: number;
+  id: number | string;
   name: string;
-  code: number;
+  code?: number;
   is_active: boolean;
   is_daily: boolean;
   category: string;
@@ -22,7 +30,7 @@ export interface ExceptionItemListProps {
   statusModalOpen: boolean;
   setStatusModalOpen: (open: boolean) => void;
   isPending: boolean;
-  changeStatusDirectly: (id: number) => void;
+  changeStatusDirectly: (id: Item['id']) => void;
 }
 
 export type MetaType = 'Limited by contract' | 'No restrictions';
@@ -40,7 +48,7 @@ export interface ItemProps extends ExceptionItemProps {
   name: string;
   onToggle: (item: any) => void;
   setStatusModalOpen: (open: boolean) => void;
-  changeStatusDirectly: (id: number) => void;
+  changeStatusDirectly: (id: Item['id']) => void;
   serverValidationError: any;
   isLoading: boolean;
   isError: boolean;
@@ -52,21 +60,6 @@ export interface Menu {
   is_active?: boolean;
   default_packaging_id: number;
 }
-
-export interface GetMenusResponse {
-  status: 'success';
-  message: string;
-  data: {
-    menus: Menu[];
-  };
-}
-
-export interface Menu {
-  id: number;
-  name: string;
-  price: number;
-}
-
 export interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -85,4 +78,56 @@ export interface ExceptionsCategory {
   id:number
   name: string;
   is_active?: boolean;
+}
+
+export interface ExceptionsApiFoodMenu {
+  id: number;
+  name: string;
+  is_active: boolean;
+}
+
+export interface ExceptionsApiFoodCategory {
+  id: number;
+  name: string;
+  is_active: boolean;
+  order_limit: string;
+  order_limit_translation: string;
+}
+
+export interface ExceptionsApiFoodExclusion {
+  id: number;
+  is_excluded: boolean;
+}
+
+export interface ExceptionsApiFood {
+  id: number | string;
+  name: string;
+  menus: ExceptionsApiFoodMenu[];
+  category: ExceptionsApiFoodCategory;
+  exclusion: ExceptionsApiFoodExclusion;
+  is_daily: boolean;
+}
+
+export interface ExceptionsApiMeal {
+  id: number;
+  name: string;
+  foods: ExceptionsApiFood[];
+}
+
+export interface ListExceptionsResponse {
+  status: 'success';
+  message: string;
+  data: {
+    meals: ExceptionsApiMeal[];
+  };
+}
+
+export interface ExceptionsMeal {
+  id: number;
+  name: string;
+  items: Item[];
+}
+
+export interface ListExceptionsResult {
+  meals: ExceptionsMeal[];
 }

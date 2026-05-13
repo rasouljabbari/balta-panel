@@ -2,7 +2,7 @@ import { Switch } from 'rg-dst';
 import type { ReactNode } from 'react';
 
 type ToggleListItemBase = {
-  id: number;
+  id: number | string;
   name: string;
   is_active: boolean;
 };

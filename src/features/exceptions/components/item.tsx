@@ -32,7 +32,7 @@ export default function ExceptionItem({
     setLocalItems(items);
   }, [items]);
 
-  const handleStatusChange = async (id: number) => {
+  const handleStatusChange = async (id: Item['id']) => {
     setLocalItems((prev : any) =>
       prev.map((item: Item) =>
         item.id === id
