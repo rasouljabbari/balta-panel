@@ -5,7 +5,7 @@ import { Input, Switch } from 'rg-dst';
 import { ContactFoodIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
-
+import TimePickerField from '@/components/shared/timr-picker-field';
 
 export function MealCard() {
   const { control } = useFormContext();
@@ -56,29 +56,47 @@ export function MealCard() {
         />
 
         <div className="grid grid-cols-3 gap-6">
-          <Input label="ساعت تحویل" required className="w-full" />
+          <Controller
+            name="mealTime"
+            control={control}
+            render={({ field, fieldState }) => (
+              <TimePickerField
+                label="ساعت تحویل"
+                required
+                value={field.value}
+                onChange={field.onChange}
+                error={!!fieldState.error}
+                errorText={fieldState.error?.message}
+              />
+            )}
+          />{' '}
+          <Controller
+            name="orderCount"
+            control={control}
+            render={({ field, fieldState }) => (
+              <div dir="ltr" className="dv-price-input">
+                <Input
+                  inputType="leadingText"
+                  labelClass="dv-price-label"
+                  label="تعداد سفارش"
+                  required
+                  className="w-full placeholder:text-sm placeholder:text-gray-light-500"
+                  leadingTextValue="پرس"
+                  placeholder="تعداد را وارد کنید"
+                  type="text"
+                  inputMode="numeric"
+                  value={field.value ?? ''}
+                  onChange={(e: { target: { value: string } }) => {
+                    const onlyNumbers = e.target.value.replace(/\D/g, '');
 
-          <div dir="ltr" className="dv-price-input">
-            <Input
-              inputType="leadingText"
-              labelClass="dv-price-label"
-              label="تعداد سفارش"
-              required
-              className="w-full placeholder:text-sm placeholder:text-gray-light-500"
-              leadingTextValue="پرس"
-              placeholder="تعداد را وارد کنید"
-              type="text"
-              inputMode="numeric"
-            />
-          </div>
-
-          <Input
-            label="تنوع غذایی"
-            required
-            className="w-full placeholder:text-sm placeholder:text-gray-light-500"
-            placeholder="تعداد را وارد کنید"
+                    field.onChange(Number(onlyNumbers));
+                  }}
+                  destructive={!!fieldState.error}
+                  destructiveText={fieldState.error?.message}
+                />
+              </div>
+            )}
           />
-
           {/* variety */}
           <Controller
             name="variety"
@@ -98,7 +116,6 @@ export function MealCard() {
               />
             )}
           />
-
           {/* driver */}
           <Controller
             name="driverId"
@@ -121,7 +138,6 @@ export function MealCard() {
               />
             )}
           />
-
           {/* kitchenNote */}
           <Controller
             name="kitchenNote"
