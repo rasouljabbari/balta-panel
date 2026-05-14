@@ -8,18 +8,29 @@ import { useMenus } from '@/features/definition/hooks/menu';
 import { useCategories } from '@/features/definition/hooks/category';
 import { STATUS_OPTIONS } from '@/constants';
 
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react';
 
 export default function FilterModal({
   isOpen,
   onClose,
-  selectedMenus,
-  setSelectedMenus,
-  selectedCategories,
-  setSelectedCategories,
-  setSelectedStatus,
-  selectedStatus
+  appliedFilters,
+  onApplyFilters,
 }: FilterModalProps) {
+  const [draftMenus, setDraftMenus] = useState<Option[]>([]);
+  const [draftCategories, setDraftCategories] = useState<Option[]>([]);
+  const [draftStatus, setDraftStatus] = useState<Option[]>([]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    setDraftMenus(appliedFilters.menus);
+    setDraftCategories(appliedFilters.categories);
+    setDraftStatus(appliedFilters.status);
+  }, [
+    isOpen,
+    appliedFilters.menus,
+    appliedFilters.categories,
+    appliedFilters.status,
+  ]);
 
   const { data: menusData } = useMenus();
 
@@ -45,13 +56,22 @@ export default function FilterModal({
   }, [categoriesData]);
 
   const handleReset = () => {
-    setSelectedMenus?.([]);
-    setSelectedCategories?.([]);
-    setSelectedStatus?.([]);
+    setDraftMenus([]);
+    setDraftCategories([]);
+    setDraftStatus([]);
   };
 
-  // تعداد فیلتر فعال
-  const activeFiltersCount = selectedMenus?.length ?? 0;
+  const handleConfirm = () => {
+    onApplyFilters({
+      menus: draftMenus,
+      categories: draftCategories,
+      status: draftStatus,
+    });
+    onClose();
+  };
+
+  const activeFiltersCount =
+    draftMenus.length + draftCategories.length + draftStatus.length;
 
   return (
     <SharedModal
@@ -61,6 +81,7 @@ export default function FilterModal({
       icon={<Funnel size={24} color="var(--color-gray-light-500)" />}
       iconBgClass="bg-gray-light-100"
       confirmText="اعمال"
+      onConfirm={handleConfirm}
       footerLeft={
         <ClearFiltersButton
           activeFiltersCount={activeFiltersCount}
@@ -74,8 +95,9 @@ export default function FilterModal({
           placeholder="انتخاب کنید"
           options={activeMenuOptions}
           isMulti
-          value={selectedMenus ?? []}
-          onChange={(val) => setSelectedMenus?.(val as Option[])}
+          required={false}
+          value={draftMenus}
+          onChange={(val) => setDraftMenus(val as Option[])}
         />
 
         <CustomSelect
@@ -83,16 +105,20 @@ export default function FilterModal({
           placeholder="انتخاب کنید"
           options={activeCategoryList}
           isMulti
-          value={selectedCategories ?? []}
-          onChange={(val) => setSelectedCategories?.(val as Option[])}
+          required={false}
+          value={draftCategories}
+          onChange={(val) => setDraftCategories(val as Option[])}
         />
 
-        <CustomSelect 
-            label="وضعیت نمایش در منو" 
-            placeholder="انتخاب کنید" 
-            options={STATUS_OPTIONS}
-            value={selectedStatus ?? []}
-            onChange={(val) => setSelectedStatus?.(val as Option[])}/>
+        <CustomSelect
+          label="وضعیت نمایش در منو"
+          placeholder="انتخاب کنید"
+          options={STATUS_OPTIONS}
+          isMulti
+          required={false}
+          value={draftStatus}
+          onChange={(val) => setDraftStatus(val as Option[])}
+        />
       </div>
     </SharedModal>
   );

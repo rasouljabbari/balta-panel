@@ -1,17 +1,17 @@
 import { Funnel } from 'lucide-react';
 import ItemPanel from '@/components/shared/item-panel';
-import type { ItemProps } from '../type';
 import ExceptionItemList from './item-list';
 import { Button } from 'rg-dst';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import FilterModal from '@/features/exceptions/components/filter-modal';
 import type { Option } from '@/components/shared/type';
-import type { Item } from '../type';
+import type { Item, ItemProps } from '@/features/exceptions/type';
 import SharedModal from '@/components/shared/custom-modal';
 import { useDeleteExceptionStatus } from '@/features/exceptions/hooks/use-delete-status';
 import { useCreateException } from '@/features/exceptions/hooks/use-create-exception';
 import { formatGregorianToPersianLongDate } from '@/utils/format-gregorian-to-persian-label';
 import { toast } from 'react-toastify';
+import EmptyBox from '@/components/shared/empty-box';
 
 type ToggleIntent = 'activate' | 'deactivate';
 
@@ -73,7 +73,7 @@ export default function ExceptionItem(props: ItemProps) {
       return;
     }
 
-    const foodId = pendingItem.foodId ?? pendingItem.id;
+    const foodId = pendingItem.id;
     const exclusionId = pendingItem.exclusion?.id ?? null;
 
     try {
@@ -126,17 +126,59 @@ export default function ExceptionItem(props: ItemProps) {
       </p>
     ) : null;
 
+  const filtersActive =
+    selectedMenus.length > 0 ||
+    selectedCategories.length > 0 ||
+    selectedStatus.length > 0;
+
+  const filteredItems = useMemo(() => {
+    return localItems.filter((item: Item) => {
+      const menuMatch =
+        selectedMenus.length === 0
+          ? true
+          : (item.menus ?? []).some((m) =>
+              selectedMenus.some(
+                (menu: Option) => String(menu.value) === String(m.id),
+              ),
+            );
+
+      const categoryMatch =
+        selectedCategories.length === 0
+          ? true
+          : item.categoryId != null &&
+            selectedCategories.some(
+              (category: Option) =>
+                String(category.value) === String(item.categoryId),
+            );
+
+      const statusMatch =
+        selectedStatus.length === 0
+          ? true
+          : selectedStatus.some((status: Option) => {
+              if (status.value === 'active') return item.exclusion == null;
+              if (status.value === 'inactive') return item.exclusion != null;
+              return false;
+            });
+
+      return menuMatch && categoryMatch && statusMatch;
+    });
+  }, [localItems, selectedMenus, selectedCategories, selectedStatus]);
+
   return (
     <>
       <FilterModal
         isOpen={openFilterModal}
         onClose={() => setOpenFilterModal(false)}
-        selectedMenus={selectedMenus}
-        setSelectedMenus={setSelectedMenus}
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
-        selectedStatus={selectedStatus}
-        setSelectedStatus={setSelectedStatus}
+        appliedFilters={{
+          menus: selectedMenus,
+          categories: selectedCategories,
+          status: selectedStatus,
+        }}
+        onApplyFilters={({ menus, categories, status }) => {
+          setSelectedMenus(menus);
+          setSelectedCategories(categories);
+          setSelectedStatus(status);
+        }}
       />
       <SharedModal
         isOpen={statusModalOpen}
@@ -165,11 +207,20 @@ export default function ExceptionItem(props: ItemProps) {
           </Button>
         )}
       >
-        <ExceptionItemList
-          items={localItems}
-          isPending={isPending || mutationPending}
-          onToggleClick={handleToggleRequest}
-        />
+        {hasItems ? (
+          filtersActive && filteredItems.length === 0 ? (
+            <EmptyBox
+              title="هیچ آیتمی با فیلترهای انتخاب‌شده یافت نشد"
+              image="/assets/images/empty-order.webp"
+            />
+          ) : (
+            <ExceptionItemList
+              items={filteredItems}
+              isPending={isPending || mutationPending}
+              onToggleClick={handleToggleRequest}
+            />
+          )
+        ) : null}
       </ItemPanel>
     </>
   );

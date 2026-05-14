@@ -15,6 +15,8 @@ export interface Item {
   is_active: boolean;
   is_daily: boolean;
   category: string;
+  categoryId?: number;
+  menus?: ExceptionsApiFoodMenu[];
   exclusion?: ExceptionsApiFoodExclusion | null;
   foodId?: string | number;
 }
@@ -38,15 +40,17 @@ export interface ItemProps extends ExceptionItemProps {
   isLoading: boolean;
   isError: boolean;
 }
+export interface AppliedExceptionFilters {
+  menus: Option[];
+  categories: Option[];
+  status: Option[];
+}
+
 export interface FilterModalProps {
   isOpen: boolean;
   onClose: () => void;
-  selectedMenus?: Option[];
-  setSelectedMenus?: (val: Option[]) => void;
-  selectedCategories?: Option[];
-  setSelectedCategories?: (val: Option[]) => void;
-  selectedStatus?: Option[];
-  setSelectedStatus?: (val: Option[]) => void;
+  appliedFilters: AppliedExceptionFilters;
+  onApplyFilters: (filters: AppliedExceptionFilters) => void;
 }
 
 export interface ExceptionsApiFoodMenu {

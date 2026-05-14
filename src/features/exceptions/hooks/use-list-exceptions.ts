@@ -19,6 +19,8 @@ const mapApiMealToUiMeal = (
       is_active: !food.exclusion,
       is_daily: food.is_daily,
       category: food.category.name,
+      categoryId: food.category.id,
+      menus: food.menus,
       code: undefined,
       exclusion: food.exclusion ?? null,
     })),
