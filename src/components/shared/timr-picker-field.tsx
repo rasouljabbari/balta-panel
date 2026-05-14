@@ -5,8 +5,6 @@ import { useClickOutside } from '@/hooks/use-click-outside';
 import type { TimePickerFieldProps } from './type';
 
 
-
-
 export default function TimePickerField({
   label,
   value,
@@ -69,12 +67,14 @@ export default function TimePickerField({
       </div>
 
       {error && errorText && (
-        <span className="text-sm text-red-500">{errorText}</span>
+        <span className="text-sm text-rtext-error-primary-600">
+          {errorText}
+        </span>
       )}
 
       {/* dropdown picker */}
       {open && (
-        <div className="absolute top-full mt-2 z-50 bg-white border rounded-md shadow-lg p-3 flex gap-2 border-rborder-primary">
+        <div className="absolute top-15 mt-2 z-50 bg-white border rounded-md shadow-lg p-3 flex gap-2 border-rborder-primary">
           {/* minute */}
           <select
             value={m}
