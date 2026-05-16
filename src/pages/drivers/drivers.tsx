@@ -1,11 +1,11 @@
-import { Card, CardHeader } from '@/components/shared/card';
-import EmptyBox from '@/components/shared/empty-box';
+import { useState } from 'react';
 import DriverTable from '@/features/drivers/components/table';
 import DriverTableHeader from '@/features/drivers/components/table-headers';
 import { useDrivers } from '@/features/drivers/hook/drivers';
 import type { DriverItem } from '@/features/drivers/types';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardHeader } from '@/components/shared/card';
+import EmptyBox from '@/components/shared/empty-box';
 
 
 export default function DriversPage() {
@@ -31,14 +31,15 @@ export default function DriversPage() {
     setSearchValue(search)
   }
 
-  if (drivers.length === 0) {
+  if (!isLoading && drivers.length === 0) {
     return (
       <Card>
         <CardHeader>
           <DriverTableHeader
             onSearch={handleSearchDriver}
             searchValue={searchValue}
-            count={0} />
+            count={0}
+          />
         </CardHeader>
 
         <div className="py-4xl">

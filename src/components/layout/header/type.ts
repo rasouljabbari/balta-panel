@@ -11,6 +11,7 @@ export interface HeaderProps {
   onMenuClick: () => void;
   actionButton?: HeaderActionButton;
   extra?: ReactNode;
+  contractId?: string;
 }
 
 export interface HeaderNotificationBoxProps {

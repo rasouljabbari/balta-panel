@@ -29,7 +29,8 @@ export interface DefinitionItemListProps {
 }
 
 export interface Category {
-  id:number
+  is_active: boolean;
+  id: number;
   name: string;
   order_limit: string;
   order_limit_translation?: string;

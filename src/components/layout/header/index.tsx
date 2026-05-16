@@ -1,23 +1,24 @@
+import { useState } from 'react';
+import { useContractSettingsCustomer } from '@/features/contracts/hook/use-contracts';
+import { useDriverById, useToggleDriverStatus } from '@/features/drivers/hook/drivers';
 import HeaderNotificationBox from '@/components/layout/header/header-notification-box';
 import type { HeaderProps } from '@/components/layout/header/type';
 import SharedModal from '@/components/shared/custom-modal';
-import {
-  useDriverById,
-  useToggleDriverStatus,
-} from '@/features/drivers/hook/drivers';
-import { useState } from 'react';
 import HeaderAction from './header-action';
 import HeaderUserInformationBox from './header-info';
 import { useHeaderInfo } from './hook/use-header-info';
+
 
 export default function Header({
   onMenuClick,
   actionButton,
   extra,
   driverId,
+  contractId,
 }: HeaderProps & { driverId?: number }) {
   const { data: apiDriver } = useDriverById(driverId);
-  
+  const { data: contractData } = useContractSettingsCustomer(contractId);
+
 
   const { title, description, showBackButton, isDriverEdit, isDriverDetail } =
     useHeaderInfo();
@@ -53,6 +54,8 @@ export default function Header({
     });
   };
 
+  
+
   // ========================
   // FINAL TITLE
   // ========================
@@ -72,6 +75,22 @@ export default function Header({
     finalDescription = `شناسه راننده: ${apiDriver.user_code ?? '-'}`;
   }
 
+if (contractData?.data?.customer) {
+  const customer = contractData.data.customer;
+
+
+  if (customer.parent) {
+    finalTitle = `${customer.parent.first_name} ${customer.parent.last_name}`;
+
+    finalDescription = `شعبه ${customer.first_name} ${customer.last_name}`;
+  }
+
+  else {
+    finalTitle = `${customer.first_name} ${customer.last_name}`;
+
+    finalDescription = undefined;
+  }
+}
   return (
     <>
       <header className="bg-white py-4 px-4 lg:py-5 lg:px-8 border-b border-gray-light-300 flex items-center justify-between">

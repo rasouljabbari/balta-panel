@@ -11,10 +11,12 @@ export default function CategoriesSelect({ control , error }: SelectProps) {
   const categoryOptions = useMemo(() => {
     if (!categoriesData) return [];
 
-    return categoriesData.map((category) => ({
-      label: category.name,
-      value: category.id,
-    }));
+    return categoriesData
+      .filter((category) => category.is_active)
+      .map((category) => ({
+        label: category.name,
+        value: category.id,
+      }));
   }, [categoriesData]);
 
   return (

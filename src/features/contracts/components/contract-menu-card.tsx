@@ -6,7 +6,6 @@ import { EssentialIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 
-
 export default function ContractMenusCard() {
   const { control } = useFormContext();
 
@@ -15,10 +14,12 @@ export default function ContractMenusCard() {
   const menuList = useMemo(() => {
     if (!menusData) return [];
 
-    return menusData.map((menu: any) => ({
-      label: menu.name,
-      value: menu.id,
-    }));
+    return menusData
+      .filter((menu: any) => menu.is_active)
+      .map((menu: any) => ({
+        label: menu.name,
+        value: menu.id,
+      }));
   }, [menusData]);
 
   return (

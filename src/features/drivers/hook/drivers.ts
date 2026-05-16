@@ -4,12 +4,10 @@ import { toast } from 'react-toastify';
 import { createDriverService, editDriverService, getDriverByIdService, getDriversService, toggleDriverStatusService } from '../services/drivers';
 import type { CreateDriverPayload, CreateDriverResponse } from '../types';
 
+
 export const DRIVERS_QUERY_KEY = ['drivers'];
 
-export const useCreateDriver = (
-  closeModal: () => void,
-  setError?: any,
-) => {
+export const useCreateDriver = (closeModal: () => void, setError?: any) => {
   const queryClient = useQueryClient();
 
   return useMutation<CreateDriverResponse, any, CreateDriverPayload>({
@@ -19,6 +17,7 @@ export const useCreateDriver = (
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
       closeModal();
       setError?.(null);
+      toast.success('راننده با موفقیت ایجاد شد');
     },
 
     onError: (err: any) => {
@@ -50,7 +49,7 @@ export const useEditDriverPage = (
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
       setServerValidationError?.(null);
-      toast.success('ویرایش اطلاعات راننده با موفقیت ثبت شد.')
+      toast.success('ویرایش اطلاعات راننده با موفقیت ثبت شد.');
     },
 
     onError: (error: any) => {
@@ -66,7 +65,12 @@ type UseDriversParams = {
   search?: string;
 };
 
-export const useDrivers = ({ page = 1, name, last_name, search }: UseDriversParams) => {
+export const useDrivers = ({
+  page = 1,
+  name,
+  last_name,
+  search,
+}: UseDriversParams) => {
   return useQuery({
     queryKey: [...DRIVERS_QUERY_KEY, page, name, last_name, search],
     queryFn: () =>
@@ -74,7 +78,7 @@ export const useDrivers = ({ page = 1, name, last_name, search }: UseDriversPara
         page,
         name,
         last_name,
-        search
+        search,
       }),
     select: (res) => res.data,
   });
@@ -93,16 +97,35 @@ export const useToggleDriverStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation<void, any, number>({
-    mutationFn: (driverId) => toggleDriverStatusService(driverId),
+    mutationFn: (driverId) =>
+      toggleDriverStatusService(driverId),
 
-    onSuccess: (_data, driverId) => {
-      queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
+    onSuccess: async (_data, driverId) => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: DRIVERS_QUERY_KEY,
+        }),
 
-      queryClient.invalidateQueries({ queryKey: ['driver', driverId] });
+        queryClient.invalidateQueries({
+          queryKey: ['driver', driverId],
+        }),
+      ]);
+
+      toast.success(
+        'وضعیت راننده با موفقیت تغییر کرد',
+      );
     },
 
     onError: (error: any) => {
-      console.error('خطا در تغییر وضعیت راننده:', error);
+      console.error(
+        'خطا در تغییر وضعیت راننده:',
+        error,
+      );
+
+      toast.error(
+        error?.message ||
+          'خطا در تغییر وضعیت راننده',
+      );
     },
   });
 };

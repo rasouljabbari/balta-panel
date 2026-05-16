@@ -45,7 +45,7 @@ export default function TimePickerField({
     >
       <label className="text-sm text-gray-light-700 flex items-center gap-1">
         <span className="font-medium">{label}</span>
-        {required && <span className="text-red-500">*</span>}
+        {required && <span className="text-rtext-brand-tertiary-600">*</span>}
       </label>
 
       <div className="relative">

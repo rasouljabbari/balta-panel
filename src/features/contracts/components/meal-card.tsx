@@ -138,6 +138,7 @@ const driverOptions = useMemo(() => {
                     : 'راننده را انتخاب کنید'
                 }
                 error={fieldState.error?.message}
+                required
               />
             )}
           />
