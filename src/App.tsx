@@ -32,7 +32,6 @@ function App() {
   const driverEditMatch = useMatch('/drivers/edit/:id');
   const contractEditMatch = useMatch('/contracts/edit/:id');
   const orderMealMatch = useMatch('/orders/:day/:meal');
-
   const isWeeklyPlanPage = useMatch('/orders/weekly-plan');
 
   // ------------------------
