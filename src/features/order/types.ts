@@ -1,11 +1,9 @@
-import type { mealsTableColumns } from './components/meal-table-columns';
-import type { TableColumn } from '@/components/shared/type';
-import type { SelectOption } from '@/components/shared/select-dropdown';
 import type { ReactNode, RefObject } from 'react';
+import type { SelectOption } from '@/components/shared/select-dropdown';
+import type { TableColumn } from '@/components/shared/type';
+import type { mealsTableColumns } from './components/meal-table-columns';
 
-export type TabType = "current week" | "future week";
-
-
+export type TabType = 'current week' | 'future week';
 
 export type MealType = 'breakfast' | 'lunch' | 'dinner';
 
@@ -61,7 +59,6 @@ export type OrderDetailsPanelProps = {
   branch?: string;
 };
 
-
 export type OrderItem = {
   id: number;
   title: string;
@@ -85,7 +82,7 @@ export type OrderStatus =
   | 'تحویل شده'
   | 'لغو شده';
 
- export type BadgeColor = 'gray' | 'blue' | 'green' | 'red' | 'orange';
+export type BadgeColor = 'gray' | 'blue' | 'green' | 'red' | 'orange';
 
 export type BadgeUIColor = 'gray' | 'blue' | 'success' | 'error' | 'orange';
 
@@ -121,9 +118,9 @@ export interface OrderDetails {
   mealType: 'صبحانه' | 'ناهار' | 'شام';
   delivery: string;
   items: Array<{
-      title: string;
-      price: number;
-      quantity?: number | string;
+    title: string;
+    price: number;
+    quantity?: number | string;
   }>;
   description?: string;
   totalAmount: number;
@@ -205,10 +202,10 @@ export interface OrderCardProps {
   onViewDetails?: () => void;
   children: ReactNode;
   disabled?: boolean;
-   className?: string;
-  dayClassName?: string; 
-  centerDay?: boolean; 
-  headerVariant?: "default" | "green" | "fuchsia" | "yellow"
+  className?: string;
+  dayClassName?: string;
+  centerDay?: boolean;
+  headerVariant?: 'default' | 'green' | 'fuchsia' | 'yellow';
 }
 
 export interface OrderBoxProps extends Meal {
@@ -248,3 +245,8 @@ export interface OrderModalHeaderProps {
   formattedDate: string;
   onClose: () => void;
 }
+
+export type deriverModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};

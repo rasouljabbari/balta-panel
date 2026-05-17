@@ -2,12 +2,12 @@ import { useLocation, useMatch } from 'react-router-dom';
 import { routeInfos } from '@/components/layout/header/data';
 import type { HeaderInfoResult } from '../type';
 
-
 export function useHeaderInfo(): HeaderInfoResult {
   const location = useLocation();
 
   const matchDriverDetail = useMatch('/drivers/:id');
   const matchDriverEdit = useMatch('/drivers/edit/:id');
+  const matchContractEdit = useMatch('/contracts/edit/:id');
 
   let title: string | undefined;
   let description: string | undefined;
@@ -32,6 +32,13 @@ export function useHeaderInfo(): HeaderInfoResult {
     showBackButton = true;
     isDriverEdit = true;
   }
+  // =================
+  // Contract Edit
+  // =================
+
+  if (matchContractEdit) {
+    showBackButton = true;
+  }
 
   // =================
   // Other Pages
@@ -41,17 +48,17 @@ export function useHeaderInfo(): HeaderInfoResult {
       title = routeInfos[path].title;
       description = routeInfos[path].description;
     } else {
-    for (const [pattern, info] of Object.entries(routeInfos)) {
-      const regex = new RegExp(
-        '^' + pattern.replace(/:[^/]+/g, '([^/]+)') + '$',
-      );
+      for (const [pattern, info] of Object.entries(routeInfos)) {
+        const regex = new RegExp(
+          '^' + pattern.replace(/:[^/]+/g, '([^/]+)') + '$',
+        );
 
-      if (regex.test(path)) {
-        title = info.title;
-        description = info.description;
-        break;
+        if (regex.test(path)) {
+          title = info.title;
+          description = info.description;
+          break;
+        }
       }
-    }
     }
   }
 

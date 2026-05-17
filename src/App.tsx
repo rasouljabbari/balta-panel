@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { CirclePlus, Info } from 'lucide-react';
+import { CirclePlus } from 'lucide-react';
 import { Outlet, useMatch } from 'react-router-dom';
 import Header from './components/layout/header';
 import Sidebar from './components/layout/sidebar';
 import AddDriverModal from './features/drivers/components/add-driver-modal';
 import ContractDetailsModal from './features/weekly-plan/components/modal/contract-details-modal';
 import { useDisableScroll } from './hooks/use-disable-scroll';
+
 
 function App() {
   useDisableScroll();
@@ -32,8 +33,7 @@ function App() {
   const driverEditMatch = useMatch('/drivers/edit/:id');
   const contractEditMatch = useMatch('/contracts/edit/:id');
   const orderMealMatch = useMatch('/orders/:day/:meal');
-
-  const isWeeklyPlanPage = useMatch('/orders/weekly-plan');
+  // const isWeeklyPlanPage = useMatch('/orders/weekly-plan');
 
   // ------------------------
   // Derived flags
@@ -48,6 +48,7 @@ function App() {
   // Driver ID (detail + edit)
   // ------------------------
   const driverId = driverDetailMatch?.params.id || driverEditMatch?.params.id;
+  const contractId = contractEditMatch?.params.id;
 
   // ------------------------
   // Dynamic padding
@@ -80,6 +81,7 @@ function App() {
           <header className="sticky top-0 z-10 bg-white">
             <Header
               driverId={driverId ? Number(driverId) : undefined}
+              contractId={contractId}
               onMenuClick={toggleMobileSidebar}
               actionButton={
                 isDriversPage
@@ -107,9 +109,9 @@ function App() {
         onClose={() => setIsAddDriverOpen(false)}
       />
 
-      <ContractDetailsModal 
+      <ContractDetailsModal
         isOpen={isContractsDetailsOpen}
-        onClose={()=> setIsContractsDetailsOpen(false)}
+        onClose={() => setIsContractsDetailsOpen(false)}
       />
     </div>
   );

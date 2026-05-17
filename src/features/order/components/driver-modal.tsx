@@ -1,18 +1,43 @@
+import { useMemo, useState } from 'react';
+import { useDrivers } from '@/features/drivers/hook/drivers';
 import { TruckIcon } from '@/components/icons/order-icons';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
+import type { deriverModalProps } from '../types';
 
 
-type Props = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+export default function DeriverModal({ isOpen, onClose }: deriverModalProps) {
+  const [driverSearch, setDriverSearch] = useState('');
 
-export default function DeriverModal({ isOpen, onClose }: Props) {
+  const [selectedDriver, setSelectedDriver] = useState<{
+    label: string;
+    value: number;
+  } | null>(null);
+
+  const { data: driversData, isLoading } = useDrivers({
+    page: 1,
+    name: driverSearch,
+  });
+
+  const driverOptions = useMemo(() => {
+    if (!driversData?.drivers) return [];
+
+    return driversData.drivers
+      .filter((driver: any) => driver.is_active)
+      .map((driver: any) => ({
+        label: `${driver.first_name} ${driver.last_name}`,
+        value: driver.id,
+      }));
+  }, [driversData]);
+
   return (
     <SharedModal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => {
+        setSelectedDriver(null);
+        setDriverSearch('');
+        onClose();
+      }}
       title="انتخاب راننده"
       confirmText="تایید راننده"
       cancelText="انصراف"
@@ -24,7 +49,16 @@ export default function DeriverModal({ isOpen, onClose }: Props) {
           جهت تخصیص سفارش، راننده مورد نظر خود را از لیست رانندگان فعال انتخاب
           نمایید.
         </p>
-        <CustomSelect options={[]} placeholder="انتخاب کنید" />
+
+        <CustomSelect
+          options={driverOptions}
+          value={selectedDriver}
+          onChange={(option: any) => setSelectedDriver(option)}
+          onInputChange={setDriverSearch}
+          placeholder={
+            isLoading ? 'در حال دریافت راننده‌ها...' : ' انتخاب کنید'
+          }
+        />
       </div>
     </SharedModal>
   );

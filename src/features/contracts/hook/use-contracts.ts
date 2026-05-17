@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import {
   createContractSettingService,
   getContractSettingsCustomer,
@@ -60,15 +61,23 @@ export const useCreateContractSetting = (
       ]);
 
       setServerValidationError?.(null);
+
+      toast.success('تنظیمات قرارداد با موفقیت ایجاد شد');
     },
 
     onError: (error: any) => {
       setServerValidationError?.(error);
+
+      toast.error(
+        error?.response?.data?.message || 'خطا در ایجاد تنظیمات قرارداد',
+      );
     },
   });
 };
 
-export const useUpdateContractSetting = () => {
+export const useUpdateContractSetting = (
+  setServerValidationError?: (err: any) => void,
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -93,6 +102,18 @@ export const useUpdateContractSetting = () => {
           ],
         }),
       ]);
+
+      setServerValidationError?.(null);
+
+      toast.success('تنظیمات قرارداد با موفقیت ویرایش شد');
+    },
+
+    onError: (error: any) => {
+      setServerValidationError?.(error);
+
+      toast.error(
+        error?.response?.data?.message || 'خطا در ویرایش تنظیمات قرارداد',
+      );
     },
   });
 };

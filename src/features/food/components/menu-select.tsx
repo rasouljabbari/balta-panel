@@ -11,10 +11,12 @@ export default function MenusSelect({ control , error }: SelectProps) {
   const menuOptions = useMemo(() => {
     if (!menusData) return [];
 
-    return menusData.map((menu) => ({
-      label: menu.name,
-      value: menu.id,
-    }));
+    return menusData
+      .filter((menu) => menu.is_active)
+      .map((menu) => ({
+        label: menu.name,
+        value: menu.id,
+      }));
   }, [menusData]);
 
   return (

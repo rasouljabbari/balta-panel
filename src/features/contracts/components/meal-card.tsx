@@ -5,7 +5,8 @@ import { Input, Switch } from 'rg-dst';
 import { ContactFoodIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
-import TimePickerField from '@/components/shared/timr-picker-field';
+import TimePickerField from '@/components/shared/timer-picker-field';
+
 
 export function MealCard() {
   const { control } = useFormContext();
@@ -17,14 +18,16 @@ export function MealCard() {
     name: driverSearch,
   });
 
-  const driverOptions = useMemo(() => {
-    if (!driversData?.drivers) return [];
+const driverOptions = useMemo(() => {
+  if (!driversData?.drivers) return [];
 
-    return driversData.drivers.map((driver: any) => ({
+  return driversData.drivers
+    .filter((driver: any) => driver.is_active)
+    .map((driver: any) => ({
       label: `${driver.first_name} ${driver.last_name}`,
       value: driver.id,
     }));
-  }, [driversData]);
+}, [driversData]);
 
   return (
     <Card>
@@ -135,6 +138,7 @@ export function MealCard() {
                     : 'راننده را انتخاب کنید'
                 }
                 error={fieldState.error?.message}
+                required
               />
             )}
           />
