@@ -46,7 +46,6 @@ export default function MealType() {
             isError={isError}
             title={meal?.name ?? mealTitles[mealId]}
             items={meal?.items ?? []}
-            name=""
             isPending={isPending}
           />
         );

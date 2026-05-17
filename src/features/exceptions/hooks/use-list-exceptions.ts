@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { listExceptionsService } from '../services/list-exceptions';
-import type { ExceptionsMeal, Item, ListExceptionsResponse } from '../type';
-
-type ListExceptionsQueryResult = {
-  meals: ExceptionsMeal[];
-};
+import type {
+  ExceptionsMeal,
+  Item,
+  ListExceptionsResponse,
+  ListExceptionsResult,
+} from '../type';
 
 const mapApiMealToUiMeal = (
   apiMeal: ListExceptionsResponse['data']['meals'][number],
@@ -21,14 +22,13 @@ const mapApiMealToUiMeal = (
       category: food.category.name,
       categoryId: food.category.id,
       menus: food.menus,
-      code: undefined,
       exclusion: food.exclusion ?? null,
     })),
   };
 };
 
 export const useListExceptions = (date?: string) => {
-  return useQuery<ListExceptionsQueryResult, any, ListExceptionsQueryResult>({
+  return useQuery<ListExceptionsResult, any, ListExceptionsResult>({
     queryKey: ['exclusions', date],
     queryFn: async () => {
       if (!date) throw new Error('Missing date for exclusions request');

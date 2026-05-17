@@ -34,6 +34,7 @@ export default function ExceptionItemList({
         onToggle={handleToggleClick}
         topSlot={(
           <SearchInput
+            searchValue={searchValue}
             onSearch={setSearchValue}
             placeholder="جستجو کنید..."
             inputClassName="w-full mb-xl"

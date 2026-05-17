@@ -21,10 +21,9 @@ export interface Item {
   foodId?: string | number;
 }
 
-export interface ExceptionItemProps {
+interface ExceptionItemProps {
   title: string;
-  items?: any;
-  children?: React.ReactNode;
+  items?: Item[];
 }
 
 export interface ExceptionItemListProps {
@@ -32,15 +31,16 @@ export interface ExceptionItemListProps {
   isPending: boolean;
   onToggleClick: (item: Item) => void;
 }
+
 export interface ItemProps extends ExceptionItemProps {
   mealId: number;
   date: string;
   isPending: boolean;
-  name: string;
   isLoading: boolean;
   isError: boolean;
 }
-export interface AppliedExceptionFilters {
+
+interface AppliedExceptionFilters {
   menus: Option[];
   categories: Option[];
   status: Option[];
@@ -59,10 +59,7 @@ export interface ExceptionsApiFoodMenu {
   is_active: boolean;
 }
 
-export interface ExceptionsApiFoodCategory {
-  id: number;
-  name: string;
-  is_active?: boolean;
+export interface ExceptionsApiFoodCategory extends ExceptionsApiFoodMenu{
   order_limit?: string;
   order_limit_translation?: string;
 }
