@@ -38,7 +38,8 @@ export const useContractSettingsCustomer = (customer_id?: string) => {
 };
 
 export const useCreateContractSetting = (
-  setServerValidationError?: (err: any) => void,
+  handleApiFormErrors: any,
+  setError: any
 ) => {
   const queryClient = useQueryClient();
 
@@ -60,23 +61,21 @@ export const useCreateContractSetting = (
         }),
       ]);
 
-      setServerValidationError?.(null);
-
       toast.success('تنظیمات قرارداد با موفقیت ایجاد شد');
     },
 
     onError: (error: any) => {
-      setServerValidationError?.(error);
-
-      toast.error(
-        error?.response?.data?.message || 'خطا در ایجاد تنظیمات قرارداد',
-      );
+      handleApiFormErrors({
+        error,
+        setError
+      });
     },
   });
 };
 
 export const useUpdateContractSetting = (
-  setServerValidationError?: (err: any) => void,
+  handleApiFormErrors: any,
+  setError: any
 ) => {
   const queryClient = useQueryClient();
 
@@ -103,17 +102,14 @@ export const useUpdateContractSetting = (
         }),
       ]);
 
-      setServerValidationError?.(null);
-
       toast.success('تنظیمات قرارداد با موفقیت ویرایش شد');
     },
 
     onError: (error: any) => {
-      setServerValidationError?.(error);
-
-      toast.error(
-        error?.response?.data?.message || 'خطا در ویرایش تنظیمات قرارداد',
-      );
+      handleApiFormErrors({
+        error,
+        setError
+      });
     },
   });
 };

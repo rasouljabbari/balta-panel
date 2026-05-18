@@ -4,6 +4,7 @@ import { DEFAULT_VALUES, meal, weekDays } from '@/features/food/constants';
 import { useCreateFood } from '@/features/food/hooks/use-create-food';
 import { useShowFood } from '@/features/food/hooks/use-show-food';
 import { useUpdateFood } from '@/features/food/hooks/use-update-food';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,9 +19,6 @@ import MenusSelect from './menu-select';
 import { foodSheetSchema } from './validation';
 
 export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProps) {
-  const { mutate: createFood, isPending: isCreatingFood } = useCreateFood(onClose);
-  const { mutate: updateFood, isPending: isUpdatingFood } = useUpdateFood(onClose);
-  const isLoading = isCreatingFood || isUpdatingFood;
   const { data: food } = useShowFood(foodId);
   const {
     handleSubmit,
@@ -28,10 +26,19 @@ export default function FoodSheet({ open, onClose, mode, foodId }: SheetFormProp
     setValue,
     reset,
     formState: { errors },
+    setError
   } = useForm<any>({
     defaultValues: DEFAULT_VALUES,
     resolver: yupResolver(foodSheetSchema),
   });
+
+  const { handleApiFormErrors } =
+    useHandleApiFormErrors<any>();
+
+  const { mutate: createFood, isPending: isCreatingFood } = useCreateFood(onClose, handleApiFormErrors, setError);
+  const { mutate: updateFood, isPending: isUpdatingFood } = useUpdateFood(onClose, handleApiFormErrors, setError);
+
+  const isLoading = isCreatingFood || isUpdatingFood;
 
   const mealOptions = meal.map((m) => ({
     value: m.id, label: m.name,

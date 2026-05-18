@@ -2,6 +2,7 @@ import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import PlateInput from '@/features/drivers/components/plate-input';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
@@ -29,9 +30,12 @@ export default function AddDriverModal({
     defaultValues: addDriverDefaultValues,
   });
 
+  const { handleApiFormErrors } =
+    useHandleApiFormErrors<FormValues>();
+
   const handleClose = useResetOnClose({ reset, onClose });
 
-  const { mutate: createDriver, isPending } = useCreateDriver(handleClose, setError);
+  const { mutate: createDriver, isPending } = useCreateDriver(handleClose, handleApiFormErrors, setError);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const payload: CreateDriverPayload = {

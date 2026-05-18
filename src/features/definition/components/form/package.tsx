@@ -1,4 +1,5 @@
 import { addPackageInitialValues, addPackageResolver, type addPackageValuesTypes } from '@/features/definition/validation';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input } from 'dst-rg';
@@ -19,14 +20,16 @@ const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
           addPackageInitialValues,
     });
 
+    const { handleApiFormErrors } =
+      useHandleApiFormErrors<addPackageValuesTypes>();
+
     useEffect(() => {
-      if (serverValidationError)
-        serverValidationError?.error?.forEach((err: any) => {
-          setError(err.field, {
-            type: 'server',
-            message: err.message,
-          });
+      if (serverValidationError?.error) {
+        handleApiFormErrors({
+          error: serverValidationError,
+          setError
         });
+      }
     }, [serverValidationError, setError])
 
     useImperativeHandle(ref, () => ({
