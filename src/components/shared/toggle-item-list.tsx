@@ -1,21 +1,5 @@
 import { Switch } from 'rg-dst';
-import type { ReactNode } from 'react';
-
-type ToggleListItemBase = {
-  id: number | string;
-  name: string;
-  is_active: boolean;
-};
-
-type ToggleItemListProps<T extends ToggleListItemBase> = {
-  items: T[];
-  isPending: boolean;
-  onToggle: (item: T) => void;
-  renderMeta?: (item: T) => ReactNode;
-  renderBadges?: (item: T) => ReactNode;
-  rightAction?: (item: T) => ReactNode;
-  topSlot?: ReactNode;
-};
+import type { ToggleItemListProps, ToggleListItemBase  } from '@/components/shared/type';
 
 export default function ToggleItemList<T extends ToggleListItemBase>({
   items,

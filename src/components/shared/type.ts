@@ -257,3 +257,29 @@ export interface SectionHeaderProps {
   backLink?: string;
   extra?: React.ReactNode;
 }
+
+export type ItemPanelProps = {
+  title: string;
+  hasItems: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  headerLeft?: ReactNode;
+  headerRight?: ReactNode;
+  children: ReactNode;
+};
+
+export type ToggleListItemBase = {
+  id: number | string;
+  name: string;
+  is_active: boolean;
+};
+
+export type ToggleItemListProps<T extends ToggleListItemBase> = {
+  items: T[];
+  isPending: boolean;
+  onToggle: (item: T) => void;
+  renderMeta?: (item: T) => ReactNode;
+  renderBadges?: (item: T) => ReactNode;
+  rightAction?: (item: T) => ReactNode;
+  topSlot?: ReactNode;
+};

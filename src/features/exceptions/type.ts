@@ -106,3 +106,5 @@ export interface CreateExceptionPayload {
   date: string;
   meal_id: number;
 }
+
+export type ToggleIntent = 'activate' | 'deactivate';

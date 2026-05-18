@@ -3,17 +3,7 @@ import EmptyBox from '@/components/shared/empty-box';
 import ErrorBox from '@/components/shared/error-box';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 import { cn } from '@/utils/cn';
-import type { ReactNode } from 'react';
-
-type ItemPanelProps = {
-  title: string;
-  hasItems: boolean;
-  isLoading: boolean;
-  isError: boolean;
-  headerLeft?: ReactNode;
-  headerRight?: ReactNode;
-  children: ReactNode;
-};
+import type { ItemPanelProps } from '@/components/shared/type'
 
 export default function ItemPanel({
   title,
