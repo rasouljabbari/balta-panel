@@ -1,7 +1,7 @@
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
+import { CirclePlus } from 'lucide-react';
 import Image from './image';
 import type { EmptyBoxProps } from './type';
-import { CirclePlus } from 'lucide-react';
 
 
 export default function EmptyBox({ title, image, buttonText, onButtonClick }: EmptyBoxProps) {

@@ -1,5 +1,5 @@
+import { Button } from 'dst-rg';
 import { Trash2 } from 'lucide-react';
-import { Button } from 'rg-dst';
 import type { ClearFiltersButtonProps } from './type';
 
 

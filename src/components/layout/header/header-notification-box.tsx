@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { BellIcon } from 'lucide-react';
-import { Button } from 'rg-dst';
 import NotificationModal from '@/components/shared/notification-modal';
 import type { NotificationItem } from '@/components/shared/type';
+import { Button } from 'dst-rg';
+import { BellIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import type { HeaderNotificationBoxProps } from './type';
 
 

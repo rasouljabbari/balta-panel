@@ -1,7 +1,7 @@
-import { FileText, Funnel } from 'lucide-react';
-import { Button } from 'rg-dst';
 import { DownloadButton } from '@/components/shared/download-button';
 import Table from '@/components/shared/table';
+import { Button } from 'dst-rg';
+import { FileText, Funnel } from 'lucide-react';
 import type { ContractsTableCardProps } from '../type';
 import { contractTableColumns } from './table-columns';
 

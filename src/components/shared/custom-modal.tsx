@@ -1,10 +1,10 @@
 import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { cn } from '@/utils/cn';
+import { Button } from 'dst-rg';
+import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import { Button } from 'rg-dst';
 import { InfoCircleIcon } from '../icons/modal-icons';
 import type { SharedModalProps } from './type';
-import { X } from 'lucide-react';
 
 
 export default function SharedModal({
@@ -62,7 +62,7 @@ export default function SharedModal({
             )}
             <h3 className="text-lg font-semibold text-gray-light-900">{title}</h3>
           </div>
-          
+
 
           <button
             type="button"

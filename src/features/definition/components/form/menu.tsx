@@ -5,9 +5,9 @@ import {
   type addMenuValuesTypes,
 } from '@/features/definition/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from 'dst-rg';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from 'rg-dst';
 import { usePackaging } from '../../hooks/packages';
 import type { MenuFormProps } from '../../type';
 

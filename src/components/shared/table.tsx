@@ -1,7 +1,7 @@
+import { Pagination } from 'dst-rg';
 import type { ReactNode } from 'react';
-import { Pagination } from 'rg-dst';
-import type { TableColumn, TableProps } from './type';
 import { Skeleton } from './skeleton-loader';
+import type { TableColumn, TableProps } from './type';
 
 interface ExtendedTableProps<T> extends TableProps<T> {
   header?: ReactNode;

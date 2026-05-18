@@ -1,9 +1,9 @@
 import { addPackageInitialValues, addPackageResolver, type addPackageValuesTypes } from '@/features/definition/validation';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from 'dst-rg';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from 'rg-dst';
 import type { PackageFormProps } from '../../type';
 
 const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(

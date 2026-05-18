@@ -1,7 +1,7 @@
 import SharedModal from '@/components/shared/custom-modal';
+import { Button, Switch, TooltipWrapper } from 'dst-rg';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
-import { Button, Switch, TooltipWrapper } from 'rg-dst';
 import type { DefinitionItemListProps, Item } from '../type';
 
 

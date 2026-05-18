@@ -6,9 +6,9 @@ import ErrorsBox from '@/components/shared/errors-box';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { cn } from '@/utils/cn';
+import { Button } from 'dst-rg';
 import { CirclePlus } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { Button } from 'rg-dst';
 import type { Item, ItemProps } from '../type';
 import DefinitionItemList from './item-list';
 

@@ -1,8 +1,8 @@
 import { addCategoryInitialValues, addCategoryResolver, type addCategoryValuesTypes } from '@/features/definition/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Input, Tabs } from 'dst-rg';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { Input, Tabs } from 'rg-dst';
 import type { CategoryFormProps } from '../../type';
 
 
