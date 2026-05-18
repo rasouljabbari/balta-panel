@@ -3,6 +3,7 @@ import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
 import { Skeleton } from '@/components/shared/skeleton-loader';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -24,17 +25,21 @@ export default function DriverEditForm() {
   const { id } = useParams();
   const { data: driver, isLoading } = useDriverById(id);
 
+  const { handleApiFormErrors } =
+    useHandleApiFormErrors<FormValues>();
 
-  const editDriverMutation = useEditDriverPage();
   const {
     reset,
     control,
     handleSubmit,
     formState: { errors },
+    setError
   } = useForm<FormValues>({
     resolver: yupResolver(addDriverSchema) as any,
     defaultValues: addDriverDefaultValues,
   });
+
+  const editDriverMutation = useEditDriverPage(handleApiFormErrors, setError);
 
   useEffect(() => {
     if (driver) {

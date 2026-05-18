@@ -29,7 +29,8 @@ export const useCreateDriver = (closeModal: () => void, handleApiFormErrors: any
 };
 
 export const useEditDriverPage = (
-  setServerValidationError?: (err: any) => void,
+  handleApiFormErrors: (err: any) => void,
+  setError: any
 ) => {
   const queryClient = useQueryClient();
 
@@ -42,12 +43,14 @@ export const useEditDriverPage = (
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
-      setServerValidationError?.(null);
       toast.success('ویرایش اطلاعات راننده با موفقیت ثبت شد.');
     },
 
     onError: (error: any) => {
-      setServerValidationError?.(error?.message || 'خطایی رخ داد');
+      handleApiFormErrors({
+        error,
+        setError
+      });
     },
   });
 };
