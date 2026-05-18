@@ -1,4 +1,4 @@
-import { Button, Switch } from 'rg-dst';
+import { Button, Switch } from 'dst-rg';
 import type { HeaderActionProps } from './type';
 
 export default function HeaderAction({
@@ -22,9 +22,8 @@ export default function HeaderAction({
           aria-label="status-change"
           checked={status}
           onToggle={() => {
-            const newStatus = !status; 
-            onStatusToggle?.(newStatus); 
-            console.log('Toggle clicked, status request sent', newStatus);
+            const newStatus = !status;
+            onStatusToggle?.(newStatus);
           }}
           className="data-[state=checked]:bg-utility-brand-600"
         />

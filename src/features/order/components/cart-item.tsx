@@ -1,6 +1,6 @@
-import { Badge } from 'rg-dst';
-import { Trash2, Plus, Minus } from 'lucide-react';
 import type { CartItemProps } from '@/features/order/types';
+import { Badge } from 'dst-rg';
+import { Minus, Plus, Trash2 } from 'lucide-react';
 
 export default function CartItem({
   item,
@@ -17,7 +17,7 @@ export default function CartItem({
           <h4 className="font-semibold text-gray-light-700">{item.title}</h4>
           <Badge color="gray" className="whitespace-nowrap">{selectedFoodCategory.name}</Badge>
         </div>
-          
+
         <button
           onClick={() => onRemove(item.id)}
           className="text-red-500 hover:text-red-700"
@@ -25,7 +25,7 @@ export default function CartItem({
           <Trash2 className="w-5 h-5" color="#B71A33" />
         </button>
       </div>
-      
+
       <div className="flex items-center justify-between rounded-md py-2">
         <Badge color="gray" className="text-sm text-gray-light-600 whitespace-nowrap">
           {item.price.toLocaleString()} تومان

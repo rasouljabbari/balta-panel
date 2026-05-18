@@ -1,6 +1,6 @@
 import ToggleItemList from '@/components/shared/toggle-item-list';
 import { useState } from 'react';
-import { Badge } from 'rg-dst';
+import { Badge } from 'dst-rg';
 import type { ExceptionItemListProps, Item } from '../type';
 import SearchInput from '@/components/shared/search-input';
 

@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { Dropdown } from 'rg-dst';
 import { cn } from "@/utils/cn";
+import { Dropdown } from 'dst-rg';
+import { useState } from 'react';
 
 export interface SelectOption {
   id: string;
@@ -43,18 +43,18 @@ export default function SelectDropdown<T extends SelectOption>({
             <span className="text-md text-gray-light-900 pr-1 pl-3">
               {selected.name}
             </span>
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 20 20" 
-              fill="none" 
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className={cn(
                 "transition-transform duration-200",
                 isOpen ? "rotate-180" : ""
               )}
             >
-              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </>
         ),

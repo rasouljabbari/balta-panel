@@ -1,4 +1,4 @@
-import { Switch } from 'rg-dst';
+import { Switch } from 'dst-rg';
 import type { ToggleItemListProps, ToggleListItemBase  } from '@/components/shared/type';
 
 export default function ToggleItemList<T extends ToggleListItemBase>({

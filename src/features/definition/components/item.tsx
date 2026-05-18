@@ -2,9 +2,9 @@ import ItemPanel from '@/components/shared/item-panel';
 import SharedModal from '@/components/shared/custom-modal';
 import ErrorsBox from '@/components/shared/errors-box';
 import { useResetOnClose } from '@/hooks/use-reset-onClose';
+import { Button } from 'dst-rg';
 import { CirclePlus } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { Button } from 'rg-dst';
 import type { Item, ItemProps } from '../type';
 import DefinitionItemList from './item-list';
 

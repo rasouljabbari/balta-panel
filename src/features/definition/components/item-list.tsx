@@ -2,9 +2,8 @@ import SharedModal from '@/components/shared/custom-modal';
 import ToggleItemList from '@/components/shared/toggle-item-list';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
-import { Button, TooltipWrapper } from 'rg-dst';
+import { Button, TooltipWrapper } from 'dst-rg';
 import type { DefinitionItemListProps, Item } from '../type';
-
 
 export default function DefinitionItemList({
   items,

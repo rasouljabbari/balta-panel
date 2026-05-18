@@ -1,7 +1,7 @@
-import { Controller, useFormContext } from 'react-hook-form';
-import { Input } from 'rg-dst';
 import { InterfaceIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
+import { Input } from 'dst-rg';
+import { Controller, useFormContext } from 'react-hook-form';
 
 
 export function MealLimitsCard() {

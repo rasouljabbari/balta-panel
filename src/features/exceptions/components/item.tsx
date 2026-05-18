@@ -1,7 +1,7 @@
 import { Funnel } from 'lucide-react';
 import ItemPanel from '@/components/shared/item-panel';
 import ExceptionItemList from './item-list';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import { useEffect, useState, useMemo } from 'react';
 import FilterModal from '@/features/exceptions/components/filter-modal';
 import type { Option } from '@/components/shared/type';
