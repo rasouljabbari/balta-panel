@@ -25,7 +25,6 @@ export default function HeaderAction({
           onToggle={() => {
             const newStatus = !status; 
             onStatusToggle?.(newStatus); 
-            console.log('Toggle clicked, status request sent', newStatus);
           }}
           className="data-[state=checked]:bg-utility-brand-600"
         />
