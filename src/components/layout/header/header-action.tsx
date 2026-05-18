@@ -1,7 +1,6 @@
 import { Button, Switch } from 'dst-rg';
 import type { HeaderActionProps } from './type';
 
-
 export default function HeaderAction({
   isDriverEdit,
   isDriverDetail,
@@ -47,6 +46,7 @@ export default function HeaderAction({
       </Button>
     );
   }
+
 
   return null;
 }

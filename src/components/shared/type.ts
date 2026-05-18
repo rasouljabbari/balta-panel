@@ -59,6 +59,7 @@ export type SharedModalProps = {
   footerLeft?: React.ReactNode;
   showFooter?: boolean;
   bodyClassName?: string;
+  confirmButtonClassName?: string;
 };
 
 export interface CardProps {
@@ -156,14 +157,17 @@ export interface SearchInputProps extends Omit<
 }
 
 export interface DatePickerFieldProps {
-  label: string;
+  label?: string;
   value?: any;
   onChange?: (date: any) => void;
+  defaultToToday?: boolean;
   placeholder?: string;
   className?: string;
   required?: boolean;
   error?: boolean;
   errorText?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+  iconOnRight?: boolean;
+  allowFuture?: boolean;
 }
 
 export type DetailItem = {
@@ -253,3 +257,29 @@ export interface SectionHeaderProps {
   backLink?: string;
   extra?: React.ReactNode;
 }
+
+export type ItemPanelProps = {
+  title: string;
+  hasItems: boolean;
+  isLoading: boolean;
+  isError: boolean;
+  headerLeft?: ReactNode;
+  headerRight?: ReactNode;
+  children: ReactNode;
+};
+
+export type ToggleListItemBase = {
+  id: number | string;
+  name: string;
+  is_active: boolean;
+};
+
+export type ToggleItemListProps<T extends ToggleListItemBase> = {
+  items: T[];
+  isPending: boolean;
+  onToggle: (item: T) => void;
+  renderMeta?: (item: T) => ReactNode;
+  renderBadges?: (item: T) => ReactNode;
+  rightAction?: (item: T) => ReactNode;
+  topSlot?: ReactNode;
+};

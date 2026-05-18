@@ -26,6 +26,7 @@ export default function SharedModal({
   footerLeft,
   showFooter = true,
   bodyClassName = '',
+  confirmButtonClassName,
 }: SharedModalProps) {
   const { visible, showPortal, handleTransitionEnd } = useAnimatedModal(isOpen);
 
@@ -97,6 +98,7 @@ export default function SharedModal({
                     className={cn(
                       'p-2.5 px-xl bg-utility-brand-600 hover:bg-utility-brand-700 text-base-white',
                       confirmButtonWidth,
+                      confirmButtonClassName,
                     )}
                     onClick={
                       confirmButtonType === 'button' ? onConfirm : undefined
