@@ -8,6 +8,7 @@ import { TabsWithBadges } from '@/features/contracts/components/tab-with-badge';
 import { useContractSettingsCustomer, useCreateContractSetting, useUpdateContractSetting } from '@/features/contracts/hook/use-contracts';
 import type { FormValues, TabItem } from '@/features/contracts/type';
 import { editContractsSchema } from '@/features/contracts/validation';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { useToggleCards } from '@/hooks/use-toggle-card';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button } from 'dst-rg';
@@ -48,12 +49,6 @@ export default function EditContract() {
 
   const { data } = useContractSettingsCustomer(id);
 
-  const { mutate: createMutate, isPending: isCreating } =
-    useCreateContractSetting();
-
-  const { mutate: updateMutate, isPending: isUpdating } =
-    useUpdateContractSetting();
-
   const [activeTab, setActiveTab] = useState('breakfast');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +65,17 @@ export default function EditContract() {
     handleSubmit,
     reset,
     formState: { isDirty },
+    setError
   } = methods;
+
+  const { handleApiFormErrors } =
+    useHandleApiFormErrors<FormValues>();
+
+  const { mutate: createMutate, isPending: isCreating } =
+    useCreateContractSetting(handleApiFormErrors, setError);
+
+  const { mutate: updateMutate, isPending: isUpdating } =
+    useUpdateContractSetting(handleApiFormErrors, setError);
 
   const { openStates, toggle } = useToggleCards({
     customer: false,

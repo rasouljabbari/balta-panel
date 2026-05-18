@@ -1,4 +1,4 @@
-import type { serverValidationErrorProps } from '@/types/api';
+import type { ApiErrorResponse } from '@/hooks/use-handle-api-form-errors';
 
 
 export interface Item extends Category {
@@ -39,13 +39,13 @@ export interface Category {
 export interface CategoryFormProps {
   defaultValues: Category;
   onSubmit: (data: Partial<Item>) => void;
-  serverValidationError: serverValidationErrorProps | null;
+  serverValidationError: ApiErrorResponse<Category>;
 }
 
 export interface PackageFormProps {
   defaultValues: Package;
   onSubmit: (data: Partial<Item>) => void;
-  serverValidationError: serverValidationErrorProps | null;
+  serverValidationError: ApiErrorResponse<Package>;
 }
 
 export type MetaType = 'Limited by contract' | 'No restrictions';
@@ -55,7 +55,7 @@ export interface MenuFormProps {
   defaultValues: Item | null;
   onSubmit: (data: Partial<Item>) => void;
   formId: string;
-  serverValidationError: serverValidationErrorProps | null;
+  serverValidationError: ApiErrorResponse<Item>;
 }
 
 export interface ItemProps extends DefinitionItemProps {

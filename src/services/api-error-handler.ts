@@ -1,7 +1,7 @@
 import { showUniqueErrorToast } from '@/helper/show-unique-error-toast';
 import type { ValidationError } from '@/types/api';
-import { AxiosError } from 'axios';
 import { deleteAllCookie } from '@/utils/cookies';
+import { AxiosError } from 'axios';
 
 
 export const apiErrorHandler = async (e: AxiosError): Promise<any> => {
@@ -15,11 +15,8 @@ export const apiErrorHandler = async (e: AxiosError): Promise<any> => {
 export const extractValidationErrors = (err: any): ValidationError[] => {
   const errorData = err?.response?.data || err?.data || err;
 
-  if (
-    errorData?.error?.validation_errors &&
-    Array.isArray(errorData.error.validation_errors)
-  ) {
-    return errorData.error.validation_errors;
+  if (errorData?.errors) {
+    return errorData.errors;
   }
 
   return [];
@@ -55,7 +52,6 @@ export const getAxiosErrorMessage = (error: any): string => {
 
 
 export const handleError = async (error: any) => {
-  console.log("handleError status", error?.status)
   if (!error?.status) {
     const message = getAxiosErrorMessage(error);
     showUniqueErrorToast(message);
@@ -76,7 +72,5 @@ export const handleError = async (error: any) => {
 
   // 🟠 API errors
   const errorResponse = await apiErrorHandler(error);
-  console.log("apiErrorHandler errorResponse", errorResponse)
-  // console.log("errorResponse", errorResponse)
   throw errorResponse
 };
