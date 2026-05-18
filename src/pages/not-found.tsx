@@ -1,6 +1,6 @@
 import { getCookie } from "@/utils/cookies";
 import { useNavigate } from "react-router-dom";
-import { Button } from "rg-dst";
+import { Button } from "dst-rg";
 
 export default function NotFound() {
     const authToken = getCookie('auth_token')

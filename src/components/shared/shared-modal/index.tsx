@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { InfoCircleIcon } from '@/components/icons/order-icons';
 import type { SharedModalProps } from '@/components/shared/type';

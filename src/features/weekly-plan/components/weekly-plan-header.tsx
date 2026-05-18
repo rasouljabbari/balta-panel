@@ -1,5 +1,5 @@
 import SectionHeader from "@/components/shared/section-header";
-import { Tabs } from "rg-dst";
+import { Tabs } from "dst-rg";
 import type { TabType, WeeklyPlanHeaderProps } from "@/features/weekly-plan/types";
 import { TABS } from "./data";
 

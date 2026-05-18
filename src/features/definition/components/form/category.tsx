@@ -2,7 +2,7 @@ import { addCategoryInitialValues, addCategoryResolver, type addCategoryValuesTy
 import { yupResolver } from '@hookform/resolvers/yup';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { Input, Tabs } from 'rg-dst';
+import { Input, Tabs } from 'dst-rg';
 import type { CategoryFormProps } from '../../type';
 
 

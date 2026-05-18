@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Download } from 'lucide-react';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import type { DownloadButtonProps } from './type';
 
 

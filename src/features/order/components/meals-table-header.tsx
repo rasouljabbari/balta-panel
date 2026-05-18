@@ -1,5 +1,5 @@
 import { SquarePen } from 'lucide-react';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import { ForkIcon } from '@/components/icons/order-icons';
 import { useNavigate } from 'react-router-dom';
 

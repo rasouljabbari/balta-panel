@@ -1,6 +1,6 @@
 import { BellIcon } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import type { NotificationModalProps } from '@/components/shared/type';
 

@@ -1,7 +1,7 @@
 import { cn } from '@/utils/cn';
 import { Search } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { Input } from 'rg-dst';
+import { Input } from 'dst-rg';
 import type { SearchInputProps } from './type';
 
 

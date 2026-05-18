@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useDrivers } from '@/features/drivers/hook/drivers';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Input, Switch } from 'rg-dst';
+import { Input, Switch } from 'dst-rg';
 import { ContactFoodIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';

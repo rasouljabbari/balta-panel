@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { CirclePlus, X } from 'lucide-react';
 import { useEffect } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
-import { Button, Checkbox, Input, Switch, TextArea } from 'rg-dst';
+import { Button, Checkbox, Input, Switch, TextArea } from 'dst-rg';
 import type { FoodFormValues, SheetFormProps } from '../type';
 import CategoriesSelect from './category-select';
 import { meal, weekDays, DEFAULT_VALUES } from '@/features/food/constants';

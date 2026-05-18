@@ -1,6 +1,6 @@
 import InfoHeader from "@/components/shared/info-header";
 import { CartIcon } from "@/components/icons/order-icons";
-import { Tabs } from 'rg-dst';
+import { Tabs } from 'dst-rg';
 import type { TabType, OrderHeaderProps } from "@/features/order/types";
 import { TABS } from "@/features/order/data";
 

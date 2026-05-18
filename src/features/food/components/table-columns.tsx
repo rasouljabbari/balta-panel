@@ -1,5 +1,5 @@
 import { SquarePen } from 'lucide-react';
-import { Badge } from 'rg-dst';
+import { Badge } from 'dst-rg';
 import Image from '@/components/shared/image';
 import type { TableColumn } from '@/components/shared/table';
 import type { FoodItem, MealType, Menu, Category } from '../type';

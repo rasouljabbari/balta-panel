@@ -4,7 +4,7 @@ import type { MealCardProps } from '@/features/weekly-plan/types';
 import { isPastDay, isToday } from '@/features/weekly-plan/utils';
 import { cn } from '@/utils/cn';
 import { Pencil, Trash2 } from 'lucide-react';
-import { Button, TooltipWrapper } from 'rg-dst';
+import { Button, TooltipWrapper } from 'dst-rg';
 import { FileIcon, PlateCircleIcon } from '@/components/icons/order-icons';
 import SharedModal from '@/components/shared/shared-modal';
 import EditFoodModal from './modal/edit-food-modal';

@@ -1,5 +1,5 @@
 import { Card } from "@/components/shared/card";
-import { Badge, Button, TooltipWrapper } from "rg-dst";
+import { Badge, Button, TooltipWrapper } from "dst-rg";
 import type { OrderBoxProps } from "@/features/order/types";
 import { X } from 'lucide-react';
 

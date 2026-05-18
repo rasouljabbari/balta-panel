@@ -13,7 +13,7 @@ import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Button, Input } from 'rg-dst';
+import { Button, Input } from 'dst-rg';
 import PlateInput from '../../features/drivers/components/plate-input';
 import { PERSIAN_LETTERS } from '../../features/drivers/data';
 import { useDriverById, useEditDriverPage } from '../../features/drivers/hook/drivers';

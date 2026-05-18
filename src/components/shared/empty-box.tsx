@@ -1,4 +1,4 @@
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import Image from './image';
 import type { EmptyBoxProps } from './type';
 import { CirclePlus } from 'lucide-react';

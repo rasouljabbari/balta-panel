@@ -8,7 +8,7 @@ import { useResetOnClose } from '@/hooks/use-reset-onClose';
 import { cn } from '@/utils/cn';
 import { CirclePlus } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import type { Item, ItemProps } from '../type';
 import DefinitionItemList from './item-list';
 

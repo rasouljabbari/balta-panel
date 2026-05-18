@@ -1,7 +1,7 @@
 import { MEALS } from "@/features/weekly-plan/components/data";
 import MealCard from "@/features/weekly-plan/components/meals-card";
 import type { DayItem, MealConfig } from "@/features/weekly-plan/types";
-import { Badge } from "rg-dst";
+import { Badge } from "dst-rg";
 
 
 function isPastDay(dayDate: Date) {

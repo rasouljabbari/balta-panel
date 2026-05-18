@@ -2,7 +2,7 @@ import Chart from "react-apexcharts";
 import type { ApexOptions } from "apexcharts";
 import type { AreaChartProps } from "@/features/reports/type";
 
-export default function AreaChart({ series, height = 300, width = 320, colors = ["#2BB0ED", "#FF8A00"], months = ["دی", "بهمن", "اسفند", "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر"] }: AreaChartProps) {
+export default function AreaChart({ series, height = 300, width = 320, colors = ["#F79009"], months = ["دی", "بهمن", "اسفند", "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر"] }: AreaChartProps) {
   const options: ApexOptions = {
     chart: {
       type: "area",

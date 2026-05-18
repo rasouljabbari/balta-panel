@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { CirclePlus } from 'lucide-react';
 import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
-import { Button, Input } from 'rg-dst';
+import { Button, Input } from 'dst-rg';
 import { useCreateDriver } from '../hook/drivers';
 import type { AddDriverModalProps, CreateDriverPayload } from '../types';
 import { addDriverDefaultValues, addDriverSchema, type FormValues } from '../validation';

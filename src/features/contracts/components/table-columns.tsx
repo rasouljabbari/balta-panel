@@ -1,5 +1,5 @@
 import { Settings } from 'lucide-react';
-import { Badge, TooltipWrapper } from 'rg-dst';
+import { Badge, TooltipWrapper } from 'dst-rg';
 import { ContactCalenderIcon } from '@/components/icons/contract-icon';
 import type { TableColumn } from '@/components/shared/table';
 import type { ContractItem, MealType } from '../type';

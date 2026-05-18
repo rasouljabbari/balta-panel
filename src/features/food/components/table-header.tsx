@@ -4,7 +4,7 @@ import CustomSelect from '@/components/shared/custom-select';
 import SearchInput from '@/components/shared/search-input';
 import { CirclePlus, Funnel, Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import type { FoodTableHeaderProps } from '../type';
 
 

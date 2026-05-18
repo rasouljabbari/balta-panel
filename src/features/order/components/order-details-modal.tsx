@@ -1,4 +1,4 @@
-import { Badge, Button } from 'rg-dst';
+import { Badge, Button } from 'dst-rg';
 import { FileText, X } from 'lucide-react';
 import type { OrderDetailsModalProps } from '@/features/order/types';
 import { CashIcon, ClockIcon, RamenIcon, CalendarDetailIcon } from '@/components/icons/order-icons';

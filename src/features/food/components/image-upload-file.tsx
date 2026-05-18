@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { formatFileSize } from '@/utils/format-file-size';
 import { Trash2 } from 'lucide-react';
-import { FileUploader } from 'rg-dst';
+import { FileUploader } from 'dst-rg';
 import type { ImageUploadPreviewProps } from '../type';
 
 export default function ImageUploadPreview({

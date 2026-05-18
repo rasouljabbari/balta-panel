@@ -1,4 +1,4 @@
-import { Badge } from 'rg-dst';
+import { Badge } from 'dst-rg';
 import type { TableColumn } from '@/components/shared/table';
 import type { MealItem } from '../types';
 

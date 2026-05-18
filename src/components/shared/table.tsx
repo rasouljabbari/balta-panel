@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Pagination } from 'rg-dst';
+import { Pagination } from 'dst-rg';
 import type { TableColumn, TableProps } from './type';
 import { Skeleton } from './skeleton-loader';
 

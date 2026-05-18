@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { reportListData } from '@/features/reports/data';
 import { getDeliveryStatusBadge, getPaymentStatusBadge } from '@/features/reports/utils/badge-helpers';
 import { Download, Eye } from 'lucide-react';
-import { Badge } from 'rg-dst';
+import { Badge } from 'dst-rg';
 import { DownloadButton } from '@/components/shared/download-button';
 import { Card } from '@/components/shared/card';
 import DateInput from '@/components/shared/date-input';

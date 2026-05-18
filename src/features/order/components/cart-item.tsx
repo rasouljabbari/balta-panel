@@ -1,4 +1,4 @@
-import { Badge } from 'rg-dst';
+import { Badge } from 'dst-rg';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import type { CartItemProps } from '@/features/order/types';
 

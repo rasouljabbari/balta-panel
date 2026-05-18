@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReportsList from '@/features/reports/components/list'
 import { Card } from '@/components/shared/card';
-import { Tabs } from 'rg-dst';
+import { Tabs } from 'dst-rg';
 import AreaChart from '@/features/reports/components/area-chart';
 import StatCard from '@/features/reports/components/stat-card';
 import { chartData, donutTabContent } from '@/features/reports/data';
@@ -53,7 +53,7 @@ export default function Reports() {
               }
             >
               <div className="flex flex-col xl:flex-row justify-between items-center gap-2">
-                <span className="block text-lg 2xl:text-xl font-bold text-gray-light-700 pe-5">مجموع مبلغ سفارش ها</span>
+                <span className="block text-lg 2xl:text-xl font-bold text-gray-light-700 pe-5">تعداد سفارشات</span>
 
                 <Tabs.List listVariant="gray" fullWidth={false} className="max-w-[230px] h-11 w-full border border-rborder-secondary p-xs rounded-lg bg-gray-light-50">
                   {tabs.map((item) => (
@@ -65,7 +65,7 @@ export default function Reports() {
                 <AreaChart 
                   series={chartData[chartTab].series}
                   months={chartData[chartTab].categories}
-                  colors={["#2BB0ED", "#FF8A00"]} 
+                  colors={["#F79009"]} 
                   height={270}
                 />
               </Tabs.Content>   

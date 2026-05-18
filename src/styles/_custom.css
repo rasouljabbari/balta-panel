@@ -73,7 +73,7 @@ select:focus {
   border-color: rgb(156 163 175) !important; /* gray-400 */
 }
 
-/* Override rg-dst Select dropdown focus border */
+/* Override dst-rg Select dropdown focus border */
 button:focus,
 button:focus-visible,
 button:focus-within {

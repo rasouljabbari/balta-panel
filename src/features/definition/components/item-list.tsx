@@ -1,7 +1,7 @@
 import SharedModal from '@/components/shared/custom-modal';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
-import { Button, Switch, TooltipWrapper } from 'rg-dst';
+import { Button, Switch, TooltipWrapper } from 'dst-rg';
 import type { DefinitionItemListProps, Item } from '../type';
 
 
@@ -42,7 +42,7 @@ export default function DefinitionItemList({
                 disabled={isPending}
                 checked={item.is_active}
                 onToggle={() => handleToggleClick(item)}
-                className="data-[state=checked]:bg-utility-brand-600"
+                className="data-[state=checked]:bg-utility-brand-600"             
               />
               <div className='flex flex-col gap-xxs'>
                 <span className="font-medium text-gray-light-700">

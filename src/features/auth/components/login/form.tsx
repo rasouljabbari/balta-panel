@@ -5,7 +5,7 @@ import { loginValidationSchema } from '@/features/auth/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, Input } from 'rg-dst';
+import { Button, Input } from 'dst-rg';
 
 
 export default function LoginForm() {

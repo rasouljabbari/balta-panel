@@ -11,7 +11,7 @@ import { editContractsSchema } from '@/features/contracts/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 import { useToggleCards } from '@/hooks/use-toggle-card';
 import ContractLoader from '@/features/contracts/components/contract-loader';
 

@@ -1,4 +1,4 @@
-import { Button, Switch } from 'rg-dst';
+import { Button, Switch } from 'dst-rg';
 import type { HeaderActionProps } from './type';
 
 

@@ -1,5 +1,5 @@
 import { RotateCw } from "lucide-react";
-import { Button } from "rg-dst";
+import { Button } from "dst-rg";
 import type { WeeklyPlanActionsProps } from "@/features/weekly-plan/types";
 
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dropdown } from 'rg-dst';
+import { Dropdown } from 'dst-rg';
 import { cn } from "@/utils/cn";
 
 export interface SelectOption {

@@ -7,7 +7,7 @@ import { useToggleCards } from '@/hooks/use-toggle-card';
 import { plateText } from '@/utils/plate-text';
 import { Pencil } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from 'rg-dst';
+import { Button } from 'dst-rg';
 
 
 export default function DriverDetail() {

@@ -3,7 +3,7 @@ import type {
   SuggestModalProps,
   SuggestType,
 } from '@/features/weekly-plan/types';
-import { Radio, Tabs } from 'rg-dst';
+import { Radio, Tabs } from 'dst-rg';
 import { SuggestIcon } from '@/components/icons/order-icons';
 import SharedModal from '@/components/shared/shared-modal';
 import { DEFAULT_PROGRAMS, WEEKLY_PLAN_TABS } from '../data';

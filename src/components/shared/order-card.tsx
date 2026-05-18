@@ -1,6 +1,6 @@
 import type { BadgeColor, BadgeProps, BadgeUIColor } from '@/features/order/types';
 import { cn } from '@/utils/cn';
-import { Badge } from 'rg-dst';
+import { Badge } from 'dst-rg';
 
 
 const badgeColorMap: Record<BadgeColor, BadgeUIColor> = {

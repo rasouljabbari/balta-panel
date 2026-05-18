@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useMenus } from '@/features/definition/hooks/menu';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Checkbox } from 'rg-dst';
+import { Checkbox } from 'dst-rg';
 import { EssentialIcon } from '@/components/icons/contract-icon';
 import { Card, CardHeader } from '@/components/shared/card';
 import { Skeleton } from '@/components/shared/skeleton-loader';

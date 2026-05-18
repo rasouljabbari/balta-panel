@@ -3,7 +3,7 @@ import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from 'rg-dst';
+import { Input } from 'dst-rg';
 import type { PackageFormProps } from '../../type';
 
 const PackageForm = forwardRef<{ submit: () => void }, PackageFormProps>(
