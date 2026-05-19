@@ -37,7 +37,7 @@ export const routeInfos: Record<string, RouteInfo> = {
   },
   '/reports': {
     title: 'گزارش‌ها',
-    description: 'در این قسمت، می‌توانید گزارش‌های عملکرد را مشاهده کنید.',
+    description: 'در این قسمت، می‌توانید یک دید کلی در مورد عملکرد خود و سایر کارشناسان مشاهده و مدیریت کنید.',
   },
   '/foods': {
     title: 'غذاها',

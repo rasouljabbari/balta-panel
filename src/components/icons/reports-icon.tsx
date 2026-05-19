@@ -45,3 +45,17 @@ export const FoodBasketIcon: React.FC<IconProps> = ({
         <path d="M16.4579 9.00006C16.3737 8.48154 16.1651 7.99115 15.85 7.57086L14.5488 5.83594" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 );
+
+export const ChartIcon: React.FC<IconProps> = ({
+  width = 24,
+  height = 24,
+  className,
+}) => (
+  <svg width={width} height={height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M7.77742 17.5H3.33325V10.8334H7.77742" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path fillRule="evenodd" clipRule="evenodd" d="M7.77759 2.5H12.2218V17.5H7.77759V2.5Z" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12.2224 6.66663H16.6666V17.5H12.2224" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+

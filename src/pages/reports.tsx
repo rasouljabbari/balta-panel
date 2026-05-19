@@ -5,7 +5,7 @@ import { Tabs } from 'dst-rg';
 import AreaChart from '@/features/reports/components/area-chart';
 import StatCard from '@/features/reports/components/stat-card';
 import { chartData, donutTabContent } from '@/features/reports/data';
-import { FoodBasketIcon, OrderIcon, BagIcon} from '@/components/icons/reports-icon';
+import { FoodBasketIcon, OrderIcon, BagIcon, ChartIcon} from '@/components/icons/reports-icon';
 
 
 export default function Reports() {
@@ -53,8 +53,13 @@ export default function Reports() {
               }
             >
               <div className="flex flex-col xl:flex-row justify-between items-center gap-2">
-                <span className="block text-lg 2xl:text-xl font-bold text-gray-light-700 pe-5">تعداد سفارشات</span>
-
+                <div className="flex items-center gap-xl">
+                  <span className='h-12 w-12 flex flex-col items-center justify-center rounded-lg shadow-xs border border-[#E4E7EC]'>
+                    <ChartIcon />
+                  </span>
+                  <span className="block text-lg 2xl:text-xl font-bold text-gray-light-700 pe-5">تعداد سفارشات</span>
+                </div>
+                
                 <Tabs.List listVariant="gray" fullWidth={false} className="max-w-[230px] h-11 w-full border border-rborder-secondary p-xs rounded-lg bg-gray-light-50">
                   {tabs.map((item) => (
                     <Tabs.Trigger className="text-xs 2xl:text-base font-semibold data-[state=active]:bg-base-white data-[state=active]:shadow-sm data-[state=active]:text-utility-brand-600" key={item.value} value={item.value}>{item.label}</Tabs.Trigger>

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { reportListData } from '@/features/reports/data';
 import { getDeliveryStatusBadge, getPaymentStatusBadge } from '@/features/reports/utils/badge-helpers';
-import { Download, Eye } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { Badge } from 'dst-rg';
 import { DownloadButton } from '@/components/shared/download-button';
 import { Card } from '@/components/shared/card';
@@ -11,7 +11,7 @@ import Table from '@/components/shared/table';
 import SectionHeader from '@/components/shared/section-header';
 import OrderDetailsModal from '@/features/order/components/order-details-modal';
 import type { OrderDetails } from '@/features/order/types';
-
+import { ChartIcon } from '@/components/icons/reports-icon';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -49,28 +49,31 @@ export default function ReportsList() {
     { id: 'orderId', label: 'شماره سفارش', icon: `<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M5.33268 0.667969V10.0013M5.33268 10.0013L9.99935 5.33464M5.33268 10.0013L0.666016 5.33464" stroke="#475467" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`},
-    
-    { id: 'reservationDate', label: 'تاریخ رزرو' },
-    { id: 'mealType', label: 'وعده' },
     {
-      id: 'orderCount',
-      label: 'تعداد رزرو',
-      render: (value: number) => `${value} پرس`,
+      id: 'customerName',
+      label: 'نام مشتری',
     },
     {
-      id: 'paymentStatus',
-      label: 'وضعیت پرداخت',
+      id: 'branch',
+      label: 'شعبه',
+    },      
+    { 
+      id: 'mealType',
+      label: 'وعده',
       render: (value: string) => {
-        const badge = getPaymentStatusBadge(value);
         return (
-          <Badge color={badge.color} className="whitespace-nowrap">
+          <Badge color='gray' className="whitespace-nowrap">
             <span className="flex items-center gap-1">
-              {badge.icon}
-              {badge.label}
+              {value}
             </span>
           </Badge>
         );
       },
+     },
+    { id: 'reservationDate', label: 'تاریخ' },    
+    {
+      id: 'driverName',
+      label: 'نام راننده',
     },
     {
       id: 'deliveryStatus',
@@ -80,17 +83,11 @@ export default function ReportsList() {
         return (
           <Badge color={badge.color} className="whitespace-nowrap">
             <span className="flex items-center gap-1">
-              {badge.icon}
               {badge.label}
             </span>
           </Badge>
         );
       },
-    },
-    {
-      id: 'averageAmount',
-      label: 'میانگین سفارش',
-      render: (value: string) => `${value} تومان`,
     },
     {
       id: 'totalAmount',
@@ -102,15 +99,6 @@ export default function ReportsList() {
       label: '',
       render: (_value: any, rowData: any) => (
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              console.log('دانلود گزارش ها');
-            }}
-            className="flex items-center justify-center p-2 hover:bg-gray-light-100 rounded-lg transition-colors"
-            aria-label="دانلود"
-          >
-            <Download className="w-5 h-5 text-gray-light-600" />
-          </button>
           <button
             onClick={() => handleViewOrderDetails(rowData)}
             className="flex items-center justify-center p-2 hover:bg-gray-light-100 rounded-lg transition-colors"
@@ -166,9 +154,7 @@ export default function ReportsList() {
       <td className="px-3xl py-xl text-sm"></td>
       <td className="px-3xl py-xl text-sm"></td>
       <td className="px-3xl py-xl text-sm"></td>
-      <td className="px-3xl py-xl text-sm">
-        {totals.averageAmount} تومان
-      </td>
+      <td className="px-3xl py-xl text-sm"></td>
       <td className="px-3xl py-xl text-sm">
         {totals.totalAmount} تومان
       </td>
@@ -178,7 +164,7 @@ export default function ReportsList() {
   return (
     <>
       <Card className="mt-4xl flex flex-col gap-3xl p-3xl">
-        <SectionHeader title="گزارش ها" >
+        <SectionHeader title="سفارش‌های تکمیل شده" icon={<ChartIcon />} >
           <SearchInput
             searchValue={''}
             onSearch={() => {}}

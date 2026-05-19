@@ -252,4 +252,5 @@ export interface SectionHeaderProps {
   showBack?: boolean;
   backLink?: string;
   extra?: React.ReactNode;
+  icon?: React.ReactNode;
 }
