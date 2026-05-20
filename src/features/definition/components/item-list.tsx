@@ -1,9 +1,9 @@
 import SharedModal from '@/components/shared/custom-modal';
+import ToggleItemList from '@/components/shared/toggle-item-list';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
-import { Button, Switch, TooltipWrapper } from 'dst-rg';
+import { Button, TooltipWrapper } from 'dst-rg';
 import type { DefinitionItemListProps, Item } from '../type';
-
 
 export default function DefinitionItemList({
   items,
@@ -30,59 +30,44 @@ export default function DefinitionItemList({
 
   return (
     <>
-      <ul className="flex flex-col gap-xl max-h-[650px] overflow-y-auto">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            className="flex items-center justify-between border border-gray-light-200 rounded-md px-xl py-lg"
-          >
-            {/* Switch + Title */}
-            <div className="flex items-start gap-lg">
-              <Switch
-                disabled={isPending}
-                checked={item.is_active}
-                onToggle={() => handleToggleClick(item)}
-                className="data-[state=checked]:bg-utility-brand-600"             
-              />
-              <div className='flex flex-col gap-xxs'>
-                <span className="font-medium text-gray-light-700">
-                  {item.name}
-                </span>
+      <ToggleItemList
+        items={items}
+        isPending={isPending}
+        onToggle={handleToggleClick}
+        renderMeta={(item) => (
+          <>
+            {item.price !== undefined && (
+              <span className="text-sm text-gray-light-600">
+                قیمت: {item.price.toLocaleString('fa-IR')} تومان
+              </span>
+            )}
 
-                {/* Optional Fields */}
-                {item.price !== undefined && (
-                  <span className="text-sm text-gray-light-600">
-                    قیمت: {item.price.toLocaleString('fa-IR')} تومان
-                  </span>
-                )}
+            {item.order_limit_translation && (
+              <span className="text-sm text-gray-light-600">
+                تنوع‌غذایی: {item.order_limit_translation}
+              </span>
+            )}
 
-                {item.order_limit_translation && (
-                  <span className="text-sm text-gray-light-600">
-                    تنوع‌غذایی: {item.order_limit_translation}
-                  </span>
-                )}
-
-                {item.default_packaging && (
-                  <span className="text-sm text-gray-light-600">
-                    بسته‌بندی: {item.default_packaging.name}
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <TooltipWrapper content="ویرایش" position='top'>
-              <Button
-                variant='tertiaryGray'
-                onClick={() => onEdit(item)}
-                className="p-md rounded-md hover:bg-gray-light-50 transition-colors"
-                aria-label='edit-button'
-              >
-                <SquarePen size={20} />
-              </Button>
-            </TooltipWrapper>
-          </li>
-        ))}
-      </ul>
+            {item.default_packaging && (
+              <span className="text-sm text-gray-light-600">
+                بسته‌بندی: {item.default_packaging.name}
+              </span>
+            )}
+          </>
+        )}
+        rightAction={(item) => (
+          <TooltipWrapper content="ویرایش" position='top'>
+            <Button
+              variant='tertiaryGray'
+              onClick={() => onEdit(item)}
+              className="p-md rounded-md hover:bg-gray-light-50 transition-colors"
+              aria-label='edit-button'
+            >
+              <SquarePen size={20} />
+            </Button>
+          </TooltipWrapper>
+        )}
+      />
 
       <SharedModal
         isOpen={statusModalOpen}

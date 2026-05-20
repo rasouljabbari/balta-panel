@@ -1,4 +1,3 @@
-import type { FormValues } from '@/features/drivers/validation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { createDriverService, editDriverService, getDriverByIdService, getDriversService, toggleDriverStatusService } from '../services/drivers';
@@ -7,7 +6,7 @@ import type { CreateDriverPayload, CreateDriverResponse } from '../types';
 
 export const DRIVERS_QUERY_KEY = ['drivers'];
 
-export const useCreateDriver = (closeModal: () => void, setError?: any) => {
+export const useCreateDriver = (closeModal: () => void, handleApiFormErrors: any, setError?: any) => {
   const queryClient = useQueryClient();
 
   return useMutation<CreateDriverResponse, any, CreateDriverPayload>({
@@ -21,21 +20,17 @@ export const useCreateDriver = (closeModal: () => void, setError?: any) => {
     },
 
     onError: (err: any) => {
-      if (err?.error.length > 0) {
-        err?.error?.forEach((validationError: any) => {
-          const fieldName = validationError.field as keyof FormValues;
-          setError(fieldName, {
-            type: 'server',
-            message: validationError.message,
-          });
-        });
-      }
+      handleApiFormErrors({
+        error: err,
+        setError,
+      });
     },
   });
 };
 
 export const useEditDriverPage = (
-  setServerValidationError?: (err: any) => void,
+  handleApiFormErrors: (err: any) => void,
+  setError: any
 ) => {
   const queryClient = useQueryClient();
 
@@ -48,12 +43,14 @@ export const useEditDriverPage = (
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: DRIVERS_QUERY_KEY });
-      setServerValidationError?.(null);
       toast.success('ویرایش اطلاعات راننده با موفقیت ثبت شد.');
     },
 
     onError: (error: any) => {
-      setServerValidationError?.(error?.message || 'خطایی رخ داد');
+      handleApiFormErrors({
+        error,
+        setError
+      });
     },
   });
 };
@@ -124,7 +121,7 @@ export const useToggleDriverStatus = () => {
 
       toast.error(
         error?.message ||
-          'خطا در تغییر وضعیت راننده',
+        'خطا در تغییر وضعیت راننده',
       );
     },
   });

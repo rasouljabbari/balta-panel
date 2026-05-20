@@ -7,6 +7,8 @@ import SharedModal from '@/components/shared/custom-modal';
 import HeaderAction from './header-action';
 import HeaderUserInformationBox from './header-info';
 import { useHeaderInfo } from './hook/use-header-info';
+import DatePickerField from '@/components/shared/date-picker-filed';
+import { useHeaderDatePicker } from '@/components/layout/header/hook/use-date-picker';
 
 
 export default function Header({
@@ -15,10 +17,10 @@ export default function Header({
   extra,
   driverId,
   contractId,
+  hasDatePicker,
 }: HeaderProps & { driverId?: number }) {
   const { data: apiDriver } = useDriverById(driverId);
   const { data: contractData } = useContractSettingsCustomer(contractId);
-
 
   const { title, description, showBackButton, isDriverEdit, isDriverDetail } =
     useHeaderInfo();
@@ -28,6 +30,7 @@ export default function Header({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingDriverId, setPendingDriverId] = useState<number | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const { dateValue, handleDateChange } = useHeaderDatePicker(!!hasDatePicker);
 
   // Toggle Status
   const handleToggleClick = () => {
@@ -53,9 +56,6 @@ export default function Header({
       },
     });
   };
-
-  
-
   // ========================
   // FINAL TITLE
   // ========================
@@ -116,6 +116,16 @@ if (contractData?.data?.customer) {
             initialStatus={apiDriver?.is_active || false}
             onStatusToggle={handleToggleClick}
           />
+
+        {hasDatePicker &&
+          <DatePickerField
+            defaultToToday
+            onChange={handleDateChange}
+            value={dateValue}
+            iconOnRight={true}
+            allowFuture
+          />
+        }
 
           <HeaderNotificationBox />
         </div>

@@ -1,5 +1,5 @@
-import { Badge } from 'dst-rg';
 import type { TableColumn } from '@/components/shared/table';
+import { Badge } from 'dst-rg';
 import type { MealItem } from '../types';
 
 

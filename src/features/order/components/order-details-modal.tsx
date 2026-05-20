@@ -22,10 +22,10 @@ export default function OrderDetailsModal({ isOpen, onClose, order }: OrderDetai
                 className="absolute inset-0 bg-black/40"
                 onClick={onClose}
             />
-            
-            <div 
+
+            <div
                 className="absolute left-0 top-0 h-full w-[400px] bg-white shadow-xl flex flex-col transition-transform duration-300 ease-out"
-                style={{ 
+                style={{
                     animation: isOpen ? 'slideInFromLeft 0.3s ease-out' : 'slideOutToLeft 0.3s ease-out',
                 }}>
                 {/* Header */}
@@ -33,10 +33,10 @@ export default function OrderDetailsModal({ isOpen, onClose, order }: OrderDetai
                     <div className="flex items-center py-2">
                         <span className="flex items-center gap-2 p-2 bg-gray-light-100 rounded-[100px]">
                             <FileText className="w-5 h-5 text-gray-light-500" />
-                        </span>                    
+                        </span>
                         <h2 className="text-lg font-semibold text-gray-light-900 pr-3">جزئیات سفارش</h2>
                     </div>
-                    
+
                     <button
                         onClick={onClose}
                         className="text-gray-500 hover:text-gray-700 p-1 hover:bg-gray-light-100 rounded-lg transition-colors"
@@ -79,7 +79,7 @@ export default function OrderDetailsModal({ isOpen, onClose, order }: OrderDetai
                     {/* Order Summary */}
                     <div className="border-t border-gray-light-300 pt-6">
                         <h3 className="text-md font-semibold text-gray-light-900 mb-4 text-start px-6">خلاصه سفارش</h3>
-                        
+
                         <div className="space-y-3 px-6">
                             <div className="flex items-center justify-between text-sm">
                                 <div className="flex items-center gap-2 text-gray-light-600">

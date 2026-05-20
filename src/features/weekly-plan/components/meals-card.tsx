@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { FileIcon, PlateCircleIcon } from '@/components/icons/order-icons';
+import SharedModal from '@/components/shared/shared-modal';
 import OrderCard from '@/features/weekly-plan/components/order-card';
 import type { MealCardProps } from '@/features/weekly-plan/types';
 import { isPastDay, isToday } from '@/features/weekly-plan/utils';
 import { cn } from '@/utils/cn';
-import { Pencil, Trash2 } from 'lucide-react';
 import { Button, TooltipWrapper } from 'dst-rg';
-import { FileIcon, PlateCircleIcon } from '@/components/icons';
-import SharedModal from '@/components/shared/shared-modal';
+import { Pencil, Trash2 } from 'lucide-react';
+import { useState } from 'react';
 import EditFoodModal from './modal/edit-food-modal';
 
 
@@ -20,7 +20,7 @@ export default function MealCard({
   onViewDetails,
 }: MealCardProps) {
   const [openTrash, setOpenTrash] = useState(false);
-  const[openPencil , setOpenPencil] = useState(false)
+  const [openPencil, setOpenPencil] = useState(false)
 
   const isEmpty = isEmptyMeal ?? false;
   const isFutureWeek = !isCurrentWeek;

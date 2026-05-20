@@ -1,7 +1,7 @@
 import type { TableColumn } from '@/components/shared/table';
 import { plateText } from '@/utils/plate-text';
-import { Eye } from 'lucide-react';
 import { Badge, TooltipWrapper } from 'dst-rg';
+import { Eye } from 'lucide-react';
 import type { DriverItem } from '../types';
 
 export const driverTableColumns = (

@@ -1,5 +1,5 @@
-import { Check } from 'lucide-react';
 import { Badge, Tabs } from 'dst-rg';
+import { Check } from 'lucide-react';
 import type { TabsWithBadgesProps } from '../type';
 
 

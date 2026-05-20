@@ -1,8 +1,8 @@
-import InfoHeader from "@/components/shared/info-header";
 import { CartIcon } from "@/components/icons";
-import { Tabs } from 'dst-rg';
-import type { TabType, OrderHeaderProps } from "@/features/order/types";
+import InfoHeader from "@/components/shared/info-header";
 import { TABS } from "@/features/order/data";
+import type { OrderHeaderProps, TabType } from "@/features/order/types";
+import { Tabs } from 'dst-rg';
 
 export default function OrderHeader({
   tab,

@@ -1,8 +1,8 @@
-import { createPortal } from 'react-dom';
-import { Button } from 'dst-rg';
-import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { InfoCircleIcon } from '@/components/icons';
 import type { SharedModalProps } from '@/components/shared/type';
+import { useAnimatedModal } from '@/hooks/use-animated-modal';
+import { Button } from 'dst-rg';
+import { createPortal } from 'react-dom';
 
 export default function SharedModal({
   isOpen,
@@ -30,9 +30,8 @@ export default function SharedModal({
     >
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'
+          }`}
         onClick={onClose}
       />
 

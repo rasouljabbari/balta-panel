@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
 import ChangeSaveModal from '@/features/contracts/components/change-save-modal';
+import ContractLoader from '@/features/contracts/components/contract-loader';
 import ContractMenusCard from '@/features/contracts/components/contract-menu-card';
 import { MealCard } from '@/features/contracts/components/meal-card';
 import { MealLimitsCard } from '@/features/contracts/components/meal-limits-card';
@@ -8,12 +8,13 @@ import { TabsWithBadges } from '@/features/contracts/components/tab-with-badge';
 import { useContractSettingsCustomer, useCreateContractSetting, useUpdateContractSetting } from '@/features/contracts/hook/use-contracts';
 import type { FormValues, TabItem } from '@/features/contracts/type';
 import { editContractsSchema } from '@/features/contracts/validation';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
+import { useToggleCards } from '@/hooks/use-toggle-card';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from 'dst-rg';
+import { useEffect, useMemo, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Button } from 'dst-rg';
-import { useToggleCards } from '@/hooks/use-toggle-card';
-import ContractLoader from '@/features/contracts/components/contract-loader';
 
 
 const tabs: TabItem[] = [
@@ -48,12 +49,6 @@ export default function EditContract() {
 
   const { data } = useContractSettingsCustomer(id);
 
-  const { mutate: createMutate, isPending: isCreating } =
-    useCreateContractSetting();
-
-  const { mutate: updateMutate, isPending: isUpdating } =
-    useUpdateContractSetting();
-
   const [activeTab, setActiveTab] = useState('breakfast');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,7 +65,17 @@ export default function EditContract() {
     handleSubmit,
     reset,
     formState: { isDirty },
+    setError
   } = methods;
+
+  const { handleApiFormErrors } =
+    useHandleApiFormErrors<FormValues>();
+
+  const { mutate: createMutate, isPending: isCreating } =
+    useCreateContractSetting(handleApiFormErrors, setError);
+
+  const { mutate: updateMutate, isPending: isUpdating } =
+    useUpdateContractSetting(handleApiFormErrors, setError);
 
   const { openStates, toggle } = useToggleCards({
     customer: false,
@@ -117,7 +122,7 @@ export default function EditContract() {
     });
   }, [contract, reset]);
 
- 
+
   const handleTabChange = (value: string) => {
     if (value === activeTab) return;
     if (isDirty) {
@@ -147,63 +152,63 @@ export default function EditContract() {
   };
 
 
-const onSubmit = (formData: FormValues) => {
-  if (!id || !formData.driverId) return;
+  const onSubmit = (formData: FormValues) => {
+    if (!id || !formData.driverId) return;
 
-  const payload = {
-    meal: activeTab,
-    delivery_time: formData.mealTime,
-    count: formData.orderCount,
-    variety: formData.variety,
-    kitchen_description: formData.kitchenNote,
-    default_driver: formData.driverId,
-    is_active: formData.isActive,
-    initial_order_max_tolerance: formData.maxOrder,
-    initial_order_min_tolerance: formData.minOrder,
-    daily_order_tolerance: formData.editTolerance,
-    customer_id: id,
-    menus: formData.menus,
-  };
+    const payload = {
+      meal: activeTab,
+      delivery_time: formData.mealTime,
+      count: formData.orderCount,
+      variety: formData.variety,
+      kitchen_description: formData.kitchenNote,
+      default_driver: formData.driverId,
+      is_active: formData.isActive,
+      initial_order_max_tolerance: formData.maxOrder,
+      initial_order_min_tolerance: formData.minOrder,
+      daily_order_tolerance: formData.editTolerance,
+      customer_id: id,
+      menus: formData.menus,
+    };
 
-  const resetValues = {
-    mealTime: formData.mealTime,
-    orderCount: formData.orderCount,
-    variety: formData.variety,
+    const resetValues = {
+      mealTime: formData.mealTime,
+      orderCount: formData.orderCount,
+      variety: formData.variety,
 
-    driverId: formData.driverId,
+      driverId: formData.driverId,
 
-    kitchenNote: formData.kitchenNote,
+      kitchenNote: formData.kitchenNote,
 
-    minOrder: formData.minOrder,
-    maxOrder: formData.maxOrder,
+      minOrder: formData.minOrder,
+      maxOrder: formData.maxOrder,
 
-    editTolerance: formData.editTolerance,
+      editTolerance: formData.editTolerance,
 
-    isActive: formData.isActive,
+      isActive: formData.isActive,
 
-    menus: formData.menus,
-  };
+      menus: formData.menus,
+    };
 
-  if (contract?.id) {
-    updateMutate(
-      {
-        id: contract.id,
-        payload,
-      },
-      {
+    if (contract?.id) {
+      updateMutate(
+        {
+          id: contract.id,
+          payload,
+        },
+        {
+          onSuccess: () => {
+            reset(resetValues);
+          },
+        },
+      );
+    } else {
+      createMutate(payload, {
         onSuccess: () => {
           reset(resetValues);
         },
-      },
-    );
-  } else {
-    createMutate(payload, {
-      onSuccess: () => {
-        reset(resetValues);
-      },
-    });
-  }
-};
+      });
+    }
+  };
 
   const userData = useMemo(() => {
     if (!userSource) return [];
@@ -279,9 +284,9 @@ const onSubmit = (formData: FormValues) => {
     ];
   }, [customer, isBranch]);
 
-if (!data || !customer) {
-  return <ContractLoader />;
-}
+  if (!data || !customer) {
+    return <ContractLoader />;
+  }
 
   return (
     <>

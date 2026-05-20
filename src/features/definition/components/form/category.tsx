@@ -1,8 +1,9 @@
 import { addCategoryInitialValues, addCategoryResolver, type addCategoryValuesTypes } from '@/features/definition/validation';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Input, Tabs } from 'dst-rg';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { Input, Tabs } from 'dst-rg';
 import type { CategoryFormProps } from '../../type';
 
 
@@ -24,14 +25,16 @@ const CategoryForm = forwardRef<{ submit: () => void }, CategoryFormProps>(
           addCategoryInitialValues,
     });
 
+    const { handleApiFormErrors } =
+      useHandleApiFormErrors<addCategoryValuesTypes>();
+
     useEffect(() => {
-      if (serverValidationError)
-        serverValidationError?.error?.forEach((err: any) => {
-          setError(err.field, {
-            type: 'server',
-            message: err.message,
-          });
+      if (serverValidationError?.error) {
+        handleApiFormErrors({
+          error: serverValidationError,
+          setError
         });
+      }
     }, [serverValidationError, setError])
 
     useImperativeHandle(ref, () => ({

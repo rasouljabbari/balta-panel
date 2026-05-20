@@ -1,9 +1,9 @@
 import { LogOutIcon } from "@/components/icons";
 import SharedModal from "@/components/shared/custom-modal";
 import { deleteAllCookie } from "@/utils/cookies";
+import { Button } from "dst-rg";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "dst-rg";
 
 export default function LogoutModal() {
     const [openModal, setOpenModal] = useState(false)

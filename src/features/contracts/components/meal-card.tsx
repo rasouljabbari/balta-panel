@@ -1,11 +1,11 @@
-import { useMemo, useState } from 'react';
-import { useDrivers } from '@/features/drivers/hook/drivers';
-import { Controller, useFormContext } from 'react-hook-form';
-import { Input, Switch } from 'dst-rg';
 import { ContactFoodIcon } from '@/components/icons';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
 import TimePickerField from '@/components/shared/timer-picker-field';
+import { useDrivers } from '@/features/drivers/hook/drivers';
+import { Input, Switch } from 'dst-rg';
+import { useMemo, useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 
 
 export function MealCard() {
@@ -18,16 +18,16 @@ export function MealCard() {
     name: driverSearch,
   });
 
-const driverOptions = useMemo(() => {
-  if (!driversData?.drivers) return [];
+  const driverOptions = useMemo(() => {
+    if (!driversData?.drivers) return [];
 
-  return driversData.drivers
-    .filter((driver: any) => driver.is_active)
-    .map((driver: any) => ({
-      label: `${driver.first_name} ${driver.last_name}`,
-      value: driver.id,
-    }));
-}, [driversData]);
+    return driversData.drivers
+      .filter((driver: any) => driver.is_active)
+      .map((driver: any) => ({
+        label: `${driver.first_name} ${driver.last_name}`,
+        value: driver.id,
+      }));
+  }, [driversData]);
 
   return (
     <Card>

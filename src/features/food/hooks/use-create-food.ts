@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createFoodService } from "../services/create-food";
-import type { FoodFormValues } from "../type";
 import { toast } from "react-toastify";
+import { createFoodService } from "../services/create-food";
 import { uploadFileService } from "../services/upload-file";
+import type { FoodFormValues } from "../type";
 
 
 export const useCreateFood = (
   onClose: () => void,
+  handleApiFormErrors: any,
+  setError: any
 ) => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -26,18 +28,10 @@ export const useCreateFood = (
       onClose();
     },
     onError: (error: any) => {
-      const response = error?.response?.data;
-    
-      const message =
-        response?.message ||
-        error?.message ||
-        'خطایی رخ داده است';
-    
-      const fieldErrors = response?.errors
-        ? Object.values(response.errors).flat().join('\n')
-        : null;
-    
-      toast.error(fieldErrors || message);
+      handleApiFormErrors({
+        error,
+        setError
+      });
     },
   });
 };
