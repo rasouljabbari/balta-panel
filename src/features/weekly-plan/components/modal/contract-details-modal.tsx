@@ -1,6 +1,6 @@
 import SharedModal from '@/components/shared/custom-modal';
 import { CirclePlus } from 'lucide-react';
-import { CustomerIcon, BranchIcon, MenuIcon, HashtagIcon, ClockIcon } from '@/components/icons/contract-icon';
+import { CustomerIcon, BranchIcon, MenuIcon, HashtagIcon, ClockIcon } from '@/components/icons';
 import { Badge } from 'dst-rg';
 
 export default function ContractDetailsModal({

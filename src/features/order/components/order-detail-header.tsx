@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { Badge, Button } from 'dst-rg';
-import { CloseIcon, TruckIcon } from '@/components/icons/order-icons';
+import { CloseIcon, Truck2Icon } from '@/components/icons';
 import CancelOrderModal from './cancel-order-modal';
 import DeriverModal from './driver-modal';
 
@@ -71,7 +71,7 @@ export default function OrderDetailsHeader({
         </Button>
 
         <Button
-          leftIcon={<TruckIcon />}
+          leftIcon={<Truck2Icon />}
           className="h-10"
           onClick={() => setOpenDriverModal(true)}
         >

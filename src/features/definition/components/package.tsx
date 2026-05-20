@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useChangeStatusPackage, useCreatePackage, usePackaging, useUpdatePackage } from '@/features/definition/hooks/packages';
 import type { Package } from '@/features/definition/type';
-import { PackagingIcon } from '@/components/icons/definition-icons';
+import { PackagingIcon } from '@/components/icons';
 import PackageForm from './form/package';
 import DefinitionItem from './item';
 

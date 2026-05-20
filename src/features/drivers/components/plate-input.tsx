@@ -1,4 +1,4 @@
-import { FlagIcon } from '@/components/icons/drivers-icon';
+import { FlagIcon } from '@/components/icons';
 import { cn } from '@/utils/cn';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { ChevronDown } from 'lucide-react';

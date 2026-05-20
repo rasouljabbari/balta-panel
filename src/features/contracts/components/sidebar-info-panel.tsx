@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { User } from 'lucide-react';
-import { BuildingIcon } from '@/components/icons/contract-icon';
+import { BuildingIcon } from '@/components/icons';
 import AccordionCard from '@/components/shared/accordion-card';
 import DetailGrid from '@/components/shared/detail-grid';
 import type { SidebarInfoPanelProps } from '../type';

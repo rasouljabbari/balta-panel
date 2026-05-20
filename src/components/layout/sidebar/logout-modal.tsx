@@ -1,4 +1,4 @@
-import { LogOutIcon } from "@/components/icons/layout-icons";
+import { LogOutIcon } from "@/components/icons";
 import SharedModal from "@/components/shared/custom-modal";
 import { deleteAllCookie } from "@/utils/cookies";
 import { useState } from "react";

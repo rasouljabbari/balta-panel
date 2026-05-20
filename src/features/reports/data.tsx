@@ -1,4 +1,32 @@
 import DonutChart from "@/features/reports/components/donut-chart";
+
+export const columnChartData = {
+  weekly: {
+    series: [
+      { name: "سفارش‌های ثبت شده", data: [42, 55, 48, 62, 58, 70, 64] },
+      { name: "سفارش‌های ثبت نشده", data: [28, 32, 25, 38, 30, 42, 35] },
+      { name: "سفارش‌ها تحویل داده شده", data: [65, 72, 68, 80, 75, 88, 82] },
+    ],
+    categories: ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنج‌شنبه", "جمعه"],
+  },
+  monthly: {
+    series: [
+      { name: "سفارش‌های ثبت شده", data: [48, 52, 44, 58, 50, 62, 55, 60, 68, 64, 58, 66] },
+      { name: "سفارش‌های ثبت نشده", data: [30, 28, 35, 32, 38, 40, 36, 42, 45, 38, 34, 40] },
+      { name: "سفارش‌ها تحویل داده شده", data: [70, 75, 68, 82, 78, 85, 80, 88, 92, 86, 80, 90] },
+    ],
+    categories: ["هفته ۱", "هفته ۲", "هفته ۳", "هفته ۴", "هفته ۱", "هفته ۲", "هفته ۳", "هفته ۴", "هفته ۱", "هفته ۲", "هفته ۳", "هفته ۴"],
+  },
+  yearly: {
+    series: [
+      { name: "سفارش‌های ثبت شده", data: [44, 52, 48, 58, 54, 62, 56, 64, 68, 64, 58, 66] },
+      { name: "سفارش‌های ثبت نشده", data: [28, 32, 30, 35, 38, 40, 36, 42, 45, 38, 34, 40] },
+      { name: "سفارش‌ها تحویل داده شده", data: [62, 70, 68, 78, 75, 85, 80, 88, 92, 86, 82, 90] },
+    ],
+    categories: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"],
+  },
+};
+
 export const chartData = {
     weekly: {
         series: [
@@ -30,12 +58,10 @@ export const chartData = {
 };
 
 export const donutTabContent = {
-    weekly: <DonutChart series={[45, 25, 30]} height={230} 
-    labels={["چلوکباب", "چلو مرغ", "کوبیده"]} />,
-    monthly: <DonutChart series={[35, 15, 50]} height={230} 
-    labels={["چلوکباب", "جوجه کباب", "قرمه سبزی"]} />,
-    yearly: <DonutChart series={[45, 35, 20]} height={230} 
-    labels={["چلوکباب", "چلو مرغ", "کوبیده"]} />,
+    currentWeek: <DonutChart series={[45, 25]} height={230} 
+    labels={["ثبت شده", "ثبت نشده"]} />,
+    nextWeek: <DonutChart series={[35, 15]} height={230} 
+    labels={["ثبت شده", "ثبت نشده"]} />,
 };
 
 export const reportListData = [

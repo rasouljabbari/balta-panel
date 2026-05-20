@@ -1,4 +1,4 @@
-import { FoodIcons } from '@/components/icons/food-icons';
+import { FoodIcons } from '@/components/icons';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import SearchInput from '@/components/shared/search-input';

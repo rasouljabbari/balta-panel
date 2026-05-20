@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { Input } from 'dst-rg';
-import { InterfaceIcon } from '@/components/icons/contract-icon';
+import { InterfaceIcon } from '@/components/icons';
 import { Card, CardHeader } from '@/components/shared/card';
 
 

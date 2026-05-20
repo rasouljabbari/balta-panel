@@ -1,4 +1,4 @@
-import { AlertCircleIcon } from '@/components/icons/order-icons';
+import { AlertCircleIcon } from '@/components/icons';
 import { Button } from 'dst-rg';
 
 export default function WeeklyPlanFooter() {

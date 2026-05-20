@@ -1,4 +1,4 @@
-import { FoodIcons } from '@/components/icons/food-icons';
+import { FoodIcons } from '@/components/icons';
 import { Card, CardBody, CardHeader } from '@/components/shared/card';
 import EmptyBox from '@/components/shared/empty-box';
 import Table from '@/components/shared/table';

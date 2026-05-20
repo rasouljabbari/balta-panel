@@ -2,7 +2,7 @@ import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { cn } from '@/utils/cn';
 import { createPortal } from 'react-dom';
 import { Button } from 'dst-rg';
-import { InfoCircleIcon } from '../icons/modal-icons';
+import { InfoCircleIcon } from '@/components/icons';
 import type { SharedModalProps } from './type';
 import { X } from 'lucide-react';
 
