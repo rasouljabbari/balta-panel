@@ -4,7 +4,7 @@ import { Card } from '@/components/shared/card';
 import { Tabs } from 'dst-rg';
 import StatCard from '@/features/reports/components/stat-card';
 import ColumnChart from '@/components/shared/column-chart';
-import { columnChartData, donutTabContent } from '@/features/reports/data';
+import { columnChartData, donutTabContent } from '@/features/dashboard/data';
 import { FoodBasketIcon, PendingOrderIcon, DeliveryIcon, UnapprovedOrderIcon, DonutChartIcon, ChartIcon } from '@/components/icons';
 
 
@@ -77,9 +77,9 @@ export default function Reports() {
                 <span className="block text-lg font-semibold text-gray-light-700 pe-4">وضعیت سفارش‌ها</span>
               </div>
 
-              <Tabs.List listVariant="gray" fullWidth={false} className="max-w-[230px] h-11 w-full border border-rborder-secondary p-xs rounded-lg bg-gray-light-50">
+              <Tabs.List listVariant="gray" fullWidth={false} className="max-w-[220px] h-11 w-full border border-rborder-secondary p-xs rounded-lg bg-gray-light-50 ">
                 {donutTabs.map((item) => (
-                  <Tabs.Trigger className="text-xs 2xl:text-base font-semibold data-[state=active]:bg-base-white data-[state=active]:shadow-sm data-[state=active]:text-utility-brand-600" key={item.value} value={item.value}>{item.label}</Tabs.Trigger>
+                  <Tabs.Trigger className="text-xs 2xl:text-sm font-semibold data-[state=active]:bg-base-white data-[state=active]:shadow-sm data-[state=active]:text-utility-brand-600" key={item.value} value={item.value}>{item.label}</Tabs.Trigger>
                 ))}
               </Tabs.List>
             </div>
@@ -103,9 +103,9 @@ export default function Reports() {
                 <span className="block text-lg font-semibold text-gray-light-700 pe-4">آمار کلی سفارش‌ها</span>
               </div>
 
-              <Tabs.List listVariant="gray" fullWidth={false} className="max-w-[230px] h-11 w-full border border-rborder-secondary p-xs rounded-lg bg-gray-light-50">
+              <Tabs.List listVariant="gray" fullWidth={false} className="max-w-[220px] h-11 w-full border border-rborder-secondary p-xs rounded-lg bg-gray-light-50">
                 {columnTabs.map((item) => (
-                  <Tabs.Trigger className="text-xs 2xl:text-base font-semibold data-[state=active]:bg-base-white data-[state=active]:shadow-sm data-[state=active]:text-utility-brand-600" key={item.value} value={item.value}>{item.label}</Tabs.Trigger>
+                  <Tabs.Trigger className="text-xs 2xl:text-sm font-semibold data-[state=active]:bg-base-white data-[state=active]:shadow-sm data-[state=active]:text-utility-brand-600" key={item.value} value={item.value}>{item.label}</Tabs.Trigger>
                 ))}
               </Tabs.List>
             </div>

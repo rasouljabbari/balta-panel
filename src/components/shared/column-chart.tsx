@@ -19,7 +19,7 @@ const DEFAULT_MONTHS = [
 
 export default function ColumnChart({
   series,
-  height = 340,
+  height = 300,
   colors = ["#F6C2CA", "#8E1428", "#DA1F3D"],
   months = DEFAULT_MONTHS,
 }: AreaChartProps) {
@@ -32,7 +32,7 @@ export default function ColumnChart({
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: "60%",
+        columnWidth: "65%",
         borderRadius: 4,
         borderRadiusApplication: "end",
       },
