@@ -1,8 +1,8 @@
+import type { NotificationModalProps } from '@/components/shared/type';
+import { useAnimatedModal } from '@/hooks/use-animated-modal';
+import { Button } from 'dst-rg';
 import { BellIcon } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import { Button } from 'dst-rg';
-import { useAnimatedModal } from '@/hooks/use-animated-modal';
-import type { NotificationModalProps } from '@/components/shared/type';
 
 export default function NotificationModal({
   isOpen,
@@ -23,9 +23,8 @@ export default function NotificationModal({
     >
       {/* Backdrop */}
       <div
-        className={`absolute inset-0 transition-opacity duration-300 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute inset-0 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'
+          }`}
         onClick={onClose}
       />
 

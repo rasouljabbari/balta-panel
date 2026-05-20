@@ -1,10 +1,10 @@
 import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { cn } from '@/utils/cn';
-import { createPortal } from 'react-dom';
 import { Button } from 'dst-rg';
+import { X } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { InfoCircleIcon } from '../icons/modal-icons';
 import type { SharedModalProps } from './type';
-import { X } from 'lucide-react';
 
 
 export default function SharedModal({
@@ -26,6 +26,7 @@ export default function SharedModal({
   footerLeft,
   showFooter = true,
   bodyClassName = '',
+  confirmButtonClassName,
 }: SharedModalProps) {
   const { visible, showPortal, handleTransitionEnd } = useAnimatedModal(isOpen);
 
@@ -62,7 +63,7 @@ export default function SharedModal({
             )}
             <h3 className="text-lg font-semibold text-gray-light-900">{title}</h3>
           </div>
-          
+
 
           <button
             type="button"
@@ -97,6 +98,7 @@ export default function SharedModal({
                     className={cn(
                       'p-2.5 px-xl bg-utility-brand-600 hover:bg-utility-brand-700 text-base-white',
                       confirmButtonWidth,
+                      confirmButtonClassName,
                     )}
                     onClick={
                       confirmButtonType === 'button' ? onConfirm : undefined

@@ -1,6 +1,6 @@
-import { useState, type ReactNode } from 'react';
-import { Badge, Button } from 'dst-rg';
 import { CloseIcon, TruckIcon } from '@/components/icons/order-icons';
+import { Badge, Button } from 'dst-rg';
+import { useState, type ReactNode } from 'react';
 import CancelOrderModal from './cancel-order-modal';
 import DeriverModal from './driver-modal';
 

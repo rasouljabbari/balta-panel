@@ -1,7 +1,7 @@
+import { BranchIcon, ClockIcon, CustomerIcon, HashtagIcon, MenuIcon } from '@/components/icons/contract-icon';
 import SharedModal from '@/components/shared/custom-modal';
-import { CirclePlus } from 'lucide-react';
-import { CustomerIcon, BranchIcon, MenuIcon, HashtagIcon, ClockIcon } from '@/components/icons/contract-icon';
 import { Badge } from 'dst-rg';
+import { CirclePlus } from 'lucide-react';
 
 export default function ContractDetailsModal({
   isOpen,
@@ -72,11 +72,10 @@ export default function ContractDetailsModal({
           {branchDetails.meals.map((meal, index) => (
             <div
               key={index}
-              className={`space-y-2xl ${
-                index !== branchDetails.meals.length - 1
+              className={`space-y-2xl ${index !== branchDetails.meals.length - 1
                   ? 'border-b border-gray-light-200 pb-4xl'
                   : ''
-              }`}
+                }`}
             >
               <h3 className="text-lg font-bold text-gray-light-700 text-lg">
                 {meal.meal_type}

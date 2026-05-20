@@ -4,10 +4,11 @@ import {
   addMenuResolver,
   type addMenuValuesTypes,
 } from '@/features/definition/validation';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Input } from 'dst-rg';
 import { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { useForm } from 'react-hook-form';
-import { Input } from 'dst-rg';
 import { usePackaging } from '../../hooks/packages';
 import type { MenuFormProps } from '../../type';
 
@@ -30,14 +31,16 @@ const MenuForm = forwardRef<{ submit: () => void }, MenuFormProps>(
         : addMenuInitialValues,
     });
 
+    const { handleApiFormErrors } =
+      useHandleApiFormErrors<addMenuValuesTypes>();
+
     useEffect(() => {
-      if (serverValidationError)
-        serverValidationError?.error?.forEach((err: any) => {
-          setError(err.field, {
-            type: 'server',
-            message: err.message,
-          });
+      if (serverValidationError?.error) {
+        handleApiFormErrors({
+          error: serverValidationError,
+          setError
         });
+      }
     }, [serverValidationError, setError])
 
     const { data: packaging = [], isLoading } = usePackaging();

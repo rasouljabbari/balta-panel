@@ -98,3 +98,22 @@ export const LogOutIcon: React.FC<IconProps> = ({
     />
   </svg>
 );
+
+export const CalendarIcon2: React.FC<IconProps> = ({
+  width = 20,
+  height = 20,
+  className,
+}) => (
+  <svg width={width} height={height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <path d="M6.25004 2.5V5" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M13.75 2.5V5" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M7.08333 9.58333H6.25" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M7.08333 12.5H6.25" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M10.4167 9.58333H9.58337" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M10.4167 12.5H9.58337" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M13.75 9.58333H12.9166" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <path d="M13.75 12.5H12.9166" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  <rect x="2.5" y="3.75" width="15" height="13.75" rx="3" stroke="#344054" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+
+);

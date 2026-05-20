@@ -10,6 +10,7 @@ export interface HeaderActionButton {
 export interface HeaderProps {
   onMenuClick: () => void;
   actionButton?: HeaderActionButton;
+  hasDatePicker?: boolean;
   extra?: ReactNode;
   contractId?: string;
 }

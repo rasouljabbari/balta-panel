@@ -5,9 +5,9 @@ import { Skeleton } from '@/components/shared/skeleton-loader';
 import { useDriverById } from '@/features/drivers/hook/drivers';
 import { useToggleCards } from '@/hooks/use-toggle-card';
 import { plateText } from '@/utils/plate-text';
+import { Button } from 'dst-rg';
 import { Pencil } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button } from 'dst-rg';
 
 
 export default function DriverDetail() {

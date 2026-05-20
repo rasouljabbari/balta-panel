@@ -3,9 +3,11 @@ import CustomSelect from '@/components/shared/custom-select';
 import DatePickerField from '@/components/shared/date-picker-filed';
 import InfoHeader from '@/components/shared/info-header';
 import { Skeleton } from '@/components/shared/skeleton-loader';
+import { useHandleApiFormErrors } from '@/hooks/use-handle-api-form-errors';
 import { convertPersianToGregorian } from '@/utils/convert-persian-to-gregorian';
 import { normalizeNumericInput, numericInputProps } from '@/utils/numeric-input';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, Input } from 'dst-rg';
 import { User } from 'lucide-react';
 import { useEffect } from 'react';
 import DateObject from 'react-date-object';
@@ -13,7 +15,6 @@ import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Button, Input } from 'dst-rg';
 import PlateInput from '../../features/drivers/components/plate-input';
 import { PERSIAN_LETTERS } from '../../features/drivers/data';
 import { useDriverById, useEditDriverPage } from '../../features/drivers/hook/drivers';
@@ -24,17 +25,21 @@ export default function DriverEditForm() {
   const { id } = useParams();
   const { data: driver, isLoading } = useDriverById(id);
 
+  const { handleApiFormErrors } =
+    useHandleApiFormErrors<FormValues>();
 
-  const editDriverMutation = useEditDriverPage();
   const {
     reset,
     control,
     handleSubmit,
     formState: { errors },
+    setError
   } = useForm<FormValues>({
     resolver: yupResolver(addDriverSchema) as any,
     defaultValues: addDriverDefaultValues,
   });
+
+  const editDriverMutation = useEditDriverPage(handleApiFormErrors, setError);
 
   useEffect(() => {
     if (driver) {

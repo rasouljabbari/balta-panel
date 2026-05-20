@@ -35,6 +35,8 @@ function App() {
   const orderMealMatch = useMatch('/orders/:day/:meal');
   // const isWeeklyPlanPage = useMatch('/orders/weekly-plan');
 
+  const exceptionsMatch = useMatch('/exceptions/*');
+
   // ------------------------
   // Derived flags
   // ------------------------
@@ -43,6 +45,8 @@ function App() {
   const isDriverEditPage = !!driverEditMatch;
   const isContractEdit = !!contractEditMatch;
   const isOrderMealPage = !!orderMealMatch;
+
+  const hasDatePicker = !!exceptionsMatch
 
   // ------------------------
   // Driver ID (detail + edit)
@@ -83,6 +87,7 @@ function App() {
               driverId={driverId ? Number(driverId) : undefined}
               contractId={contractId}
               onMenuClick={toggleMobileSidebar}
+              hasDatePicker = {hasDatePicker}
               actionButton={
                 isDriversPage
                   ? {

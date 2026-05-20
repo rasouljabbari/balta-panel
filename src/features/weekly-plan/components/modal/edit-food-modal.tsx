@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Minus, Pencil, Plus } from 'lucide-react';
-import { Badge } from 'dst-rg';
 import SharedModal from '@/components/shared/shared-modal';
+import { Badge } from 'dst-rg';
+import { Minus, Pencil, Plus } from 'lucide-react';
+import { useState } from 'react';
 import type { SuggestModalProps } from '../../types';
 
 type FoodItem = {

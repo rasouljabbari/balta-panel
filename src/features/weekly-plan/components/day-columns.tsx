@@ -12,23 +12,23 @@ function isPastDay(dayDate: Date) {
   return dayDate < today;
 }
 
-export default function DayColumn({ 
-  day, 
-  isCurrentWeek, 
+export default function DayColumn({
+  day,
+  isCurrentWeek,
   onRegisterFood,
   onViewDetails
-}: { 
-  day: DayItem; 
+}: {
+  day: DayItem;
   isCurrentWeek: boolean;
   onRegisterFood: (date: Date, mealType: 'صبحانه' | 'ناهار' | 'شام') => void;
   onViewDetails: (date: Date, mealType: 'صبحانه' | 'ناهار' | 'شام', meal: MealConfig) => void;
 }) {
-  const isThursday = day.date.getDay() === 4; 
-  const isFriday = day.date.getDay() === 5;   
+  const isThursday = day.date.getDay() === 4;
+  const isFriday = day.date.getDay() === 5;
   const isPast = isPastDay(day.date);
 
-  const isEmptyMeal = isThursday || isFriday; 
-  const disabled =isCurrentWeek && (isPast || isEmptyMeal);     
+  const isEmptyMeal = isThursday || isFriday;
+  const disabled = isCurrentWeek && (isPast || isEmptyMeal);
 
   function getMealProps(meal: MealConfig) {
     return {
@@ -43,9 +43,8 @@ export default function DayColumn({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-md">
           <p
-            className={`text-lg font-semibold ${
-              day.isToday ? 'text-utility-brand-600' : 'text-gray-light-700'
-            }`}
+            className={`text-lg font-semibold ${day.isToday ? 'text-utility-brand-600' : 'text-gray-light-700'
+              }`}
           >
             {day.dayName}
           </p>
