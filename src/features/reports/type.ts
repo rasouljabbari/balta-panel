@@ -34,3 +34,10 @@ export type BadgeConfig = {
   color: 'success' | 'error' | 'gray';
   icon?: ReactNode;
 };
+
+export interface ReportsTableProps {
+  hasSummaryRow?: boolean;
+  hasDatePicker?: boolean;
+  hasSearchBox?: boolean;
+  hasShowAllBtn?: boolean;
+}

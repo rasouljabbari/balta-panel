@@ -1,4 +1,4 @@
-import { CashIcon, RamenIcon } from "@/components/icons/order-icons";
+import { CashIcon, RamenIcon } from "@/components/icons";
 import type { CartSummaryProps } from '@/features/order/types';
 import { Button } from "dst-rg";
 import { CalendarDays, CirclePlus, Clock3 } from "lucide-react";

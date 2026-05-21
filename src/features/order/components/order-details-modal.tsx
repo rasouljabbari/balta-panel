@@ -1,7 +1,7 @@
-import { CalendarDetailIcon, CashIcon, ClockIcon, RamenIcon } from '@/components/icons/order-icons';
-import type { OrderDetailsModalProps } from '@/features/order/types';
 import { Badge, Button } from 'dst-rg';
 import { FileText, X } from 'lucide-react';
+import type { OrderDetailsModalProps } from '@/features/order/types';
+import { CashIcon, Clock2Icon, RamenIcon, CalendarDetailIcon } from '@/components/icons';
 import { useEffect } from 'react';
 
 export default function OrderDetailsModal({ isOpen, onClose, order }: OrderDetailsModalProps) {
@@ -91,7 +91,7 @@ export default function OrderDetailsModal({ isOpen, onClose, order }: OrderDetai
 
                             <div className="flex items-center justify-between text-sm">
                                 <div className="flex items-center gap-2 text-gray-light-600">
-                                    <ClockIcon className="w-5 h-5" />
+                                    <Clock2Icon className="w-5 h-5" />
                                     <span className="text-gray-light-600 text-sm">ساعت تحویل</span>
                                 </div>
                                 <span className="text-gray-light-900 font-medium">{order.time}</span>

@@ -1,4 +1,4 @@
-import { InfoCircleIcon } from '@/components/icons/order-icons';
+import { InfoCircleIcon } from '@/components/icons';
 import type { SharedModalProps } from '@/components/shared/type';
 import { useAnimatedModal } from '@/hooks/use-animated-modal';
 import { Button } from 'dst-rg';

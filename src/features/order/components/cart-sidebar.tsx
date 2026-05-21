@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CartIcon } from "@/components/icons/order-icons";
+import { CartIcon } from "@/components/icons";
 import CartItem from "@/features/order/components/cart-item";
 import EmptyCart from "@/features/order/components/empty-cart";
 import CartSummary from "@/features/order/components/cart-summary";

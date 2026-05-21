@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useDrivers } from '@/features/drivers/hook/drivers';
-import { TruckIcon } from '@/components/icons/order-icons';
+import { TruckIcon } from '@/components/icons';
 import SharedModal from '@/components/shared/custom-modal';
 import CustomSelect from '@/components/shared/custom-select';
 import type { deriverModalProps } from '../types';

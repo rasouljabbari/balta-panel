@@ -1,4 +1,8 @@
-import { ChartIcon } from '@/components/icons/reports-icon';
+import { useMemo, useState } from 'react';
+import { reportListData } from '@/features/reports/data';
+import { getDeliveryStatusBadge, getPaymentStatusBadge } from '@/features/reports/utils/badge-helpers';
+import { Eye } from 'lucide-react';
+import { Badge, Button } from 'dst-rg';
 import { Card } from '@/components/shared/card';
 import DateInput from '@/components/shared/date-input';
 import { DownloadButton } from '@/components/shared/download-button';
@@ -7,15 +11,14 @@ import SectionHeader from '@/components/shared/section-header';
 import Table from '@/components/shared/table';
 import OrderDetailsModal from '@/features/order/components/order-details-modal';
 import type { OrderDetails } from '@/features/order/types';
-import { reportListData } from '@/features/reports/data';
-import { getDeliveryStatusBadge, getPaymentStatusBadge } from '@/features/reports/utils/badge-helpers';
-import { Badge } from 'dst-rg';
-import { Eye } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import type { ReportsTableProps } from '@/features/reports/type';
+import { ChartIcon } from '@/components/icons';
+import { useNavigate } from "react-router-dom";
 
 const ITEMS_PER_PAGE = 10;
 
-export default function ReportsList() {
+export default function ReportsList({ hasSummaryRow = true, hasDatePicker = true, hasSearchBox = true, hasShowAllBtn = false } : ReportsTableProps ) {
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [isOrderDetailsModalOpen, setIsOrderDetailsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<OrderDetails | null>(null);
@@ -166,23 +169,41 @@ export default function ReportsList() {
     <>
       <Card className="mt-4xl flex flex-col gap-3xl p-3xl">
         <SectionHeader title="سفارش‌های تکمیل شده" icon={<ChartIcon />} >
-          <SearchInput
-            searchValue={''}
-            onSearch={() => { }}
-            placeholder="جستجو در شماره سفارش..." />
-          <DateInput onChange={(dates: any) => {
-            console.log('Start date:', dates[0]);
-            console.log('End date:', dates[1]);
-          }} />
+          { hasSearchBox && 
+            <SearchInput
+              searchValue={''}
+              onSearch={() => {}}
+              placeholder="جستجو در شماره سفارش..." />
+          }
 
-          {/* Todo: use reports url when api is ready */}
-          <DownloadButton
-            url="/api/contracts/export"
-            fileName="contracts.xlsx"
-          />
+          { hasDatePicker &&
+            <DateInput onChange={(dates: any) => {
+              console.log('Start date:', dates[0]);
+              console.log('End date:', dates[1]);
+            }} />
+          }
+
+          {hasShowAllBtn ? 
+            <Button
+              variant="secondaryGray"
+              onClick={() => navigate('/reports')}
+            >
+            مشاهده همه
+          </Button> 
+          :
+            // Todo: use reports url when api is ready
+            <DownloadButton
+                url="/api/contracts/export"
+                fileName="contracts.xlsx"
+              />
+          }
+        
         </SectionHeader>
+
         <hr className="border-gray-light-200" />
-        <Table columns={columns} data={paginatedData} pagination={pagination} summaryRow={summaryRow} />
+
+        <Table columns={columns} data={paginatedData} pagination={pagination} summaryRow={hasSummaryRow ?? summaryRow} />
+        
       </Card>
 
       <OrderDetailsModal

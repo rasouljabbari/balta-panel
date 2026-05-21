@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useChangeStatusMenu, useCreateMenu, useMenus, useUpdateMenu } from '@/features/definition/hooks/menu';
-import { MenuIcon } from '@/components/icons/definition-icons';
+import { MenuIcon } from '@/components/icons';
 import type { Item, Menu } from '../type';
 import MenuForm from './form/menu';
 import DefinitionItem from './item';

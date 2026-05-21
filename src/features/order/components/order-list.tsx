@@ -1,5 +1,5 @@
 import { Clock9 } from 'lucide-react';
-import { FoodIcon, IdIcon, PackageIcon } from '@/components/icons/order-icons';
+import { FoodIcon, IdIcon, PackageIcon } from '@/components/icons';
 import OrderCard from '@/components/shared/order-card';
 import type { OrderListProps, OrderStatus } from '../types';
 

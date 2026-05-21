@@ -1,4 +1,5 @@
 import DonutChart from "@/features/reports/components/donut-chart";
+
 export const chartData = {
     weekly: {
         series: [

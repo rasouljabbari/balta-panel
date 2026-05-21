@@ -1,4 +1,4 @@
-import { CartIcon } from "@/components/icons/order-icons";
+import { CartIcon } from "@/components/icons";
 import InfoHeader from "@/components/shared/info-header";
 import { TABS } from "@/features/order/data";
 import type { OrderHeaderProps, TabType } from "@/features/order/types";

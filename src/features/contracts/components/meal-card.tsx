@@ -1,4 +1,4 @@
-import { ContactFoodIcon } from '@/components/icons/contract-icon';
+import { ContactFoodIcon } from '@/components/icons';
 import { Card, CardHeader } from '@/components/shared/card';
 import CustomSelect from '@/components/shared/custom-select';
 import TimePickerField from '@/components/shared/timer-picker-field';

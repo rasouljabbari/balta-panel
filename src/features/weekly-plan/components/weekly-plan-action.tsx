@@ -2,8 +2,6 @@ import type { WeeklyPlanActionsProps } from "@/features/weekly-plan/types";
 import { Button } from "dst-rg";
 import { RotateCw } from "lucide-react";
 
-
-
 export default function WeeklyPlanActions({
   disabled,
   onCopyFood,

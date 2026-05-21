@@ -1,5 +1,5 @@
 import { CircleAlert } from 'lucide-react';
-import { LogIcon } from '@/components/icons/order-icons';
+import { LogIcon } from '@/components/icons';
 import { Card, CardHeader } from '@/components/shared/card';
 import Table from '@/components/shared/table';
 import MealsTableHeader from './meals-table-header';

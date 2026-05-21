@@ -1,4 +1,4 @@
-import { TruckIcon } from '@/components/icons/drivers-icon';
+import { TruckIcon } from '@/components/icons';
 import AccordionCard from '@/components/shared/accordion-card';
 import DetailGrid from '@/components/shared/detail-grid';
 import { Skeleton } from '@/components/shared/skeleton-loader';

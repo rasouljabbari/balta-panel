@@ -1,4 +1,4 @@
-import { KnifeForkIcon, SideBarIcon } from '@/components/icons/layout-icons';
+import { KnifeForkIcon, SideBarIcon } from '@/components/icons';
 import type { SidebarProps } from '@/components/layout/sidebar/type';
 import { useEscapeKey } from '@/hooks/use-escape-key';
 import { X } from 'lucide-react';

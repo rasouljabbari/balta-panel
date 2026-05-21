@@ -1,4 +1,4 @@
-import { CategoryIcon } from '@/components/icons/definition-icons';
+import { CategoryIcon } from '@/components/icons';
 import { useCategories, useChangeStatusCategory, useCreateCategory, useUpdateCategory } from '@/features/definition/hooks/category';
 import { useState } from 'react';
 import type { Category } from '../type';

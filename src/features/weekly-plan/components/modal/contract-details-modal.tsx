@@ -1,4 +1,4 @@
-import { BranchIcon, ClockIcon, CustomerIcon, HashtagIcon, MenuIcon } from '@/components/icons/contract-icon';
+import { BranchIcon, ClockIcon, CustomerIcon, HashtagIcon, MenuIcon } from '@/components/icons';
 import SharedModal from '@/components/shared/custom-modal';
 import { Badge } from 'dst-rg';
 import { CirclePlus } from 'lucide-react';

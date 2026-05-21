@@ -1,59 +1,6 @@
 import type { IconProps } from './type';
 
 
-export const MenuIcon: React.FC<IconProps> = ({
-  width = 20,
-  height = 20,
-  className,
-}) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={width}
-    height={height}
-    viewBox="0 0 20 20"
-    fill="none"
-    className={className}
-  >
-    <path
-      d="M5 10.8333H10"
-      stroke="var(--color-gray-light-500)"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M5 14.1667H10"
-      stroke="var(--color-gray-light-500)"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M15.8325 4.81249C15.7291 4.81249 15.645 4.89666 15.6458 4.99999C15.6458 5.10333 15.73 5.18749 15.8333 5.18749C15.9366 5.18749 16.0208 5.10333 16.0208 4.99999C16.0208 4.89666 15.9366 4.81249 15.8325 4.81249"
-      stroke="var(--color-gray-light-500)"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M1.66663 15.8333C1.66663 16.7542 2.41246 17.5 3.33329 17.5H11.6666C12.5875 17.5 13.3333 16.7542 13.3333 15.8333V2.5H3.33329C2.41246 2.5 1.66663 3.24583 1.66663 4.16667V15.8333Z"
-      stroke="var(--color-gray-light-500)"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M13.3333 2.5H16.6666C17.5875 2.5 18.3333 3.24583 18.3333 4.16667V5.83333C18.3333 6.75417 17.5875 7.5 16.6666 7.5H1.66663"
-      stroke="var(--color-gray-light-500)"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 export const CategoryIcon: React.FC<IconProps> = ({
   width = 20,
   height = 20,

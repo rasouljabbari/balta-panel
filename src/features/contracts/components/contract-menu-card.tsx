@@ -1,4 +1,4 @@
-import { EssentialIcon } from '@/components/icons/contract-icon';
+import { EssentialIcon } from '@/components/icons';
 import { Card, CardHeader } from '@/components/shared/card';
 import { Skeleton } from '@/components/shared/skeleton-loader';
 import { useMenus } from '@/features/definition/hooks/menu';

@@ -5,7 +5,7 @@ import { Tabs } from 'dst-rg';
 import AreaChart from '@/features/reports/components/area-chart';
 import StatCard from '@/features/reports/components/stat-card';
 import { chartData, donutTabContent } from '@/features/reports/data';
-import { FoodBasketIcon, OrderIcon, BagIcon, ChartIcon} from '@/components/icons/reports-icon';
+import { FoodBasketIcon, OrderIcon, BagIcon, ChartIcon} from '@/components/icons';
 
 
 export default function Reports() {
