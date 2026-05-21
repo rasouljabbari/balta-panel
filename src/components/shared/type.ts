@@ -258,7 +258,6 @@ export interface SectionHeaderProps {
   extra?: React.ReactNode;
   icon?: React.ReactNode;
 }
-
 export type ItemPanelProps = {
   title: string;
   hasItems: boolean;
