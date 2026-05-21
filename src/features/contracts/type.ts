@@ -37,7 +37,7 @@ export type ContractsFilterModalProps = {
   onClose: () => void;
   selectedMeals: Option[];
   setSelectedMeals: (val: Option[]) => void;
-  mealOptions: Option[];
+  mealOptions: any;
 };
 
 export type ContractsTableCardProps = {

@@ -1,31 +1,31 @@
-import { useMemo, useState } from 'react';
+import { Card, CardHeader } from '@/components/shared/card';
+import EmptyBox from '@/components/shared/empty-box';
+import type { Option } from '@/components/shared/type';
 import ContractsFilterModal from '@/features/contracts/components/contract-filter-modal';
 import ContractsTableCard from '@/features/contracts/components/contract-table-card';
 import { useContractSettings } from '@/features/contracts/hook/use-contracts';
 import type { ContractItem } from '@/features/contracts/type';
 import { meal } from '@/features/food/constants';
 import { FileText } from 'lucide-react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardHeader } from '@/components/shared/card';
-import EmptyBox from '@/components/shared/empty-box';
-import type { Option } from '@/components/shared/type';
 
 
 export default function ContractsPage() {
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const { data , isLoading } = useContractSettings(page);
+  const { data, isLoading } = useContractSettings(page);
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [selectedMeals, setSelectedMeals] = useState<Option[]>([]);
 
-  const list = useMemo(() => data?.contracts ?? [], [data]);
+  const list: any = useMemo(() => data?.customer ?? [], [data]);
   const meta = data?.meta;
 
 
   const contracts: ContractItem[] = useMemo(() => {
-    return list.map((item) => {
+    return list?.map((item: any) => {
       const isOrganization = item.type === 'organization';
       const source = isOrganization && item.parent ? item.parent : item;
 
@@ -35,7 +35,7 @@ export default function ContractsPage() {
       return {
         id: item.id,
         name: fullName,
-        branches: item.type === 'personal' ? '-' : item.parent ? `${item.first_name ?? ''} ${item.last_name ?? ''}`.trim()  : '-',
+        branches: item.type === 'personal' ? '-' : item.parent ? `${item.first_name ?? ''} ${item.last_name ?? ''}`.trim() : '-',
 
         representative: fullName,
         representative_number: item.phone ?? '-',
@@ -45,7 +45,7 @@ export default function ContractsPage() {
     });
   }, [list]);
 
-  
+
   const pagination = useMemo(() => {
     if (!meta) return undefined;
 

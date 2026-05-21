@@ -4,9 +4,8 @@ import { useState } from "react";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
-import type {DateInputProps} from "@/components/ui/types";
 
-export default function DateInput({ onChange, placeholder = "انتخاب تاریخ", hasMaxDate = false, className, error, disabled = false }: DateInputProps ) {
+export default function DateInput({ onChange, placeholder = "انتخاب تاریخ", hasMaxDate = false, className, error, disabled = false }: any) {
 
     const [date, setDate] = useState<Date[]>([]);
 
@@ -16,7 +15,7 @@ export default function DateInput({ onChange, placeholder = "انتخاب تار
             disabled && "opacity-50 cursor-not-allowed"
         )}>
             {
-                <CalendarIcon className={cn("w-4 h-4 absolute right-[12px] top-3 text-gray-modern-600", disabled && "text-gray-400")} />
+                <CalendarIcon className={cn("w-4 h-4 absolute right-3 top-3 text-gray-modern-600", disabled && "text-gray-400")} />
             }
             <DatePicker
                 disabled={disabled}
