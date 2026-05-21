@@ -3,12 +3,12 @@ import { reportListData } from '@/features/reports/data';
 import { getDeliveryStatusBadge, getPaymentStatusBadge } from '@/features/reports/utils/badge-helpers';
 import { Eye } from 'lucide-react';
 import { Badge, Button } from 'dst-rg';
-import { DownloadButton } from '@/components/shared/download-button';
 import { Card } from '@/components/shared/card';
 import DateInput from '@/components/shared/date-input';
+import { DownloadButton } from '@/components/shared/download-button';
 import SearchInput from '@/components/shared/search-input';
-import Table from '@/components/shared/table';
 import SectionHeader from '@/components/shared/section-header';
+import Table from '@/components/shared/table';
 import OrderDetailsModal from '@/features/order/components/order-details-modal';
 import type { OrderDetails } from '@/features/order/types';
 import type { ReportsTableProps } from '@/features/reports/type';
@@ -35,21 +35,22 @@ export default function ReportsList({ hasSummaryRow = true, hasDatePicker = true
         {
           title: 'سفارش گروهی',
           price: parseFloat(rowData.totalAmount.replace(/,/g, '')),
-          quantity: `${rowData.orderCount} پرس`,
+          quantity: `${rowData.orderCount ?? 0} پرس`,
         }
       ],
       totalAmount: parseFloat(rowData.totalAmount.replace(/,/g, '')),
       status: getPaymentStatusBadge(rowData.paymentStatus).label,
-      statusColor: getPaymentStatusBadge(rowData.paymentStatus).color === 'success' ? 'green' : 
-                   getPaymentStatusBadge(rowData.paymentStatus).color === 'error' ? 'red' : 'yellow',
+      statusColor: getPaymentStatusBadge(rowData.paymentStatus).color === 'success' ? 'green' :
+        getPaymentStatusBadge(rowData.paymentStatus).color === 'error' ? 'red' : 'yellow',
     };
-    
+
     setSelectedOrder(orderDetails);
     setIsOrderDetailsModalOpen(true);
   };
 
   const columns = [
-    { id: 'orderId', label: 'شماره سفارش', icon: `<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {
+      id: 'orderId', label: 'شماره سفارش', icon: `<svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M5.33268 0.667969V10.0013M5.33268 10.0013L9.99935 5.33464M5.33268 10.0013L0.666016 5.33464" stroke="#475467" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`},
     {
@@ -59,8 +60,8 @@ export default function ReportsList({ hasSummaryRow = true, hasDatePicker = true
     {
       id: 'branch',
       label: 'شعبه',
-    },      
-    { 
+    },
+    {
       id: 'mealType',
       label: 'وعده',
       render: (value: string) => {
@@ -72,8 +73,8 @@ export default function ReportsList({ hasSummaryRow = true, hasDatePicker = true
           </Badge>
         );
       },
-     },
-    { id: 'reservationDate', label: 'تاریخ' },    
+    },
+    { id: 'reservationDate', label: 'تاریخ' },
     {
       id: 'driverName',
       label: 'نام راننده',
@@ -150,7 +151,7 @@ export default function ReportsList({ hasSummaryRow = true, hasDatePicker = true
   const summaryRow = (
     <tr className="border-b-2 border-gray-light-200 font-semibold sticky top-0 z-10 text-rtext-primary-900">
       <td className="px-3xl py-xl text-sm">
-      مجموع 
+        مجموع
       </td>
       <td className="px-3xl py-xl text-sm"></td>
       <td className="px-3xl py-xl text-sm"></td>
@@ -205,7 +206,7 @@ export default function ReportsList({ hasSummaryRow = true, hasDatePicker = true
         
       </Card>
 
-      <OrderDetailsModal 
+      <OrderDetailsModal
         isOpen={isOrderDetailsModalOpen}
         onClose={() => setIsOrderDetailsModalOpen(false)}
         order={selectedOrder}
