@@ -13,10 +13,14 @@ export const apiErrorHandler = async (e: AxiosError): Promise<any> => {
 
 
 export const extractValidationErrors = (err: any): ValidationError[] => {
-  const errorData = err?.response?.data || err?.data || err;
+  const errorData = err?.response?.data || err?.data || err?.error || err;
 
   if (errorData?.errors) {
     return errorData.errors;
+  }
+
+  if (errorData?.validation_errors) {
+    return errorData.validation_errors;
   }
 
   return [];
