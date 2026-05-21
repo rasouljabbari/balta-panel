@@ -9,6 +9,7 @@ export default function SectionHeader({
   showBack = false,
   backLink = '/',
   extra,
+  icon,
 }: SectionHeaderProps) {
   return (
     <div className="flex justify-between items-center w-full">
@@ -20,8 +21,14 @@ export default function SectionHeader({
         )}
         <div className="flex flex-col gap-xxs">
           <div className='flex items-center gap-2xl'>
+            {icon &&
+              <span className='h-12 w-12 flex flex-col items-center justify-center rounded-lg shadow-xs border border-[#E4E7EC]'>
+                { icon }
+              </span>
+            }
+              
             <h2 className="lg:text-xl text-base font-bold text-rtext-secondary-700">
-          {title}
+              {title}
             </h2>
             {extra && extra}
           </div>

@@ -256,8 +256,8 @@ export interface SectionHeaderProps {
   showBack?: boolean;
   backLink?: string;
   extra?: React.ReactNode;
+  icon?: React.ReactNode;
 }
-
 export type ItemPanelProps = {
   title: string;
   hasItems: boolean;

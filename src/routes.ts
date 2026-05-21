@@ -15,6 +15,7 @@ import DriverEditForm from './pages/drivers/update-driver';
 import EditContract from './pages/edit-contracts';
 import TableFood from './pages/food';
 import WeeklyPlan from './pages/weekly-plan';
+import Reports from './pages/reports';
 import ExceptionsPage from '@/pages/exceptions'
 
 
@@ -64,6 +65,7 @@ export const router = createBrowserRouter([
       { path: 'orders/:day', Component: DayOverview },
       { path: '/orders/:day/:meal', Component: MealsOverview },
       { path: 'orders/weekly-plan', Component: WeeklyPlan },
+      { path: 'reports', Component: Reports },
       { path: 'exceptions', Component: ExceptionsPage },
     ],
   },
